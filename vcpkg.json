@@ -1,0 +1,13 @@
+{
+  "name": "nyu-core",
+  "version": "1.0.0",
+  "description": "NYU Processor Design's Core Components Repo",
+  "homepage": "https://github.com/NYU-Processor-Design/nyu-core",
+  "maintainers": [],
+  "license": "CC0-1.0",
+  "dependencies": [
+    "nyu-cmake",
+    "nyu-util",
+    "catch2"
+  ]
+}

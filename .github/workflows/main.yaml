@@ -1,0 +1,33 @@
+name: Verilator-Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: archlinux:base-devel
+    steps:
+      - name: Install Build Dependencies
+        run: |
+          pacman --noconfirm -Syu
+          pacman --noconfirm -S cmake ninja git curl zip unzip tar verilator
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure
+        run: cmake . -G Ninja -DNYU_BUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build . --config Release
+
+      - name: Test & Generate Coverage
+        run: |
+          ctest -C Release --output-on-failure
+          verilator_coverage -write-info coverage.txt dv/*.dat
+
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.txt
+          fail_ci_if_error: true
