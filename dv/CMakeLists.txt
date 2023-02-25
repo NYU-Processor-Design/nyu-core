@@ -3,11 +3,12 @@ find_package(nyu-util REQUIRED CONFIG)
 
 add_executable(tests)
 target_sources(tests PRIVATE
-  alu.cpp
+  alu.cpp 
+  imm_extender.cpp
 )
 nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
-  TOP_MODULES Alu
+  TOP_MODULES Alu Imm_extender
   ARGS COVERAGE
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain nyu::covrecorder)
