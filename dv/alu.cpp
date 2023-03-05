@@ -5,7 +5,7 @@
 #include <math.h>
 
 uint32_t test(uint32_t a, uint32_t b, uint8_t op1, uint8_t op2) {
-    VAlu model;
+    VAlu model();
     model.op_code_1 = op1;
     model.op_code_2 = op2;
     model.operand_a = a;
