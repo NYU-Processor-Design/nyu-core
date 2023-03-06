@@ -1,8 +1,11 @@
-module Imm_extender (
-    input [11:0] imm,
-    output logic [31:0] out
+module Imm_extender #(
+  InputWordSize = 12,
+  OutputWordSize = 32
+)(
+    input [InputWordSize  - 1:0] imm,
+    output logic [OutputWordSize - 1:0] out
 );
 
-assign out = {{20{imm[11]}}, imm};
+assign out = {{(OutputWordSize - InputWordSize){imm[InputWordSize - 1]}}, imm};
 
 endmodule
