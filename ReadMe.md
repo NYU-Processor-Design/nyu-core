@@ -4,11 +4,41 @@ The NYU ProcDesign Core will be a RISC-V-32I compatible core with a 5 stage pipe
 
 The repo contains the modules and test for components that make up the core design.
 
+## Core Components
+
+The core modules include:
+- Arithmatic Logic Unit (ALU)
+- Immediate Sign Extension
+- CPU Registers
+- Data Memory Registers
+- Program Counter
+- Branch Predictor 
+
 ## Pipeline
 
 The pipeline will have 5 stages:
 - Instruction Fetch (IF)
 - Instuction Decode (ID)
 - Execution (EX)
-- Memory (MEM)
+- Memory Access (MEM)
 - Write Back (WB)
+
+The pipeline will require 4 latch modules:
+- IF/ID Latch
+- ID/EX Latch
+- EX/MEM Latch
+- MEM/WB Latch
+
+## General Control and Hazards
+
+Control Modules:
+- Processor State Module
+- General Control Module
+- Hazard Detection
+
+## Cache
+
+Cache Modules:
+- Cache Manager
+- L1 Cache
+- L2 Cache
