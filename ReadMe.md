@@ -1,6 +1,6 @@
 # NYU ProcDesign Core
 
-The NYU ProcDesign Core will be a RISC-V-32I compatible core with a 5 stage pipeline.
+The NYU ProcDesign Core will be a RISCV-32I compatible core with a 5 stage pipeline.
 
 The repo contains the modules and test for components that make up the core design.
 
@@ -42,3 +42,7 @@ Cache Modules:
 - Cache Manager
 - L1 Cache
 - L2 Cache
+
+## Further Reading
+
+[Offical RISCV Instruction Set Documentation](/https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
