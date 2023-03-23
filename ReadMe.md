@@ -18,6 +18,7 @@ The core modules include:
 
 The pipeline will have 5 stages:
 - Instruction Fetch (IF)
+  - Fetches 32-bit instruction from Instruction Cache and stores value in MDR
 - Instuction Decode (ID)
 - Execution (EX)
 - Memory Access (MEM)
