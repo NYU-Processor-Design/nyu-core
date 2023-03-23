@@ -48,3 +48,8 @@ Cache Modules:
 ## Further Reading
 
 [Offical RISCV Instruction Set Documentation](/https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+
+
+Current Rough Draft of CPU Diagram
+![image](https://user-images.githubusercontent.com/114675487/227379848-d875ac3c-f4d7-4ada-a784-f3a6a3003597.png)
+
