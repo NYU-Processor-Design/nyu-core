@@ -7,29 +7,42 @@ The repo contains the modules and test for components that make up the core desi
 ## Core Components
 
 The core modules include:
+
 - Arithmatic Logic Unit (ALU)
+
 - Immediate Sign Extension
-- CPU Registers
+
+- General Registers
+  - Input:
+      - RS1: 5-bit wide
+      - RS2: 5-bit wide
+      - WBRN: 5-bit wide 
+      - WBRD: 32-bit wide 
+      - WBE: 1-bit wide
+  - Output:
+      - RS1D: 32-bit wide
+      - RS2D: 32-bit wide
+  
 - Data Memory Registers
+
 - Program Counter
+
 - Branch Predictor 
 
 ## Pipeline
-
-The pipeline will have 5 stages:
-- Instruction Fetch (IF)
-  - Fetches 32-bit instruction from Instruction Cache and stores value in IF/ID Latch
-- Instuction Decode (ID)
-  - General Control Module reads the instruction from IF/ID Latch and produces the corrosponding output signals for that instruction
-- Execution (EX)
-- Memory Access (MEM)
-- Write Back (WB)
 
 The pipeline will require 4 latch modules:
 - IF/ID Latch
 - ID/EX Latch
 - EX/MEM Latch
 - MEM/WB Latch
+
+The pipeline will have 5 stages:
+- Instruction Fetch (IF)
+- Instuction Decode (ID)
+- Execution (EX)
+- Memory Access (MEM)
+- Write Back (WB)
 
 ## General Control and Hazards
 
