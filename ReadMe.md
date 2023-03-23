@@ -10,7 +10,7 @@ The core modules include:
 - Arithmatic Logic Unit (ALU)
 - Immediate Sign Extension
 - CPU Registers
-- Memory Registers
+- Data Memory Registers
 - Program Counter
 - Branch Predictor 
 
@@ -18,8 +18,9 @@ The core modules include:
 
 The pipeline will have 5 stages:
 - Instruction Fetch (IF)
-  - Fetches 32-bit instruction from Instruction Cache and stores value in MDR
+  - Fetches 32-bit instruction from Instruction Cache and stores value in IF/ID Latch
 - Instuction Decode (ID)
+  - General Control Module reads the instruction from IF/ID Latch and produces the corrosponding output signals for that instruction
 - Execution (EX)
 - Memory Access (MEM)
 - Write Back (WB)
