@@ -11,7 +11,7 @@ The core modules include:
 - Arithmatic Logic Unit (ALU)
 - Immediate Sign Extension
 - General Registers
-- Program Counter=
+- Program Counter
 - Branch Predictor 
 
 ## Pipeline
