@@ -9,24 +9,10 @@ The repo contains the modules and test for components that make up the core desi
 The core modules include:
 
 - Arithmatic Logic Unit (ALU)
-
 - Immediate Sign Extension
-
 - General Registers
-  - Input:
-      - RS1: 5-bit wide
-      - RS2: 5-bit wide
-      - WBRN: 5-bit wide 
-      - WBRD: 32-bit wide 
-      - WBE: 1-bit wide
-  - Output:
-      - RS1D: 32-bit wide
-      - RS2D: 32-bit wide
-  
 - Data Memory Registers
-
-- Program Counter
-
+- Program Counter=
 - Branch Predictor 
 
 ## Pipeline
