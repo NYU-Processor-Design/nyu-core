@@ -10,7 +10,7 @@ The core modules include:
 - Arithmatic Logic Unit (ALU)
 - Immediate Sign Extension
 - CPU Registers
-- Data Memory Registers
+- Memory Registers
 - Program Counter
 - Branch Predictor 
 
