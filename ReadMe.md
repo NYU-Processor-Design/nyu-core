@@ -48,7 +48,7 @@ Cache Modules:
 
 ## Current Rough Draft of CPU Diagram
 
-![cpu](https://user-images.githubusercontent.com/114675487/227573680-88d2d98a-5912-412f-8072-8ed99f94b111.png)
+![cpu](https://user-images.githubusercontent.com/114675487/227578693-aba9eee0-5d4b-41aa-87e1-0565684d78e7.png)
 
 ## Further Reading
 
