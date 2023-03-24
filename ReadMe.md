@@ -45,6 +45,7 @@ Cache Modules:
 - L2 Data Cache
 - L3 Data Cache
 
+
 ## Current Draft of CPU Diagram
 
 ![cpu](https://user-images.githubusercontent.com/114675487/227578693-aba9eee0-5d4b-41aa-87e1-0565684d78e7.png)
