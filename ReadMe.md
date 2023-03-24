@@ -16,18 +16,18 @@ The core modules include:
 
 ## Pipeline
 
-The pipeline will require 4 latch modules:
-- IF/ID Latch
-- ID/EX Latch
-- EX/MEM Latch
-- MEM/WB Latch
-
 The pipeline will have 5 stages:
 - Instruction Fetch (IF)
 - Instuction Decode (ID)
 - Execution (EX)
 - Memory Access (MEM)
 - Write Back (WB)
+
+The pipeline will require 4 latch modules:
+- IF/ID Latch
+- ID/EX Latch
+- EX/MEM Latch
+- MEM/WB Latch
 
 ## General Control and Hazards
 
@@ -44,7 +44,6 @@ Cache Modules:
 - L1 Data Cache
 - L2 Data Cache
 - L3 Data Cache
-
 
 ## Current Draft of CPU Diagram
 
