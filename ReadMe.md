@@ -12,6 +12,7 @@ The core modules include:
 - Immediate Sign Extension
 - General Registers
 - Program Counter
+- Branch Evaluator
 - Branch Predictor 
 
 ## Pipeline
