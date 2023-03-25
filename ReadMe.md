@@ -9,7 +9,6 @@ The repo contains the modules and test for components that make up the core desi
 The core modules include:
 
 - Arithmatic Logic Unit (ALU)
-- Immediate Sign Extension
 - General Registers
 - Program Counter
 - Branch Evaluator
