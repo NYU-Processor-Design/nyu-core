@@ -14,6 +14,7 @@ The core modules include:
 - Program Counter
 - Branch Evaluator
 - Branch Predictor 
+- Branch Address Calculator
 
 ## Pipeline
 
