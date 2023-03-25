@@ -15,6 +15,7 @@ The core modules include:
 - Branch Evaluator
 - Branch Predictor 
 - Branch Address Calculator
+- Branch Manager
 
 ## Pipeline
 
