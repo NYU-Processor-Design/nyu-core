@@ -11,6 +11,11 @@ The core modules include:
 - Arithmatic Logic Unit (ALU)
 - General Registers
 - Program Counter
+
+
+## Branching Logic
+
+The branch logic modules include:
 - Branch Evaluator
 - Branch Predictor 
 - Branch Address Calculator
