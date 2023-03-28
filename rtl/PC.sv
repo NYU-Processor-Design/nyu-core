@@ -8,7 +8,7 @@ module PC #(
   output logic [WordSize - 1:0] pc
 );
   
-  always @ (posedge clk or posedege rstn) begin
+  always @ (posedge clk or posedge rstn) begin
     if (rstn == 0)
       pc <= 0;
     else
