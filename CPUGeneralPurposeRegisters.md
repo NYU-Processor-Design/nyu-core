@@ -1,5 +1,5 @@
-# CPU General Purpose Registers
----
+CPU General Purpose Registers
+===
 General Purpose registers are numbered from 0 through 31. Note that Register 0 always returns 0 while registers 1-31 are general-purpose 32-bit registers.
 
 ## Input
