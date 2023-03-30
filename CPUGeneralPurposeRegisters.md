@@ -1,8 +1,16 @@
-# CPU General Purpose Registers
+# CPU General Purpose Registers #
 
 General Purpose registers are numbered from 0 through 31. Note that Register 0 always returns 0 while registers 1-31 are general-purpose 32-bit registers.
 
-## Input
+## Content
+* [Inputs](#inputs)
+* [Outputs](#outputs)
+* [Functionality](#functionality)
+  * [Registers](#registers)
+  * [Clk](#on-posedge-clk)
+  * [Active low reset](#asynchronous-active-low-reset)
+
+## Inputs
 * RS1N: 5-bit wide
 * RS2N: 5-bit wide
 * RDN: 5-bit wide
@@ -11,16 +19,16 @@ General Purpose registers are numbered from 0 through 31. Note that Register 0 a
 * RSTN: 1-bit wide
 * CLK: 1-bit wide
 
-## Output
+## Outputs
   * RS1D: 32-bit wide
   * RS2D: 32-bit wide
 
 ## Functionality
 
 * ### Registers
-  * A total of 32 32-bit registers
-  * Register 0 should always be 0
-  * Registers 1 to 31 act like normal, meaning they hold 32 bits
+  * Total of 32 32-bit registers
+    * Register 0 should always be 0
+    * Registers 1 to 31 act like normal, meaning they hold 32 bits
 * ### On posedge clk
   * RS1D outputs value in register indicated by RS1N
   * RS2D outputs value in register indicated by RS2N
