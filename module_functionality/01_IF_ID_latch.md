@@ -35,7 +35,7 @@ Note: The inputs and outputs for this module should be made into an interface
 ### On posedge clk
   - ```PC = PC_IN```
   - ```INS = INS_IN```
-  - Depending on the ```IMMODE```
+  - ```IMMODE```
     |```IMMODE```|```IMM```|
     |:---:|---|
     |```IMMODE == 0``` <br /> or <br /> ```IMMODE == 7```|```IMM = 32’b0```|
