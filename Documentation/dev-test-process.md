@@ -49,4 +49,32 @@ For a refresher on enabling testing and the commands mentioned above, check out 
 ## Step 4: PR & Verilator test
 It's time to check your module functionality and design verification. Create a pull request from your fork to the main nyu-core repo. After doing so, the Verilator will automatically run through all of the available modules and tests specified in the CML files and tell you if your test cases passed.
 
+## Good Development & Testing Practices
++ Test as many inputs as possible. Testing a single input won't fully check the functionality of your module.
+
+  + When in doubt, create a loop with MANY iterations and use random number generation for your inputs.
+  ```cpp
+  TEST_CASE("Module Test Loop") {
+    VexampleModule2 model;
+    
+    // large for loop
+    for (int i = 0; i < 1000; i++) {
+    
+      //random number generation
+      uint32_t input = rand() % (int) (pow(2, 32) - 1); // mod your random number by the largest possible value of the input size
+      // the input here is 32 bits, so we mod by pow(2, 32) - 1
+      
+      model.input1 = input;
+      model.eval();
+  
+      int expected;
+  
+      REQUIRE(model.out == expected);
+    }
+  }
+  ```
+  
++ Use good variable and data object names! This will make it easier for you when testing your modules and others when using your modules.
++ Remember the engineering cycle: make, test, break, redo, repeat. Many modules can and should be improved. Create tests to find the breaking points of your components so you can fix them!
+
 Happy developing!
