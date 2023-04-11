@@ -29,7 +29,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED MODULES
   - #-bit ```name``` register
 ### On posedge clk
   - ```somebranch = someval```
-  - Use a table when necessary EX:
+  - Use a table when necessary if statements are used:
   - ```name```
     |Name|Bits wide|
     |---|---|
