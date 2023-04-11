@@ -1,3 +1,5 @@
+USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED MODULES
+
 # Module Name #
 (Any Notes would go here)
 
@@ -12,14 +14,14 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```reg name```|#-bit|
-|```reg name```|#-bit|
+|```name```|#-bit|
+|```name```|#-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```reg name```|#-bit|
-|```reg name```|#-bit|
+|```name```|#-bit|
+|```name```|#-bit|
 
 ## Functionality
 ### Registers
