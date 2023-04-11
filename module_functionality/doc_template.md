@@ -25,10 +25,17 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED MODULES
 
 ## Functionality
 ### Registers
-  - #-bit [name] register
-  - #-bit [name] register
+  - #-bit ```name``` register
+  - #-bit ```name``` register
 ### On posedge clk
   - ```some branch = some value/branch```
+  - Use a table when necessary EX:
+  - ```name```
+    |Name|Bits wide|
+    |---|---|
+    |```name == 0```|```reg = val```|
+    |```name == 1```|```reg = val```|
+  
 
 ### Asynchronous active low reset
   - Register values reset to 0
