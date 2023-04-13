@@ -43,6 +43,6 @@ Note: The inputs and outputs for this module should be made into an interface
     |```IMMODE == 2```|```IMM = {20{INS_IN[31]}}, INS_IN[31: 25], INS_IN[11:7]}```|
     |```IMMODE == 3```|```IMM = {19{INS_IN[31]}}, INS_IN[31], INS_IN[7], INS_IN[30:25], INS_IN[11:8], 0}```|
     |```IMMODE == 4```|```IMM = {INS_IN[31:12], 12b’0}```|
-    |```IMMODE == 5```|```IMM = {12’b0, INS_IN[31], INS_IN[19:12], INS_IN[20], INS_IN[30:21], 0}```|
+    |```IMMODE == 5```|```IMM = {11’b0, INS_IN[31], INS_IN[19:12], INS_IN[20], INS_IN[30:21], 0}```|
 ### Asynchronous active low reset
   - Register values reset to 0
