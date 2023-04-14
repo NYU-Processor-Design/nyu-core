@@ -46,7 +46,8 @@ Control Modules:
 ## Cache
 
 Cache Modules:
-- Cache Manager
+- Instruction Cache Manager
+- Data Cache Manager
 - L1 Instruction Cache
 - L1 Data Cache
 - L2 Data Cache
