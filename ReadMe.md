@@ -46,7 +46,8 @@ Control Modules:
 ## Cache
 
 Cache Modules:
-- Cache Manager
+- Instruction Cache Manager
+- Data Cache Manager
 - L1 Instruction Cache
 - L1 Data Cache
 - L2 Data Cache
@@ -55,9 +56,10 @@ Cache Modules:
 
 ## Current Draft of CPU Diagram
 
-![cpu](https://user-images.githubusercontent.com/114675487/227744544-d11337b4-d2cd-4ffe-ab16-372450b8b47d.png)
+<img width="1217" alt="CPU" src="https://user-images.githubusercontent.com/114675487/232092595-04ba6190-7b8a-40e7-935f-6f4423b89093.png">
+
 
 ## Further Reading
 
-[Offical RISCV Instruction Set Documentation](/https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+[Offical RISCV Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
 
