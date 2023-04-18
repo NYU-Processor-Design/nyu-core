@@ -9,7 +9,7 @@ The repo contains the modules and test for components that make up the core desi
 The core modules include:
 
 - Arithmatic Logic Unit (ALU)
-- [General Registers](/tree/main/Documentation/Module-Docs/00_CPU_general_purpose_registers.md)
+- [General Registers](/Documentation/Module-Docs/00_CPU_general_purpose_registers.md)
 - Program Counter
 
 ## Branching Logic
