@@ -15,7 +15,7 @@ The core modules include:
 ## Branching Logic
 
 The branch logic modules include:
-- [Branch Evaluator](/tree/main/Documentation/Module-Docs/06_Branch_Evaluator.md)
+- [Branch Evaluator](/Documentation/Module-Docs/06_Branch_Evaluator.md)
 - Branch Predictor 
 - Branch Address Calculator
 - Branch Manager
@@ -30,16 +30,16 @@ The pipeline will have 5 stages:
 - Write Back (WB)
 
 The pipeline will require 4 latch modules:
-- [IF/ID Latch](/tree/main/Documentation/Module-Docs/01_IF_ID_latch.md)
-- [ID/EX Latch](/tree/main/Documentation/Module-Docs/02_ID_EX_latch.md)
-- [EX/MEM Latch](/tree/main/Documentation/Module-Docs/03_EX_MEM_latch.md)
-- [MEM/WB Latch](/tree/main/Documentation/Module-Docs/04_MEM_WB_latch.md)
+- [IF/ID Latch](/Documentation/Module-Docs/01_IF_ID_latch.md)
+- [ID/EX Latch](/Documentation/Module-Docs/02_ID_EX_latch.md)
+- [EX/MEM Latch](/Documentation/Module-Docs/03_EX_MEM_latch.md)
+- [MEM/WB Latch](/Documentation/Module-Docs/04_MEM_WB_latch.md)
 
 ## General Control and Hazards
 
 Control Modules:
 - Processor State Module
-- [General Control Module](/tree/main/Documentation/Module-Docs/05_General_Control_Module.md)
+- [General Control Module](/Documentation/Module-Docs/05_General_Control_Module.md)
 - Hazard Detection
 
 ## Cache
