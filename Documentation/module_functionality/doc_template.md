@@ -1,6 +1,6 @@
 USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED MODULES
 
-# Module Name #
+# ModuleName #
 (Any Notes would go here)
 
 ## Contents
