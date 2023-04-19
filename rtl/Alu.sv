@@ -38,7 +38,7 @@ always_comb begin
     ARS: alu_out = a >>> b[4:0];
     SSLT: alu_out = (a[WordSize - 1] & !(b[WordSize - 1])) ? 1 : (!(a[WordSize - 1]) & b[WordSize - 1]) ? 0 : {{WordSize - 1{1'b0}}, carry^(!b[WordSize - 1])};
     USLT: alu_out = {{WordSize - 1{1'b0}}, !carry};
-    default: out = 0;
+    default: alu_out = 0;
     endcase
 
 
