@@ -31,9 +31,9 @@ The pipeline will have 5 stages:
 
 The pipeline will require 4 latch modules:
 - [IF/ID Latch](/Documentation/Module-Docs/01_IF_ID_latch.md)
-- [ID/EX Latch](/Documentation/Module-Docs/02_ID_EX_latch.md)
-- [EX/MEM Latch](/Documentation/Module-Docs/03_EX_MEM_latch.md)
-- [MEM/WB Latch](/Documentation/Module-Docs/04_MEM_WB_latch.md)
+- [ID/EX Latch](/Documentation/Module-Docs/02_ID_EX_Latch.md)
+- [EX/MEM Latch](/Documentation/Module-Docs/03_EX_MEM_Latch.md)
+- [MEM/WB Latch](/Documentation/Module-Docs/04_MEM_WB_Latch.md)
 
 ## General Control and Hazards
 
