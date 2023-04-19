@@ -24,7 +24,7 @@ module Alu #(
 
 assign do_sub = alu_mode[4] | (alu_mode == SSLT) | (alu_mode == USLT);
 
-assign {carry, adder_result} = {1'b0, a} + {1'b0, ((B^({WordSize{do_sub}})) + {{WordSize - 1{1'b0}}, do_sub})};
+assign {carry, adder_result} = {1'b0, a} + {1'b0, ((b^({WordSize{do_sub}})) + {{WordSize - 1{1'b0}}, do_sub})};
 
 always_comb begin 
     case(alu_mode)
