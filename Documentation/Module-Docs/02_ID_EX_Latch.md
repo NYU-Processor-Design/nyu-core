@@ -12,46 +12,50 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```CLK```|1-bit|
-|```RSTN```|1-bit|
-|```B_SEL```|1-bit|
-|```Branch_Taken_IN```|1-bit|
-|```IMM_IN```|32-bits|
-|```PC_IN```|32-bits|
-|```RDN_IN```|5-bits|
-|```RS1D_IN```|32-bits|
-|```RS2D_IN```|32-bits|
-|```Branch_Addr_IN```|32-bits|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```b_sel```|1-bit|
+|```nranch_taken_in```|1-bit|
+|```imm```|32-bits|
+|```pc_in```|32-bits|
+|```rdn_in```|5-bits|
+|```rs1d```|32-bits|
+|```rs2d```|32-bits|
+|```branch_addr_in```|32-bits|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```RDN```|5-bits|
-|```ALU_A```|32-bits|
-|```ALU_B```|32-bits|
-|```Branch_Addr```|32-bits|
-|```PC```|32-bits|
-|```Branch_Taken```|1-bit|
+|```branch_taken```|1-bit|
+|```pc```|32-bits|
+|```branch_addr```|32-bits|
+|```rdn```|5-bits|
+|```a```|32-bits|
+|```b```|32-bits|
+
+
+
 
 ## Functionality
 ### Registers
-  - 5-bit RDN register
-  - 32-bit ALU_A register
-  - 32-bit ALU_B register
-  - 32-bit Branch_Addr register
-  - 32-bit PC register
-  - 1-bit Branch_Taken register
+  - 5-bit rdn register
+  - 32-bit a register
+  - 32-bit b register
+  - 32-bit branch_addr register
+  - 32-bit pc register
+  - 1-bit branch_taken register
 ### On posedge clk
-  - ```RDN = RDN_IN```
-  - ```Branch_Taken = Branch_Taken_IN```
-  - ```ALU_A = RS1D_IN```
-  - ```B_SEL```
+  - ```rdn = rdn_in```
+  - ```branch_taken = branch_taken_in```
+  - ```a = rs1d```
+  - ```branch_addr = branch_addr_in```
+  - ```pc = pc_in```
+  - ```b_sel```
 
     |Name|Bits wide|
     |---|---|
-    |```B_SEL == 0```|```ALU_B = RS2D_IN```|
-    |```B_SEL == 1```|```ALU_B = IMM_IN```|
-  - ```Branch_Addr = Branch_Addr_IN```
-  - ```PC = PC_IN```
+    |```b_sel == 0```|```b = rs2d```|
+    |```b_sel == 1```|```b = imm```|
+
 ### Asynchronous active low reset
   - Register values reset to 0

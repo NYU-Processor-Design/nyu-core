@@ -14,19 +14,20 @@ Note: Register 0 always returns 0 while registers 1-31 are general-purpose 32-bi
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```RS1N```|5-bits|
-|```RS2N```|5-bits|
-|```RDN```|5-bits|
-|```RDD```|32-bits|
-|```WBE```|1-bit|
-|```RSTN```|1-bit|
-|```CLK```|1-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```rs1n```|5-bits|
+|```rs2n```|5-bits|
+|```rdn```|5-bits|
+|```rdd```|32-bits|
+|```wbe```|1-bit|
+
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```RS1D```|32-bits|
-|```RS2D```|32-bits|
+|```rs1d```|32-bits|
+|```rs2d```|32-bits|
 
 ## Functionality
 ### Registers
@@ -34,8 +35,8 @@ Note: Register 0 always returns 0 while registers 1-31 are general-purpose 32-bi
     * Register 0 should always be 0
     * Registers 1 to 31 act like normal, meaning they hold 32 bits
 ### On posedge clk
-  * RS1D outputs value in register indicated by RS1N
-  * RS2D outputs value in register indicated by RS2N
-  * If WBE is 1, RDN = value in RDD
+  * rs1d outputs value in register indicated by rs1n
+  * rs2d outputs value in register indicated by rs2n
+  * If wbe is 1, rdn = value in rdd
 ### Asynchronous active low reset
   * All register values reset to 0

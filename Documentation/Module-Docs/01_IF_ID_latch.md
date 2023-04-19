@@ -12,37 +12,37 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```CLK```|1-bit|
-|```RSTN```|1-bit| 
-|```INS_IN```|32-bits| 
-|```PC_IN```|32-bits|
-|```IMMODE```|3-bits|
+|```clk```|1-bit|
+|```rstn```|1-bit| 
+|```immode```|3-bits|
+|```ins```|32-bits| 
+|```pc_in```|32-bits|
+
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```NPC```|32-bits|
-|```RDN```|5-bit <br /> ```INS[11:7]```|
-|```RS1N```|5-bit <br /> ```INS[19:15]```|
-|```RS2N```|5-bits <br /> ```INS[24:20]```|
-|```IMM```|32-bits|
+|```imm```|32-bits|
+|```pc```|32-bits|
+|```rdn```|5-bit <br /> ```ins[11:7]```|
+|```rs1n```|5-bit <br /> ```ins[19:15]```|
+|```rs2n```|5-bits <br /> ```ins[24:20]```|
+
 
 ## Functionality
 ### Registers
-  - 32-bit PC register
-  - 32-bit INS register
-  - 32-bit IMM register
+  - 32-bit pc register
+  - 32-bit imm register
 ### On posedge clk
-  - ```PC = PC_IN```
-  - ```INS = INS_IN```
-  - ```IMMODE```
-    |```IMMODE```|```IMM```|
+  - ```pc = pc_in```
+  - ```immode```
+    |```immode```|```imm```|
     |:---:|---|
-    |```IMMODE == 0``` <br /> or <br /> ```IMMODE == 7```|```IMM = 32’b0```|
-    |```IMMODE == 1```|```IMM = {20{INS_IN[31]}}, INS_IN[31:20]}```|
-    |```IMMODE == 2```|```IMM = {20{INS_IN[31]}}, INS_IN[31: 25], INS_IN[11:7]}```|
-    |```IMMODE == 3```|```IMM = {19{INS_IN[31]}}, INS_IN[31], INS_IN[7], INS_IN[30:25], INS_IN[11:8], 0}```|
-    |```IMMODE == 4```|```IMM = {INS_IN[31:12], 12b’0}```|
-    |```IMMODE == 5```|```IMM = {11’b0, INS_IN[31], INS_IN[19:12], INS_IN[20], INS_IN[30:21], 0}```|
+    |```immode == 0```|```imm = 32’b0```|
+    |```immode == 1```|```imm = {20{ins[31]}}, ins[31:20]}```|
+    |```immode == 2```|```imm = {20{ins[31]}}, ins[31: 25], ins[11:7]}```|
+    |```immode == 3```|```imm = {19{ins[31]}}, ins[31], ins[7], ins[30:25], ins[11:8], 0}```|
+    |```immode == 4```|```imm = {ins[31:12], 12b’0}```|
+    |```immode == 5```|```imm = {11’b0, ins[31], ins[19:12], ins[20], ins[30:21], 0}```|
 ### Asynchronous active low reset
   - Register values reset to 0

@@ -9,18 +9,18 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```ALU_OUT```|32-bits|
-|```Cond```|2-bits|
+|```branch_cond```|2-bits|
+|```alu_out```|32-bits|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```Branch_Taken```|1-bit|
+|```branch_taken```|1-bit|
 
 ## Functionality
   |Name|Bits wide|When Used|
   |---|---|---|
-  |```Cond == 0```|```Branch_Taken = 0```| Non-branching Instruction|
-  |```Cond == 1```|```Branch_Taken = ALU_OUT```| ```rs1 < rs2```, ```rs1 != rs2|
-  |```Cond == 2```|```Branch_Taken = ~ ALU_OUT``| ```rs1 >= rs2```, ```rs1 = rs2```|
-  |```Cond == 3```|```Branch_Taken = 1```| jal or jalr instructions|
+  |```branch_cond == 0```|```branch_taken = 0```| Non-branching Instruction|
+  |```branch_cond == 1```|```branch_taken = alu_out```| ```rs1 < rs2```, ```rs1 != rs2|
+  |```branch_cond == 2```|```branch_taken = ~alu_out``| ```rs1 >= rs2```, ```rs1 = rs2```|
+  |```branch_cond == 3```|```branch_taken = 1```| jal or jalr instructions|

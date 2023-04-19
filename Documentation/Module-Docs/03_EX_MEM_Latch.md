@@ -12,34 +12,33 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```CLK```|1-bit|
-|```RSTN```|1-bit|
-|```RDN_IN```|5-bits|
-|```ALU_OUT_IN```|32-bits|
-|```ALU_B_IN```|32-bits|
-|```Branch_Taken_IN```|1-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```rdn_in```|5-bits|
+|```alu_out_in```|32-bits|
+|```b_in```|32-bits|
+|```branch_taken_in```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```NPC```|32-bits|
-|```RDN```|5-bits|
-|```ALU_OUT```|32-bits|
-|```ALU_B```|32-bits|
-|```Branch_Taken```|1-bit|
+|```branch_taken```|1-bit|
+|```rdn```|5-bits|
+|```alu_out```|32-bits|
+|```b```|32-bits|
+
 
 ## Functionality
 ### Registers
-  - 32-bit ```NPC``` register
-  - 5-bit ```RDN``` register
-  - 32-bit ```ALU_OUT``` register
-  - 32-bit ```ALU_B``` register
-  - 1-bit ```Branch_Taken``` register
+  - 5-bit ```rdn``` register
+  - 32-bit ```alu_out``` register
+  - 32-bit ```b``` register
+  - 1-bit ```branch_taken``` register
 ### On posedge clk
-  - ```RDN = RDN_IN```
-  - ```ALU_OUT = ALU_OUT_IN```
-  - ```ALU_B = ALU_B_IN```
-  - ```Branch_Taken = Branch_Taken_IN```
+  - ```rdn = rdn_in```
+  - ```alu_out = alu_out_in```
+  - ```alu_b = alu_b_in```
+  - ```branch_taken = branch_taken_in```
 
 ### Asynchronous active low reset
   - Register values reset to 0
