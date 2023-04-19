@@ -12,30 +12,31 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```CLK```|1-bit|
-|```RSTN```|1-bit|
-|```WBS```|1-bit|
-|```RDN_IN```|5-bits|
-|```MRD```|32-bits|
-|```ALU_OUT```|32-bits|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```wbs```|1-bit|
+|```rdn_in```|5-bits|
+|```alu_out```|32-bits|
+|```mrd```|32-bits|
+
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```RDD```|32-bits|
-|```RDN```|5-bits|
+|```rdn```|5-bits|
+|```rdd```|32-bits|
 
 ## Functionality
 ### Registers
-  - 32-bit ```RDD``` register
-  - 5-bit ```RDN``` register
+  - 32-bit ```rdd``` register
+  - 5-bit ```rdn``` register
 ### On posedge clk
-  - ```RDN = RDN_IN```
-  - ```WBS```
+  - ```rdn = rdn_in```
+  - ```wbs```
     |Name|Bits wide|
     |---|---|
-    |```WBS == 0```|```RDD = ALU_OUT```|
-    |```WBS == 1```|```RDD = MRD```|
+    |```wbs == 0```|```rdd = alu_out```|
+    |```wbs == 1```|```rdd = mrd```|
   
 
 ### Asynchronous active low reset

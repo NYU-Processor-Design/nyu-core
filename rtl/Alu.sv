@@ -15,33 +15,29 @@ parameter USLT = 5'h03;
 module Alu #(
   WordSize = 32
 )(
-    input [WordSize - 1:0] operand_a, operand_b,
-    input [3:0] op_code_1,
-    input op_code_2,
-    output logic [WordSize - 1:0] out,
-    logic[4:0] op_code,
+    input [WordSize - 1:0] a, b,
+    input [4:0] alu_mode,
+    output logic [WordSize - 1:0] alu_out,
     logic[WordSize - 1:0] adder_result,
     logic do_sub, carry
 );
 
-assign op_code = {op_code_2, op_code_1};
+assign do_sub = alu_mode[4] | (alu_mode == SSLT) | (alu_mode == USLT);
 
-assign do_sub = op_code_2 | (op_code == SSLT) | (op_code == USLT);
-
-assign {carry, adder_result} = {1'b0, operand_a} + {1'b0, ((operand_b^({WordSize{do_sub}})) + {{WordSize - 1{1'b0}}, do_sub})};
+assign {carry, adder_result} = {1'b0, a} + {1'b0, ((B^({WordSize{do_sub}})) + {{WordSize - 1{1'b0}}, do_sub})};
 
 always_comb begin 
-    case(op_code)
-    ADD: out = adder_result;
-    SUB: out = adder_result;
-    XOR: out = operand_a ^ operand_b;
-    OR: out = operand_a | operand_b;
-    AND: out = operand_a & operand_b;
-    LLS: out = operand_a << operand_b[4:0];
-    LRS: out = operand_a >> operand_b[4:0];
-    ARS: out = operand_a >>> operand_b[4:0];
-    SSLT: out = (operand_a[WordSize - 1] & !(operand_b[WordSize - 1])) ? 1 : (!(operand_a[WordSize - 1]) & operand_b[WordSize - 1]) ? 0 : {{WordSize - 1{1'b0}}, carry^(!operand_b[WordSize - 1])};
-    USLT: out = {{WordSize - 1{1'b0}}, !carry};
+    case(alu_mode)
+    ADD: alu_out = adder_result;
+    SUB: alu_out = adder_result;
+    XOR: alu_out = a ^ b;
+    OR: alu_out = a | b;
+    AND: alu_out = a & b;
+    LLS: alu_out = a << b[4:0];
+    LRS: alu_out = a >> b[4:0];
+    ARS: alu_out = a >>> b[4:0];
+    SSLT: alu_out = (a[WordSize - 1] & !(b[WordSize - 1])) ? 1 : (!(a[WordSize - 1]) & b[WordSize - 1]) ? 0 : {{WordSize - 1{1'b0}}, carry^(!b[WordSize - 1])};
+    USLT: alu_out = {{WordSize - 1{1'b0}}, !carry};
     default: out = 0;
     endcase
 

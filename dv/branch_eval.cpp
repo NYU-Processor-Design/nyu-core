@@ -6,10 +6,10 @@
 
 bool test(uint32_t alu_out, uint8_t cond) {
     VBranch_Eval model;
-    model.ALU_Out = alu_out;
-    model.Cond = cond;
+    model.alu_out = alu_out;
+    model.branch_cond = cond;
     model.eval();
-    return model.Branch_Taken;
+    return model.branch_taken;
 }
 
 TEST_CASE("Never Branch") {  //Case when non branching instruction

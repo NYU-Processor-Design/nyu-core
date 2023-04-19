@@ -10,18 +10,18 @@ parameter AL = 2'h3; //Jump instruction
 module Branch_Eval #(
   WordSize = 32
 )(
-    input [WordSize - 1:0] ALU_Out,
-    input [1:0] Cond,
-    output logic Branch_Taken
+    input [WordSize - 1:0] alu_out,
+    input [1:0] branch_cond,
+    output logic branch_taken
 );
 
 always_comb begin 
-    case(Cond)
-        NE: Branch_Taken = 0;  
-        ALU: Branch_Taken = |ALU_Out;
-        NALU: Branch_Taken = ~(|ALU_Out);
-        AL: Branch_Taken = 1;
-        default: Branch_Taken = 0;
+    case(branch_cond)
+        NE: branch_taken = 0;  
+        ALU: branch_taken = |alu_out;
+        NALU: branch_taken = ~(|alu_out);
+        AL: branch_taken = 1;
+        default: branch_taken = 0;
     endcase
 end
 
