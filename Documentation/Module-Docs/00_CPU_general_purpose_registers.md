@@ -35,8 +35,8 @@ Note: Register 0 always returns 0 while registers 1-31 are general-purpose 32-bi
     * Register 0 should always be 0
     * Registers 1 to 31 act like normal, meaning they hold 32 bits
 ### On posedge clk
-  * rs1d outputs value in register indicated by rs1n
-  * rs2d outputs value in register indicated by rs2n
-  * If wbe is 1, rdn = value in rdd
+  * ```rs1d``` outputs value in register indicated by ```rs1n```
+  * ```rs2d``` outputs value in register indicated by ```rs2n```
+  * If ```wbe``` is 1, ```rdn``` = value in ```rdd```
 ### Asynchronous active low reset
   * All register values reset to 0
