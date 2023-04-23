@@ -9,14 +9,13 @@ The repo contains the modules and test for components that make up the core desi
 The core modules include:
 
 - Arithmatic Logic Unit (ALU)
-- General Registers
+- [General Registers](/Documentation/Module-Docs/00_CPU_general_purpose_registers.md)
 - Program Counter
-
 
 ## Branching Logic
 
 The branch logic modules include:
-- Branch Evaluator
+- [Branch Evaluator](/Documentation/Module-Docs/06_Branch_Evaluator.md)
 - Branch Predictor 
 - Branch Address Calculator
 - Branch Manager
@@ -31,16 +30,16 @@ The pipeline will have 5 stages:
 - Write Back (WB)
 
 The pipeline will require 4 latch modules:
-- IF/ID Latch
-- ID/EX Latch
-- EX/MEM Latch
-- MEM/WB Latch
+- [IF/ID Latch](/Documentation/Module-Docs/01_IF_ID_latch.md)
+- [ID/EX Latch](/Documentation/Module-Docs/02_ID_EX_Latch.md)
+- [EX/MEM Latch](/Documentation/Module-Docs/03_EX_MEM_Latch.md)
+- [MEM/WB Latch](/Documentation/Module-Docs/04_MEM_WB_Latch.md)
 
 ## General Control and Hazards
 
 Control Modules:
 - Processor State Module
-- General Control Module
+- [General Control Module](/Documentation/Module-Docs/05_General_Control_Module.md)
 - Hazard Detection
 
 ## Cache
@@ -56,7 +55,7 @@ Cache Modules:
 
 ## Current Draft of CPU Diagram
 
-<img width="1217" alt="CPU" src="https://user-images.githubusercontent.com/114675487/232092595-04ba6190-7b8a-40e7-935f-6f4423b89093.png">
+![cpu](https://user-images.githubusercontent.com/114675487/233803532-35c01390-220c-410e-b9d1-7ae365532715.png)
 
 
 ## Further Reading
