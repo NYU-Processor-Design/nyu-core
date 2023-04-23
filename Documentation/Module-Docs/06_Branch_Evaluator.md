@@ -21,6 +21,6 @@
   |Name|Bits wide|When Used|
   |---|---|---|
   |```branch_cond == 0```|```branch_taken = 0```| Non-branching Instruction|
-  |```branch_cond == 1```|```branch_taken = alu_out```| ```rs1 < rs2```, ```rs1 != rs2|
-  |```branch_cond == 2```|```branch_taken = ~alu_out``| ```rs1 >= rs2```, ```rs1 = rs2```|
-  |```branch_cond == 3```|```branch_taken = 1```| jal or jalr instructions|
+  |```branch_cond == 1```|```branch_taken = alu_out```| ```rs1 < rs2```, ```rs1 != rs2```|
+  |```branch_cond == 2```|```branch_taken = ~alu_out```| ```rs1 >= rs2```, ```rs1 = rs2```|
+  |```branch_cond == 3```|```branch_taken = 1```| ```jal``` or ```jalr``` instructions|
