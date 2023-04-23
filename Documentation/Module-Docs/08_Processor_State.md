@@ -1,3 +1,5 @@
+# THIS MODULE IS NOT YET OUTLINED #
+
 # Processor State #
 (Any Notes would go here)
 
