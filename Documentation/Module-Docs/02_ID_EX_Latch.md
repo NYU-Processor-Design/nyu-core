@@ -38,12 +38,12 @@ Note: The inputs and outputs for this module should be made into an interface
 
 ## Functionality
 ### Registers
-  - 5-bit rdn register
-  - 32-bit a register
-  - 32-bit b register
-  - 32-bit branch_addr register
-  - 32-bit pc register
-  - 1-bit branch_taken register
+  - 5-bit ```rdn``` register
+  - 32-bit ```a``` register
+  - 32-bit ```b``` register
+  - 32-bit ```branch_addr``` register
+  - 32-bit ```pc``` register
+  - 1-bit ```branch_taken``` register
 ### On posedge clk
   - ```rdn = rdn_in```
   - ```branch_taken = branch_taken_in```
