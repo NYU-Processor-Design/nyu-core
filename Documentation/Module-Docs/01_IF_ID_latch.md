@@ -31,8 +31,8 @@ Note: The inputs and outputs for this module should be made into an interface
 
 ## Functionality
 ### Registers
-  - 32-bit pc register
-  - 32-bit imm register
+  - 32-bit ```pc``` register
+  - 32-bit ```imm``` register
 ### On posedge clk
   - ```pc = pc_in```
   - ```immode```
