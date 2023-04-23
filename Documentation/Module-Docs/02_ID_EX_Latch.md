@@ -52,7 +52,7 @@ Note: The inputs and outputs for this module should be made into an interface
   - ```pc = pc_in```
   - ```b_sel```
 
-    |Name|Bits wide|
+    |```b_sel```|```b```|
     |---|---|
     |```b_sel == 0```|```b = rs2d```|
     |```b_sel == 1```|```b = imm```|
