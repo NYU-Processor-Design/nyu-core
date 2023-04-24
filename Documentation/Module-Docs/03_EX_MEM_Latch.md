@@ -14,9 +14,10 @@ Note: The inputs and outputs for this module should be made into an interface
 |:---|:---:|
 |```clk```|1-bit|
 |```rstn```|1-bit|
+|```data_mode```|2-bits|
 |```rdn_in```|5-bits|
 |```alu_out_in```|32-bits|
-|```b_in```|32-bits|
+|```b```|32-bits|
 |```branch_taken_in```|1-bit|
 
 ## Outputs
@@ -25,7 +26,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```branch_taken```|1-bit|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
-|```b```|32-bits|
+|```mem_data```|32-bits|
 
 
 ## Functionality
@@ -37,8 +38,14 @@ Note: The inputs and outputs for this module should be made into an interface
 ### On posedge clk
   - ```rdn = rdn_in```
   - ```alu_out = alu_out_in```
-  - ```alu_b = alu_b_in```
   - ```branch_taken = branch_taken_in```
+  - ```data_mode```
+
+    |Name|Bits wide|
+    |---|---|
+    |```data_mode == 0```|```mem_data = sign extend b[7:0]```|
+    |```data_mode == 1```|```mem_data = sign extend b[15:0]```|
+    |```data_mode == 2```|```mem_data = b```|
 
 ### Asynchronous active low reset
   - Register values reset to 0
