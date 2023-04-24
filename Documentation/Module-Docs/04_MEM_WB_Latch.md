@@ -33,7 +33,7 @@ Note: The inputs and outputs for this module should be made into an interface
 ### On posedge clk
   - ```rdn = rdn_in```
   - ```wbs```
-    |Name|Bits wide|
+    |```wbs```|```rdd```|
     |---|---|
     |```wbs == 0```|```rdd = alu_out```|
     |```wbs == 1```|```rdd = sign extend mrd[7:0]```|
