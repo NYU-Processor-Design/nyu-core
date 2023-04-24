@@ -55,7 +55,7 @@ Cache Modules:
 
 ## Current Draft of CPU Diagram
 
-![pipeline](https://user-images.githubusercontent.com/114675487/234119175-efca602a-e85f-4643-ac2b-229a2826a9f4.png)
+![pipeline](https://user-images.githubusercontent.com/114675487/234122290-8b905c40-1466-4d18-9051-31f14dfa7c4d.png)
 
 
 ## Further Reading
