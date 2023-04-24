@@ -16,7 +16,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```rstn```|1-bit|
 |```rdn_in```|5-bits|
 |```alu_out_in```|32-bits|
-|```b_in```|32-bits|
+|```rs2d```|32-bits|
 |```branch_taken_in```|1-bit|
 
 ## Outputs
@@ -25,20 +25,20 @@ Note: The inputs and outputs for this module should be made into an interface
 |```branch_taken```|1-bit|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
-|```b```|32-bits|
+|```mem_data```|32-bits|
 
 
 ## Functionality
 ### Registers
   - 5-bit ```rdn``` register
   - 32-bit ```alu_out``` register
-  - 32-bit ```b``` register
+  - 32-bit ```mem_data``` register
   - 1-bit ```branch_taken``` register
 ### On posedge clk
   - ```rdn = rdn_in```
   - ```alu_out = alu_out_in```
-  - ```alu_b = alu_b_in```
   - ```branch_taken = branch_taken_in```
+  - ```mem_data = rs2d```
 
 ### Asynchronous active low reset
   - Register values reset to 0
