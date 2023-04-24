@@ -17,7 +17,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```data_mode```|2-bits|
 |```rdn_in```|5-bits|
 |```alu_out_in```|32-bits|
-|```b```|32-bits|
+|```rs2n```|32-bits|
 |```branch_taken_in```|1-bit|
 
 ## Outputs
@@ -33,7 +33,7 @@ Note: The inputs and outputs for this module should be made into an interface
 ### Registers
   - 5-bit ```rdn``` register
   - 32-bit ```alu_out``` register
-  - 32-bit ```b``` register
+  - 32-bit ```mem_data``` register
   - 1-bit ```branch_taken``` register
 ### On posedge clk
   - ```rdn = rdn_in```
@@ -43,9 +43,9 @@ Note: The inputs and outputs for this module should be made into an interface
 
     |Name|Bits wide|
     |---|---|
-    |```data_mode == 0```|```mem_data = sign extend b[7:0]```|
-    |```data_mode == 1```|```mem_data = sign extend b[15:0]```|
-    |```data_mode == 2```|```mem_data = b```|
+    |```data_mode == 0```|```mem_data = sign extend rs2n[7:0]```|
+    |```data_mode == 1```|```mem_data = sign extend rs2n[15:0]```|
+    |```data_mode == 2```|```mem_data = rs2n```|
 
 ### Asynchronous active low reset
   - Register values reset to 0
