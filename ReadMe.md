@@ -8,17 +8,17 @@ The repo contains the modules and test for components that make up the core desi
 
 The core modules include:
 
-- Arithmatic Logic Unit (ALU)
+- [Arithmatic Logic Unit (ALU)](/Documentation/Module-Docs/09_ALU.md)
 - [General Registers](/Documentation/Module-Docs/00_CPU_general_purpose_registers.md)
-- Program Counter
+- [Program Counter](/Documentation/Module-Docs/15_Program_Counter.md)
 
 ## Branching Logic
 
 The branch logic modules include:
 - [Branch Evaluator](/Documentation/Module-Docs/06_Branch_Evaluator.md)
-- Branch Predictor 
-- Branch Address Calculator
-- Branch Manager
+- [Branch Predictor](/Documentation/Module-Docs/16_Branch_Predictor.md)
+- [Branch Address Calculator](/Documentation/Module-Docs/17_Branch_Address_Calculator.md)
+- [Branch Manager](/Documentation/Module-Docs/18_Branch_Manager.md)
 
 ## Pipeline
 
@@ -38,7 +38,7 @@ The pipeline will require 4 latch modules:
 ## General Control and Hazards
 
 Control Modules:
-- Processor State Module
+- [Processor State Module]()
 - [General Control Module](/Documentation/Module-Docs/05_General_Control_Module.md)
 - Hazard Detection
 
