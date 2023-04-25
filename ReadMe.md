@@ -52,13 +52,13 @@ Cache Modules:
 - [L2 Data Cache](/Documentation/Module-Docs/11_L2_Data_Cache.md)
 - [L3 Data Cache](/Documentation/Module-Docs/12_L3_Data_Cache.md)
 
-
 ## Current Draft of CPU Diagram
 
 ![pipeline](https://user-images.githubusercontent.com/114675487/234124513-e89020ff-c2d0-41ae-972d-e6e19ff28416.png)
 
-
 ## Further Reading
+
+[Developement and Testing Guidelines](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/Dev-and-Test-Docs/dev-test-process.md)
 
 [Offical RISCV Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
 
