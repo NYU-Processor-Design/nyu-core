@@ -1,6 +1,6 @@
 # THIS MODULE IS NOT YET OUTLINED #
 
-# Instruction Cache Manager #
+# Data Cache Manager #
 (Any Notes would go here)
 
 ## Contents
@@ -16,12 +16,17 @@
 |:---|:---:|
 |```clk```|1-bit|
 |```rstn```|1-bit|
-|```pc```|32-bits|
+|```dcache_en```|1-bit|
+|```dcache_rw```|1-bit|
+|```data_mode```|2-bits|
+|```addr```|32-bits|
+|```data```|32-bits|
+
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```ins```|32-bits|
+|```mrd```|32-bits|
 
 ## Functionality
 ### Registers
