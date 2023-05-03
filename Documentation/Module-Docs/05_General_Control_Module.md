@@ -14,28 +14,40 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```ins```|32-bits|
+|```p_state```|#-bits|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```immode```|3-bits|
+|```wbe```|1-bit|
+|```addr_mode```|1-bit|
+|```b_sel```|1-bit|
+|```alu_mode```|6-bits|
+|```branch_cond```|2-bits|
+|```data_mode```|3-bits|
+|```dcache_rw```|1-bit|
+|```dcache_en```|1-bit|
+|```wbs```|3-bits|
+
+
 
 ## Functionality
 ### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
+  - 32-bit ```IF_ins``` register
+  - 32-bit ```ID_ins``` register
+  - 32-bit ```EX_ins``` register
+  - 32-bit ```MEM_ins``` register
+  - 32-bit ```WB_ins``` register
 ### On posedge clk
-  - ```somebranch = someval```
-  - Use a table when necessary if statements are used:
-  - ```name```
-    |Name|Bits wide|
-    |---|---|
-    |```name == 0```|```reg = val```|
-    |```name == 1```|```reg = val```|
-  
+  - ```IF_ins = ins```
+  - ```ID_ins = IF_ins```
+  - ```EX_ins = ID_ins```
+  - ```MEM_ins = EX_ins```
+  - ```WB_ins = MEM_ins```
 
 ### Asynchronous active low reset
   - Register values reset to 0
