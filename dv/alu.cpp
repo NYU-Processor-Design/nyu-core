@@ -4,7 +4,7 @@
 #include <stdlib.h>  
 #include <math.h>
 
-uint32_t test(uint32_t a, uint32_t b, uint8_t op) {
+uint32_t test(uint32_t a, uint32_t b, uint16_t op) {
     VAlu model;
     model.alu_mode = op;
     model.a = a;
@@ -26,7 +26,7 @@ TEST_CASE("SUB") {
     for (int i = 0; i < 1000; i++) {
         uint32_t a = rand() % (int) (pow(2, 32) - 1);
         uint32_t b = rand() % (int) (pow(2, 32)  - 1);
-        uint32_t result = test(a, b, 0x10);
+        uint32_t result = test(a, b, 0x20);
         REQUIRE(result == (uint32_t) (a + (~b + 1)));
     }
 }
@@ -80,7 +80,7 @@ TEST_CASE("ARS") {
     for (int i = 0; i < 1000; i++) {
         uint32_t a = rand() % (int) (pow(2, 32) - 1);
         uint32_t b = rand() % (int) (pow(2, 32)  - 1);
-        uint32_t result = test(a, b, 0x15);
+        uint32_t result = test(a, b, 0x25);
         uint32_t expected;
         if (a >> 31) {
             expected = (a >> (b & 31));
