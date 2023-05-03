@@ -4,7 +4,7 @@
 #include <stdlib.h>  
 #include <math.h>
 
-uint32_t test(uint32_t a, uint32_t b, uint16_t op) {
+uint32_t test(uint32_t a, uint32_t b, uint8_t op) {
     VAlu model;
     model.alu_mode = op;
     model.a = a;
