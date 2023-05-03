@@ -28,7 +28,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```b_sel```|1-bit|
 |```alu_mode```|6-bits|
 |```branch_cond```|2-bits|
-|```data_mode```|3-bits|
+|```data_mode```|2-bits|
 |```dcache_rw```|1-bit|
 |```dcache_en```|1-bit|
 |```wbs```|3-bits|
