@@ -7,7 +7,7 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```alu_mode```|16-bits|
+|```alu_mode```|8-bits|
 |```a```|8-bits|
 |```b```|8-bits|
 
