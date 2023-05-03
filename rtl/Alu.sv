@@ -16,7 +16,7 @@ module Alu #(
   WordSize = 32
 )(
     input [WordSize - 1:0] a, b,
-    input [4:0] alu_mode,
+    input [15:0] alu_mode,
     output logic [WordSize - 1:0] alu_out,
     logic[WordSize - 1:0] adder_result,
     logic do_sub, carry
