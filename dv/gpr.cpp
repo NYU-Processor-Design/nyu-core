@@ -5,7 +5,7 @@
 #include <math.h>
 
 TEST_CASE("REGS") {
-  VGPRs model;
+  VGPR model;
   uint8_t regsrc1, regsrc2;
   uint32_t dstdata;
   uint32_t regvals [32];
