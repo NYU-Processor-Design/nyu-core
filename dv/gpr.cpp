@@ -21,6 +21,9 @@ TEST_CASE("REGS") {
     for (int regdst = 0; regdst < 32; regdst++) {
       dstdata = rand() % (int) (pow(2,32) - 1);
       regvals[regdst] = dstdata;
+      
+      model.clk = 0;
+      model.eval();
 
       //write to all registers
       model.clk = 1;
