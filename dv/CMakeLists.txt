@@ -3,7 +3,7 @@ find_package(nyu-util REQUIRED CONFIG)
 
 add_executable(tests)
 target_sources(tests PRIVATE
-  alu.cpp branch_eval.cpp pc.cpp ifid.cpp
+  alu.cpp branch_eval.cpp pc.cpp ifid.cpp gpr.cpp
 )
 nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
