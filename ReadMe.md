@@ -1,5 +1,8 @@
 # NYU ProcDesign Core
 
+[![github](https://github.com/NYU-Processor-Design/nyu-core/actions/workflows/main.yaml/badge.svg)](https://github.com/NYU-Processor-Design/nyu-core/actions) 
+[![codecov](https://codecov.io/gh/NYU-Processor-Design/nyu-core/branch/main/graph/badge.svg?token=McspW0gLf4)](https://codecov.io/gh/NYU-Processor-Design/nyu-core) 
+
 The NYU ProcDesign Core will be a RISCV-32I compatible core with a 5 stage pipeline.
 
 The repo contains the modules and test for components that make up the core design.
