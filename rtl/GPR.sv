@@ -14,10 +14,9 @@ module GPR #(
   integer i;
   always @ (posedge clk or negedge rstn) begin
     if (rstn == 0)
-      begin
-        for (i = 0; i < 32; i = i+1) begin
+      initial begin
+        for (i = 0; i < 32; i = i+1)
           registers[i] <= 32'd0;
-        end
       end
     else begin
       rs1d <= registers[rs1n];
