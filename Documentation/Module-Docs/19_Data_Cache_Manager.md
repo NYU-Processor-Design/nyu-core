@@ -1,4 +1,4 @@
-# THIS MODULE IS NOT YET OUTLINED #
+# THIS OUTLINE IS NOT YET COMPLETE #
 
 # Data Cache Manager #
 (Any Notes would go here)
