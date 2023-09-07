@@ -4,13 +4,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-VIFID model;
-bool clk;
-bool rstn;
-uint8_t immode;
-uint32_t pc_in;
-uint32_t ins_in;
-
 
 TEST_CASE("PC Passthrough") {
     VIFID model;
