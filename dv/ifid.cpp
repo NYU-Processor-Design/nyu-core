@@ -18,7 +18,7 @@ TEST_CASE("PC Passthrough") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = rand() % (int) (7);
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -37,7 +37,7 @@ TEST_CASE("PC Passthrough") {
     }
 }   
 
-TEST_CASE("Decypher Register Numbers") {
+TEST_CASE("Decipher Register Numbers") {
     VIFID model;
     bool clk;
     bool rstn;
@@ -50,7 +50,7 @@ TEST_CASE("Decypher Register Numbers") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = rand() % (int) (7);
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -58,7 +58,7 @@ TEST_CASE("Decypher Register Numbers") {
         model.eval();
 
         
-        //Test Decyphering of Register Numbers
+        //Test Deciphering of Register Numbers
         model.clk = 1;
         model.rstn = 1;
         model.immode = immode;
@@ -85,7 +85,7 @@ TEST_CASE("Imm Mode 0") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 0;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -119,7 +119,7 @@ TEST_CASE("Imm Mode 1") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 1;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -152,7 +152,7 @@ TEST_CASE("Imm Mode 2") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 2;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -184,7 +184,7 @@ TEST_CASE("Imm Mode 3") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 3;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -217,7 +217,7 @@ TEST_CASE("Imm Mode 4") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 4;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
@@ -250,7 +250,7 @@ TEST_CASE("Imm Mode 5") {
         pc_in = rand() % (int) (pow(2, 32) - 1);
         immode = 5;
         
-        //Initalize Module
+        //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();

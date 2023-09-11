@@ -4,7 +4,7 @@ module MEMWB #(
   input clk, rstn,
   input[2:0] wbs,
   input[4:0] rdn_in,
-  input[WordSize - 1:0] alu_out, mrd
+  input[WordSize - 1:0] alu_out, mrd,
   output logic [4:0] rdn,
   output logic [WordSize - 1:0] rdd
 );
@@ -12,7 +12,7 @@ module MEMWB #(
   always @ (posedge clk or negedge rstn) begin
     if (!rstn) begin
       rdn <= 0;
-      rdd <= 0;
+      rdd = 0;
     end
     else begin
     rdn <= rdn_in;
