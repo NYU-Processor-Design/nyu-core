@@ -27,7 +27,7 @@
 
 # **Output Options:**
 
-- ***IF Stage:**
+- **IF Stage:**
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
