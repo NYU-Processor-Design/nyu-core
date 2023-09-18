@@ -36,14 +36,14 @@
     - 4: imm = {ins[31:12], 12b'0}
     - 5: imm = {11'b0, ins[31], ins[19:12], ins[20], ins[30:21], 0}
 - **ID Stage:**
-  - **addr\_mode (ID Stage)**
-    - 0: branch\_addr = pc + imm
-    - 1: branch\_addr = imm + rs1d
-  - **b\_sel (ID Stage)**
-    - 0: b = rs2d\_in
+  - **addr_mode**
+    - 0: branch_addr = pc + imm
+    - 1: branch_addr = imm + rs1d
+  - **b_sel**
+    - 0: b = rs2d_in
     - 1: b = imm
 - **EX Stage:**
-  - **alu_mode (EX Stage)**
+  - **alu_mode)**
     - 0x00: Addition
     - 0x01: Logical Left Shift
     - 0x02; Signed Set on Less Than
@@ -54,20 +54,21 @@
     - 0x07: Bitwise AND
     - 0x20: Subtraction
     - 0x25: Arithmetic Right Shift
-   
-  - **branch_cond (EX Stage)**
-    - 0: branch\_taken = 0 (non-branching instructions)
-    - 1: branch\_taken = alu\_out (rs1 \< rs2, rs1 != rs2)
-    - 2: branch\_taken = ~alu\_out (rs1 \>= rs2, rs1 = rs2)
-    - 3: branch\_taken = 1 (jal, jalr)
+  - **branch_cond**
+    - 0: branch_taken = 0 (non-branching instructions)
+    - 1: branch_taken = alu_out (rs1d < rs2d, rs1d != rs2d)
+    - 2: branch_taken = ~alu_out (rs1d >= rs2d, rs1d = rs2d)
+    - 3: branch_taken = 1 (jal, jalr)
 - **MEM Stage:**
-  - **data_mode (MEM Stage)**
-    - 0:
-  - **dcache_rw (MEM Stage)**
+  - **data_mode**
+    - 0: Store Byte (M[addr][7:0] = data[7:0])
+    - 1: Store Half (M[addr][15:0] = data[15:0])
+    - 2: Store Word (M[addr][31:0] = data[31:0])
+  - **dcache_rw**
    - 0:
-  - **dcache\_en (MEM Stage)**
+  - **dcache_en**
     - 0:
-  - **wbs (MEM Stage)**
+  - **wbs**
     - 0: rdd = alu\_out
     - 1: rdd = sign extend mrd[7:0]
     - 2: rdd = sign extend mrd[15:0]
@@ -75,18 +76,27 @@
     - 4: rdd = mrd[15:0]
     - 5: rdd = mrd
 - **WB Stage:**
-  - **wbe (WB Stage)**
-    - 0: don't update rdn
-    - 1: rdn = rdd
+  - **wbe**
+    - 0: don't update register[rdn]
+    - 1: register[rdn] = rdd
 
 # **Functionality:**
 
 **Instruction Type Decoding:**
 
 - R Type (ins[6:0] = 0110011):
-  - alu_mode = ins[31:25] + ins[14:12]
-  -
-- I Type (ins[6:0] = 0010011):
-  - alu_mode =
-  - 
+  - IF Stage:
+    - immode = 0
+  - ID Stage:
+    - addr_mode = N/A
+    - b_sel = 0
+  - EX Stage:
+    - alu_mode = ins[31:25] + ins[14:12]
+    - branch_cond = 0
+  - MEM Stage:
+    - 
+  - WB Stage:
+    - wbe = 1
+
+- 
 
