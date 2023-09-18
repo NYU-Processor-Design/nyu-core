@@ -65,9 +65,11 @@
     - 1: Store Half (M[addr][15:0] = data[15:0])
     - 2: Store Word (M[addr][31:0] = data[31:0])
   - **dcache_rw**
-   - 0:
+   - 0: Read
+   - 1: Write
   - **dcache_en**
-    - 0:
+    - 0: Disabled
+    - 1: Enabled
   - **wbs**
     - 0: rdd = alu\_out
     - 1: rdd = sign extend mrd[7:0]
@@ -94,9 +96,10 @@
     - alu_mode = ins[31:25] + ins[14:12]
     - branch_cond = 0
   - MEM Stage:
-    - 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
     - wbe = 1
-
-- 
+- I Type (ins[6:0] = ):
 
