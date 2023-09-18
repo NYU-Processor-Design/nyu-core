@@ -16,14 +16,14 @@
 |:---|:---|:---:|
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
-|```addr_mode```|1-bit|
-|```b_sel```|1-bit|
+|```addr_mode```|1-bit|Specifies how the memory address to potentially branch to is calculated|
+|```b_sel```|1-bit|Selects whether rs2d or imm is used as the secondary input to the ALU|
 |```alu_mode```|6-bits|Controls the operating mode of the ALU|
-|```branch_cond```|2-bits|
-|```data_mode```|2-bits|
-|```dcache_rw```|1-bit|
-|```dcache_en```|1-bit|
-|```wbs```|3-bits|
+|```branch_cond```|2-bits|Specifies what condition must be satisfied for a branch to occur|
+|```data_mode```|2-bits|Specifies the size of the data being stored in memory|
+|```dcache_rw```|1-bit|Controls if the data cache is in read or write mode|
+|```dcache_en```|1-bit|Enables the data cache to be read from or written to|
+|```wbs```|3-bits|Specifies what data to store in the destination register|
 
 # **Output Options:**
 
@@ -43,7 +43,7 @@
     - 0: b = rs2d_in
     - 1: b = imm
 - **EX Stage:**
-  - **alu_mode)**
+  - **alu_mode**
     - 0x00: Addition
     - 0x01: Logical Left Shift
     - 0x02; Signed Set on Less Than
@@ -102,7 +102,7 @@
   - WB Stage:
     - wbs = 0
     - wbe = 1
-- I Type (ins[6:0] = ):
+- I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
   - IF Stage:
     - immode = 
   - ID Stage:
@@ -118,7 +118,7 @@
   - WB Stage:
     - wbs =
     - wbe = 
-- S Type (ins[6:0] = ):
+- S Type (ins[6:0] = 0100011):
   - IF Stage:
     - immode = 
   - ID Stage:
@@ -134,7 +134,7 @@
   - WB Stage:
     - wbs =
     - wbe = 
-- B Type (ins[6:0] = ):
+- B Type (ins[6:0] = 1100011):
   - IF Stage:
     - immode = 
   - ID Stage:
@@ -150,7 +150,7 @@
   - WB Stage:
     - wbs =
     - wbe = 
-- U Type (ins[6:0] = ):
+- U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
     - immode = 
   - ID Stage:
@@ -166,7 +166,7 @@
   - WB Stage:
     - wbs =
     - wbe = 
-- J Type (ins[6:0] = ):
+- J Type (ins[6:0] = 1101111):
   - IF Stage:
     - immode = 
   - ID Stage:
