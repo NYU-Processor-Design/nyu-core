@@ -59,7 +59,7 @@ Note: The inputs and outputs for this module should be made into an interface
     |---|---|
     |```a_sel == 0```|```a = rs1d```|
     |```a_sel == 1```|```a = pc```|
-    |```a_sel == 2```|```a = imm```|
+    |```a_sel == 2```|```a = 0```|
   - ```b_sel```
 
     |State|Output|
@@ -67,7 +67,7 @@ Note: The inputs and outputs for this module should be made into an interface
     |```b_sel == 0```|```b = rs2d_in```|
     |```b_sel == 1```|```b = imm```|
     |```b_sel == 2```|```b = 4```|
-    |```b_sel == 3```|```b = 12```|
+    |```b_sel == 3```|```b = imm << 12```|
 
 ### Asynchronous active low reset
   - Register values reset to 0
