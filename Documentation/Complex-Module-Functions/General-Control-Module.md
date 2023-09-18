@@ -70,14 +70,14 @@
   - **dcache_en**
     - 0: Disabled
     - 1: Enabled
+- **WB Stage:**
   - **wbs**
-    - 0: rdd = alu\_out
+    - 0: rdd = alu_out
     - 1: rdd = sign extend mrd[7:0]
     - 2: rdd = sign extend mrd[15:0]
     - 3: rdd = mrd[7:0]
     - 4: rdd = mrd[15:0]
     - 5: rdd = mrd
-- **WB Stage:**
   - **wbe**
     - 0: don't update register[rdn]
     - 1: register[rdn] = rdd
@@ -100,6 +100,86 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
+    - wbs = 0
     - wbe = 1
 - I Type (ins[6:0] = ):
+  - IF Stage:
+    - immode = 
+  - ID Stage:
+    - addr_mode = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe = 
+- S Type (ins[6:0] = ):
+  - IF Stage:
+    - immode = 
+  - ID Stage:
+    - addr_mode = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe = 
+- B Type (ins[6:0] = ):
+  - IF Stage:
+    - immode = 
+  - ID Stage:
+    - addr_mode = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe = 
+- U Type (ins[6:0] = ):
+  - IF Stage:
+    - immode = 
+  - ID Stage:
+    - addr_mode = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe = 
+- J Type (ins[6:0] = ):
+  - IF Stage:
+    - immode = 
+  - ID Stage:
+    - addr_mode = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe = 
 
