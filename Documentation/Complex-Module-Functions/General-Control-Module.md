@@ -17,7 +17,8 @@
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
 |```addr_mode```|1-bit|Specifies how the memory address to potentially branch to is calculated|
-|```b_sel```|1-bit|Selects whether rs2d or imm is used as the secondary input to the ALU|
+|```a_sel```|1-bit||
+|```b_sel```|2-bit|Selects whether rs2d or imm is used as the secondary input to the ALU|
 |```alu_mode```|6-bits|Controls the operating mode of the ALU|
 |```branch_cond```|2-bits|Specifies what condition must be satisfied for a branch to occur|
 |```data_mode```|2-bits|Specifies the size of the data being stored in memory|
@@ -39,9 +40,15 @@
   - **addr_mode**
     - 0: branch_addr = pc + imm
     - 1: branch_addr = imm + rs1d
+  - **a_sel**
+    - 0: a = rs1d
+    - 1: a = pc
+    - 3: a = 0
   - **b_sel**
     - 0: b = rs2d_in
     - 1: b = imm
+    - 2: b = 4
+    - 3: b = imm << 12
 - **EX Stage:**
   - **alu_mode**
     - 0x00: Addition
@@ -56,8 +63,8 @@
     - 0x25: Arithmetic Right Shift
   - **branch_cond**
     - 0: branch_taken = 0 (non-branching instructions)
-    - 1: branch_taken = alu_out (rs1d < rs2d, rs1d != rs2d)
-    - 2: branch_taken = ~alu_out (rs1d >= rs2d, rs1d = rs2d)
+    - 1: branch_taken = |alu_out (rs1d < rs2d, rs1d != rs2d)
+    - 2: branch_taken = ~|alu_out (rs1d >= rs2d, rs1d = rs2d)
     - 3: branch_taken = 1 (jal, jalr)
 - **MEM Stage:**
   - **data_mode**
@@ -91,6 +98,7 @@
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
+    - a_sel = 0
     - b_sel = 0
   - EX Stage:
     - alu_mode = ins[31:25] + ins[14:12]
@@ -104,9 +112,10 @@
     - wbe = 1
 - I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
   - IF Stage:
-    - immode = 
+    - immode = 1
   - ID Stage:
     - addr_mode = 
+    - a_sel = 
     - b_sel = 
   - EX Stage:
     - alu_mode = 
@@ -120,66 +129,80 @@
     - wbe = 
 - S Type (ins[6:0] = 0100011):
   - IF Stage:
-    - immode = 
+    - immode = 2
   - ID Stage:
-    - addr_mode = 
-    - b_sel = 
+    - addr_mode = 1
+    - a_sel = N/A
+    - b_sel = N/A
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode = N/A
+    - branch_cond = 0
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = ins[14:12] 
+    - dcache_rw = 1
+    - dcache_en = 1
   - WB Stage:
-    - wbs =
-    - wbe = 
+    - wbs = N/A
+    - wbe = 0
 - B Type (ins[6:0] = 1100011):
   - IF Stage:
-    - immode = 
+    - immode = 3
   - ID Stage:
-    - addr_mode = 
-    - b_sel = 
+    - addr_mode = N/A
+    - a_sel = 0
+    - b_sel = 0
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode:
+      - If ins[14:12] = 0, 1
+        - alu_mode = 0x20
+      - If ins[14:12] = 4, 5
+        - alu_mode = 0x02
+      - If ins[14:12] = 6, 7
+        - alu_mode = 0x03
+    - branch_cond:
+      - If ins[14:12] = 1, 4, 6
+        - branch_cond = 1
+      - If ins[14:12] = 0, 5, 7
+        - branch_cond = 2 
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
-    - wbs =
-    - wbe = 
+    - wbs = N/A
+    - wbe = 0
 - U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
-    - immode = 
+    - immode = 4
   - ID Stage:
-    - addr_mode = 
-    - b_sel = 
+    - addr_mode = N/A
+    - a_sel = ins[5:4]
+    - b_sel = 3
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode = 0
+    - branch_cond = 0
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
-    - wbs =
-    - wbe = 
+    - wbs = 0
+    - wbe = 1
 - J Type (ins[6:0] = 1101111):
   - IF Stage:
-    - immode = 
+    - immode = 5
   - ID Stage:
-    - addr_mode = 
-    - b_sel = 
+    - addr_mode = N/A
+    - a_sel = 1
+    - b_sel = 2
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode = 0
+    - branch_cond = 1
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
-    - wbs =
-    - wbe = 
+    - wbs = 0
+    - wbe = 1
 
