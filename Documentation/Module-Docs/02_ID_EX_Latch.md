@@ -59,7 +59,7 @@ Note: The inputs and outputs for this module should be made into an interface
     |---|---|
     |```a_sel == 0```|```a = rs1d```|
     |```a_sel == 1```|```a = pc```|
-    |```a_sel == 2```|```a = 0```|
+    |```a_sel == 3```|```a = 0```|
   - ```b_sel```
 
     |State|Output|
