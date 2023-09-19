@@ -17,8 +17,8 @@
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
 |```addr_mode```|1-bit|Specifies how the memory address to potentially branch to is calculated|
-|```a_sel```|1-bit||
-|```b_sel```|2-bit|Selects whether rs2d or imm is used as the secondary input to the ALU|
+|```a_sel```|1-bit|Selects what input is used as the primary input to the ALU|
+|```b_sel```|2-bit|Selects what input is used as the secondary input to the ALU|
 |```alu_mode```|6-bits|Controls the operating mode of the ALU|
 |```branch_cond```|2-bits|Specifies what condition must be satisfied for a branch to occur|
 |```data_mode```|2-bits|Specifies the size of the data being stored in memory|
