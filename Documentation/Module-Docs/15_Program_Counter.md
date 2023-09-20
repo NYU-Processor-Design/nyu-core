@@ -14,6 +14,7 @@
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```npc```|32-bits|
+|```en```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
@@ -24,6 +25,7 @@
 ### Registers
   - 32-bit ```pc``` register
 ### On posedge clk
-  - ```pc = npc```
+ - If ```en = 1```
+   - ```pc = npc```
 ### Asynchronous active low reset
   - ```pc``` value resets to 0
