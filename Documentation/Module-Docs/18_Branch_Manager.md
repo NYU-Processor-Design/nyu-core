@@ -22,7 +22,6 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```npc```|32-bits|
 |```flush```|1-bit|
 
 ## Functionality
