@@ -7,7 +7,7 @@
 |:---|:---|:---:|
 |```clk```|1-bit|Clock Signal|
 |```rstn```|1-bit|Reset Signal|
-|```ins```|32-bits|The Next 4-Byte Long Instruction|
+|```ins_in```|32-bits|The Next 4-Byte Long Instruction|
 |```flush```|1-bit|Signal that Pipeline is being flushed|
 |```p_state```|#-bits|Input from Processor State Module|
 
@@ -15,6 +15,8 @@
 
 |Name|Bits wide|Description|
 |:---|:---|:---:|
+|```ins```|32-bits|Instruction output to IF/ID Latch|
+|```pc_en```|1-bit|Enables or disables program counter updating|
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
 |```addr_mode```|1-bit|Specifies how the memory address to potentially branch to is calculated|
@@ -30,6 +32,9 @@
 ### **Output Options:**
 
 #### **IF Stage:**
+  - **pc_en**
+    - 0: pc stays the same
+    - 1: pc = npc
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
@@ -91,6 +96,14 @@
     - 1: register[rdn] = rdd
 
 # **Functionality:**
+
+## **Registers:**
+  - 32-bit ```IF_ins``` register
+  - 32-bit ```ID_ins``` register
+  - 32-bit ```EX_ins``` register
+  - 32-bit ```MEM_ins``` register
+  - 32-bit ```WB_ins``` register
+  - 1-bit ```Hazard``` register
 
 ## **Instruction Type Decoding:**
 
@@ -207,19 +220,16 @@
     - wbs = 0
     - wbe = 1
 
-## **Registers:**
+## **Hazard Detection:**
 
-#### Register Descriptions
-  - 32-bit ```IF_ins``` register
-  - 32-bit ```ID_ins``` register
-  - 32-bit ```EX_ins``` register
-  - 32-bit ```MEM_ins``` register
-  - 32-bit ```WB_ins``` register
-#### On posedge clk
-  - ```IF_ins = ins```
-  - ```ID_ins = IF_ins```
-  - ```EX_ins = ID_ins```
-  - ```MEM_ins = EX_ins```
-  - ```WB_ins = MEM_ins```
-#### Asynchronous active low reset
-  - Register values reset to 0
+### Setting the Hazard Register:
+  
+
+### Hazard Dependent Outputs and Registers:
+  - Hazard = 0:
+    - ID_ins = IF_ins
+    - pc_en = 1
+  - Hazard = 1:
+    - ID_ins = NOP (32'b00000000000000000000000000110011)
+    - pc_en = 0
+
