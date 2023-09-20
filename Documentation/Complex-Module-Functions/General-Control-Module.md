@@ -7,7 +7,7 @@
 |:---|:---|:---:|
 |```clk```|1-bit|Clock Signal|
 |```rstn```|1-bit|Reset Signal|
-|```ins_in```|32-bits|The Next 4-Byte Long Instruction|
+|```ins```|32-bits|The Next 4-Byte Long Instruction|
 |```flush```|1-bit|Signal that Pipeline is being flushed|
 |```p_state```|#-bits|Input from Processor State Module|
 
@@ -15,7 +15,6 @@
 
 |Name|Bits wide|Description|
 |:---|:---|:---:|
-|```ins```|32-bits|Instruction output to IF/ID Latch|
 |```pc_en```|1-bit|Enables or disables program counter updating|
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
@@ -224,14 +223,12 @@
 ## **Hazard Detection:**
 
 ### Setting the Hazard Register:
-  - Description: When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline. As such, we use combinational logic to check if the instruction in the IF_ins register is dependent on any instruction currently in the other stages of the pipeline; if there is a dependency, the hazard signal is set and we insert NOPs to stall execution, otherwise, we continue as normal. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present. We don't have to worry about the erroneous immode value from the instruction in IF_ins because the immediate value is irrelevant for the NOP instruction we'll be stalling with since its an R type instruction.
+  - Description: When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline. As such, we use combinational logic to check if the instruction in the IF_ins register is dependent on any instruction currently in the other stages of the pipeline; if there is a dependency, the hazard signal is set and we insert NOPs to stall execution, otherwise, we continue as normal. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
 ### Hazard Dependent Outputs and Registers:
   - Hazard = 0:
-    - ins = ins_in
     - ID_ins = IF_ins
     - pc_en = 1
   - Hazard = 1:
-    - ins = NOP (32'b00000000000000000000000000110011)
-    - ID_ins = NOP (32'b00000000000000000000000000110011)
+    - ID_ins = NOP (32'b0)
     - pc_en = 0
 
