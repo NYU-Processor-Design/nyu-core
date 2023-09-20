@@ -16,7 +16,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```rstn```|1-bit|
 |```a_sel```|2-bit|
 |```b_sel```|2-bit|
-|```nranch_taken_in```|1-bit|
+|```branch_taken_in```|1-bit|
 |```imm```|32-bits|
 |```pc_in```|32-bits|
 |```rdn_in```|5-bits|
