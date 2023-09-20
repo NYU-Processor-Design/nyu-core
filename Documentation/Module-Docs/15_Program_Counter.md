@@ -14,7 +14,7 @@
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```npc```|32-bits|
-|```en```|1-bit|
+|```pc_en```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
@@ -28,7 +28,7 @@
  - ```pc```
     |State|Output|
     |---|---|
-    |```en == 0```|```pc stays the same```|
-    |```en == 1```|```pc = npc```|
+    |```pc_en == 0```|```pc stays the same```|
+    |```pc_en == 1```|```pc = npc```|
 ### Asynchronous active low reset
   - ```pc``` value resets to 0
