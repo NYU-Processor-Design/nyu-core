@@ -34,8 +34,6 @@ Note: The inputs and outputs for this module should be made into an interface
 |```dcache_en```|1-bit|
 |```wbs```|3-bits|
 
-
-
 ## Functionality
 ### Registers
   - 32-bit ```IF_ins``` register
@@ -43,12 +41,9 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
+  - 32-bit ```Delayed_ins``` register
 ### On posedge clk
-  - ```IF_ins = ins```
-  - ```ID_ins = IF_ins```
-  - ```EX_ins = ID_ins```
-  - ```MEM_ins = EX_ins```
-  - ```WB_ins = MEM_ins```
+
 
 ### Asynchronous active low reset
   - Register values reset to 0
