@@ -78,8 +78,8 @@
     - 1: Store Half (M[addr][15:0] = data[15:0])
     - 2: Store Word (M[addr][31:0] = data[31:0])
   - **dcache_rw**
-   - 0: Read
-   - 1: Write
+    - 0: Read
+    - 1: Write
   - **dcache_en**
     - 0: Disabled
     - 1: Enabled
