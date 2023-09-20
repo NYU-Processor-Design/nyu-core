@@ -22,6 +22,7 @@ Note: The inputs and outputs for this module should be made into an interface
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
+|```pc_en```|1-bit|
 |```immode```|3-bits|
 |```wbe```|1-bit|
 |```addr_mode```|1-bit|
