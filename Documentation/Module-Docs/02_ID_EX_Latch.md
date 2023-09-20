@@ -53,14 +53,14 @@ Note: The inputs and outputs for this module should be made into an interface
   - ```rs2d = rs2d_in```
   - ```branch_addr = branch_addr_in```
   - ```pc = pc_in```
-  - ```a_sel```
+  - ```a```
 
     |State|Output|
     |---|---|
     |```a_sel == 0```|```a = rs1d```|
     |```a_sel == 1```|```a = pc```|
     |```a_sel == 3```|```a = 0```|
-  - ```b_sel```
+  - ```b```
 
     |State|Output|
     |---|---|
