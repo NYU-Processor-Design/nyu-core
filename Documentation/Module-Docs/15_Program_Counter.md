@@ -25,7 +25,10 @@
 ### Registers
   - 32-bit ```pc``` register
 ### On posedge clk
- - If ```en = 1```
-   - ```pc = npc```
+ - ```pc```
+    |State|Output|
+    |---|---|
+    |```en == 0```|```pc = pc```|
+    |```en == 1```|```pc = npc```|
 ### Asynchronous active low reset
   - ```pc``` value resets to 0
