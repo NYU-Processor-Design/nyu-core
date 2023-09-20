@@ -42,6 +42,7 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
   - 32-bit ```Delayed_ins``` register
+  - 1-bit ```Hazard``` register
 ### On posedge clk
 
 
