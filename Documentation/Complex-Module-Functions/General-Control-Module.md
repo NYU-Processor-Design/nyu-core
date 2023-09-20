@@ -1,16 +1,17 @@
 (Note: This document is currently incomplete)
 # **I/O:**
 
-**Inputs:**
+## **Inputs:**
 
 |Name|Bits wide|Description|
 |:---|:---|:---:|
 |```clk```|1-bit|Clock Signal|
 |```rstn```|1-bit|Reset Signal|
 |```ins```|32-bits|The Next 4-Byte Long Instruction|
+|```flush```|1-bit|Signal that Pipeline is being flushed|
 |```p_state```|#-bits|Input from Processor State Module|
 
-**Outputs:**
+## **Outputs:**
 
 |Name|Bits wide|Description|
 |:---|:---|:---:|
@@ -26,9 +27,9 @@
 |```dcache_en```|1-bit|Enables the data cache to be read from or written to|
 |```wbs```|3-bits|Specifies what data to store in the destination register|
 
-# **Output Options:**
+### **Output Options:**
 
-- **IF Stage:**
+#### **IF Stage:**
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
@@ -36,7 +37,7 @@
     - 3: imm = {19{ins[31]}}, ins[31], ins[7], ins[30:25], ins[11:8], 0}
     - 4: imm = {ins[31:12], 12b'0}
     - 5: imm = {11'b0, ins[31], ins[19:12], ins[20], ins[30:21], 0}
-- **ID Stage:**
+#### **ID Stage:**
   - **addr_mode**
     - 0: branch_addr = pc + imm
     - 1: branch_addr = imm + rs1d
@@ -49,7 +50,7 @@
     - 1: b = imm
     - 2: b = 4
     - 3: b = imm << 12
-- **EX Stage:**
+#### **EX Stage:**
   - **alu_mode**
     - 0x00: Addition
     - 0x01: Logical Left Shift
@@ -66,7 +67,7 @@
     - 1: branch_taken = |alu_out (rs1d < rs2d, rs1d != rs2d)
     - 2: branch_taken = ~|alu_out (rs1d >= rs2d, rs1d = rs2d)
     - 3: branch_taken = 1 (jal, jalr)
-- **MEM Stage:**
+#### **MEM Stage:**
   - **data_mode**
     - 0: Store Byte (M[addr][7:0] = data[7:0])
     - 1: Store Half (M[addr][15:0] = data[15:0])
@@ -77,7 +78,7 @@
   - **dcache_en**
     - 0: Disabled
     - 1: Enabled
-- **WB Stage:**
+#### **WB Stage:**
   - **wbs**
     - 0: rdd = alu_out
     - 1: rdd = sign extend mrd[7:0]
@@ -91,9 +92,9 @@
 
 # **Functionality:**
 
-**Instruction Type Decoding:**
+## **Instruction Type Decoding:**
 
-- R Type (ins[6:0] = 0110011):
+#### R Type (ins[6:0] = 0110011):
   - IF Stage:
     - immode = 0
   - ID Stage:
@@ -110,7 +111,7 @@
   - WB Stage:
     - wbs = 0
     - wbe = 1
-- I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
+#### I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
   - IF Stage:
     - immode = 1
   - ID Stage:
@@ -127,7 +128,7 @@
   - WB Stage:
     - wbs =
     - wbe = 
-- S Type (ins[6:0] = 0100011):
+#### S Type (ins[6:0] = 0100011):
   - IF Stage:
     - immode = 2
   - ID Stage:
@@ -144,7 +145,7 @@
   - WB Stage:
     - wbs = N/A
     - wbe = 0
-- B Type (ins[6:0] = 1100011):
+#### B Type (ins[6:0] = 1100011):
   - IF Stage:
     - immode = 3
   - ID Stage:
@@ -171,7 +172,7 @@
   - WB Stage:
     - wbs = N/A
     - wbe = 0
-- U Type (ins[6:0] = 0110111, 0010111):
+#### U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
     - immode = 4
   - ID Stage:
@@ -188,7 +189,7 @@
   - WB Stage:
     - wbs = 0
     - wbe = 1
-- J Type (ins[6:0] = 1101111):
+#### J Type (ins[6:0] = 1101111):
   - IF Stage:
     - immode = 5
   - ID Stage:
@@ -206,3 +207,19 @@
     - wbs = 0
     - wbe = 1
 
+## **Registers:**
+
+#### Register Descriptions
+  - 32-bit ```IF_ins``` register
+  - 32-bit ```ID_ins``` register
+  - 32-bit ```EX_ins``` register
+  - 32-bit ```MEM_ins``` register
+  - 32-bit ```WB_ins``` register
+#### On posedge clk
+  - ```IF_ins = ins```
+  - ```ID_ins = IF_ins```
+  - ```EX_ins = ID_ins```
+  - ```MEM_ins = EX_ins```
+  - ```WB_ins = MEM_ins```
+#### Asynchronous active low reset
+  - Register values reset to 0
