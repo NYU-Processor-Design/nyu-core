@@ -16,20 +16,16 @@ Note: The inputs and outputs for this module should be made into an interface
 |```rstn```|1-bit|
 |```a_sel```|2-bit|
 |```b_sel```|2-bit|
-|```nranch_taken_in```|1-bit|
 |```imm```|32-bits|
 |```pc_in```|32-bits|
 |```rdn_in```|5-bits|
 |```rs1d```|32-bits|
 |```rs2d_in```|32-bits|
-|```branch_addr_in```|32-bits|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```branch_taken```|1-bit|
 |```pc```|32-bits|
-|```branch_addr```|32-bits|
 |```rdn```|5-bits|
 |```a```|32-bits|
 |```b```|32-bits|
@@ -49,9 +45,7 @@ Note: The inputs and outputs for this module should be made into an interface
   - 1-bit branch_taken register
 ### On posedge clk
   - ```rdn = rdn_in```
-  - ```branch_taken = branch_taken_in```
   - ```rs2d = rs2d_in```
-  - ```branch_addr = branch_addr_in```
   - ```pc = pc_in```
   - ```a```
 
