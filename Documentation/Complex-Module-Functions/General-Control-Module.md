@@ -219,7 +219,24 @@
   - WB Stage:
     - wbs = 0
     - wbe = 1
-
+#### NOP (ins[6:0] = 0000000):
+  - IF Stage:
+    - immode = 0
+  - ID Stage:
+    - addr_mode = N/A
+    - a_sel = 0
+    - b_sel = 0
+  - EX Stage:
+    - alu_mode = 0
+    - branch_cond = 0
+  - MEM Stage:
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
+  - WB Stage:
+    - wbs = N/A
+    - wbe = 0
+      
 ## **Hazard Detection:**
 
 ### Setting the Hazard Register:
