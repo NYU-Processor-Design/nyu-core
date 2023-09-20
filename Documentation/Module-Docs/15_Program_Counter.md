@@ -28,7 +28,7 @@
  - ```pc```
     |State|Output|
     |---|---|
-    |```en == 0```|```pc = pc```|
+    |```en == 0```|```pc stays the same```|
     |```en == 1```|```pc = npc```|
 ### Asynchronous active low reset
   - ```pc``` value resets to 0
