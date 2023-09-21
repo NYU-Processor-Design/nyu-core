@@ -43,21 +43,20 @@ The pipeline will require 4 latch modules:
 Control Modules:
 - [Processor State Module](/Documentation/Module-Docs/08_Processor_State.md)
 - [General Control Module](/Documentation/Module-Docs/05_General_Control_Module.md)
-- [Hazard Detection](/Documentation/Module-Docs/07_Hazard_Detection.md)
 
 ## Cache
 
 Cache Modules:
 - [Instruction Cache Manager](/Documentation/Module-Docs/13_Instruction_Cache_Manager.md)
 - [L1 Instruction Cache](/Documentation/Module-Docs/14_L1_Instruction_Cache.md)
-- [Data Cache Manager](/Documentation/Module-Docs/19_Data_Cache_Manager.md)
+- [Data Cache Manager](/Documentation/Module-Docs/07_Data_Cache_Manager.md)
 - [L1 Data Cache](/Documentation/Module-Docs/10_L1_Data_Cache.md)
 - [L2 Data Cache](/Documentation/Module-Docs/11_L2_Data_Cache.md)
 - [L3 Data Cache](/Documentation/Module-Docs/12_L3_Data_Cache.md)
 
 ## Current Draft of CPU Diagram
 
-![pipeline](https://user-images.githubusercontent.com/114675487/234124513-e89020ff-c2d0-41ae-972d-e6e19ff28416.png)
+![cpu](https://github.com/NYU-Processor-Design/nyu-core/assets/114675487/d5bcfe24-fa22-4b8c-acaa-d113e0ec7910)
 
 ## Further Reading
 
