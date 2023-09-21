@@ -124,7 +124,58 @@
   - WB Stage:
     - wbs = 0
     - wbe = 1
-#### I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
+#### I Type 1 (ins[6:0] = 0010011):
+  - IF Stage:
+    - immode = 1
+  - ID Stage:
+    - addr_mode = 
+    - a_sel = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe =
+#### I Type 2 (ins[6:0] = 0000011):
+  - IF Stage:
+    - immode = 1
+  - ID Stage:
+    - addr_mode = 
+    - a_sel = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe =
+#### I Type 3 (ins[6:0] = 1100111):
+  - IF Stage:
+    - immode = 1
+  - ID Stage:
+    - addr_mode = 
+    - a_sel = 
+    - b_sel = 
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe =
+#### I Type 4 (ins[6:0] = 1110011):
   - IF Stage:
     - immode = 1
   - ID Stage:
