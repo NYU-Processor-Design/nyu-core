@@ -128,19 +128,23 @@
   - IF Stage:
     - immode = 1
   - ID Stage:
-    - addr_mode = 
-    - a_sel = 
-    - b_sel = 
+    - addr_mode = N/A
+    - a_sel = 0
+    - b_sel = 1
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode:
+       - If ins[14:12] = 0x5:
+         - alu_mode = ins[31:25] + ins[14:12] 
+       - Else:
+         - alu_mode = ins[14:12] 
+    - branch_cond = 0
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
-    - wbs =
-    - wbe =
+    - wbs = 0
+    - wbe = 1
 #### I Type 2 (ins[6:0] = 0000011):
   - IF Stage:
     - immode = 1
