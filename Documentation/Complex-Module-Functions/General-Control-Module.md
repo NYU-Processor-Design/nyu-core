@@ -149,19 +149,19 @@
   - IF Stage:
     - immode = 1
   - ID Stage:
-    - addr_mode = 
-    - a_sel = 
-    - b_sel = 
+    - addr_mode = N/A
+    - a_sel = N/A
+    - b_sel = N/A
   - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
+    - alu_mode = N/A
+    - branch_cond = 0
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = 0
+    - dcache_en = 1
   - WB Stage:
-    - wbs =
-    - wbe =
+    - wbs = 
+    - wbe = 1
 #### I Type 3 (ins[6:0] = 1100111):
   - IF Stage:
     - immode = 1
