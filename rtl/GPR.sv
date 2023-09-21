@@ -29,6 +29,6 @@ module GPR #(
   end
 
   assign rs1d = (rs1n == 0) ? 32'd0 : registers[rs1n];
-  assign rs2d = (rs1n == 0) ? 32'd0 : registers[rs1n];
+  assign rs2d = (rs2n == 0) ? 32'd0 : registers[rs2n];
 
 endmodule
