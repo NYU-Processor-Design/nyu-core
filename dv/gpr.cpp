@@ -8,7 +8,7 @@ TEST_CASE("REGS") {
   VGPR model;
   uint8_t regsrc1, regsrc2;
   uint32_t dstdata;
-  uint32_t regvals[32];
+  uint32_t regvals[32] = {0};
 
   for(int i = 0; i < 1000; i++) {
     // initialize
@@ -18,7 +18,7 @@ TEST_CASE("REGS") {
     model.rstn = 0;
     model.eval();
 
-    for(int regdst = 0; regdst < 32; regdst++) {
+    for(int regdst = 1; regdst < 32; regdst++) {
       dstdata = rand() % (int) (pow(2, 32) - 1);
       regvals[regdst] = dstdata;
 
