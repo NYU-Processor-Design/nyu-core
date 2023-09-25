@@ -1,3 +1,4 @@
+# THIS OUTLINE IS NOT YET COMPLETE #
 # Branch Manager #
 
 ## Contents
