@@ -5,7 +5,7 @@ You've decided to create a module for the processor. That's great news! Here's a
 ## Step 1: Pick a module
 The nyu-core repository will have open issues with modules that are yet to be outlined and/or implemented. 
 
-If a module needs to be outlined, add a Markdown file to the [Module Documentation folder](https://github.com/NYU-Processor-Design/nyu-core/tree/main/Documentation/Module-Docs) with a description of the module, including the inputs, outputs, and functions. Additionally, edit the [ReadMe file](https://github.com/NYU-Processor-Design/nyu-core#readme) of the repository and link your outline document to the corresponding module name.
+If a module needs to be outlined, edit the corresponding Markdown file in the [Module Documentation folder](https://github.com/NYU-Processor-Design/nyu-core/tree/main/Documentation/Module-Docs) with a description of the module, including the inputs, outputs, and functions.
 
 If a module has already been outlined, and needs to be implemented, find the outline document for that module on the ReadMe to assist you as you implement.
 
