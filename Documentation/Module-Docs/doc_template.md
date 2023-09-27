@@ -31,7 +31,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED MODULES
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
-    |State|Output|
+    |```name```|```reg```|
     |---|---|
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
