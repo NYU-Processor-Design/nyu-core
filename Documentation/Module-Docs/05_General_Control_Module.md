@@ -17,6 +17,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```ins```|32-bits|
+|```npc```|32-bits|
 |```p_state```|#-bits|
 
 ## Outputs
@@ -26,6 +27,7 @@ Note: The inputs and outputs for this module should be made into an interface
 |```immode```|3-bits|
 |```wbe```|1-bit|
 |```addr_mode```|1-bit|
+|```branch_occr```|2-bits|
 |```a_sel```|2-bit|
 |```b_sel```|2-bit|
 |```alu_mode```|6-bits|
