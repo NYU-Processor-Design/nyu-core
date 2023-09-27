@@ -85,12 +85,12 @@
     - 1: Enabled
 #### **WB Stage:**
   - **wbs**
-    - 0: rdd = alu_out
-    - 1: rdd = sign extend mrd[7:0]
-    - 2: rdd = sign extend mrd[15:0]
-    - 3: rdd = mrd[7:0]
-    - 4: rdd = mrd[15:0]
-    - 5: rdd = mrd
+    - 0: rdd = sign extend mrd[7:0]
+    - 1: rdd = sign extend mrd[15:0]
+    - 2: rdd = mrd
+    - 3: rdd = alu_out
+    - 4: rdd = mrd[7:0]
+    - 5: rdd = mrd[15:0]
   - **wbe**
     - 0: don't update register[rdn]
     - 1: register[rdn] = rdd
@@ -123,7 +123,7 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### I Type 1 (ins[6:0] = 0010011):
   - IF Stage:
@@ -144,7 +144,7 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### I Type 2 (ins[6:0] = 0000011):
   - IF Stage:
@@ -256,7 +256,7 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### J Type (ins[6:0] = 1101111):
   - IF Stage:
@@ -273,7 +273,7 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### NOP (ins[6:0] = 0000000):
   - IF Stage:
