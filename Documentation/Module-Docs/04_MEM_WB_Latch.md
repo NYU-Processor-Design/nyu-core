@@ -35,12 +35,13 @@ Note: The inputs and outputs for this module should be made into an interface
   - ```wbs```
     |```wbs```|```rdd```|
     |---|---|
-    |```wbs == 0```|```rdd = alu_out```|
-    |```wbs == 1```|```rdd = sign extend mrd[7:0]```|
-    |```wbs == 2```|```rdd = sign extend mrd[15:0]```|
-    |```wbs == 3```|```rdd = mrd[7:0]```|
-    |```wbs == 4```|```rdd = mrd[15:0]```|
-    |```wbs == 5```|```rdd = mrd```|
+    |```wbs == 0```|```rdd = sign extend mrd[7:0]```|
+    |```wbs == 1```|```rdd = sign extend mrd[15:0]```|
+    |```wbs == 2```|```rdd = mrd```|
+    |```wbs == 3```|```rdd = alu_out```|
+    |```wbs == 4```|```rdd = mrd[7:0]```|
+    |```wbs == 5```|```rdd = mrd[15:0]```|
+    
   
 
 ### Asynchronous active low reset
