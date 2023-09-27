@@ -45,6 +45,8 @@ TEST_CASE("rdn Passthrough") {
 
 }
 
+
+
 TEST_CASE("Write Back State 0") {
     VMEMWB model;
     bool clk;
@@ -57,42 +59,6 @@ TEST_CASE("Write Back State 0") {
     for (int i = 0; i < 1000; i++) {
         rdn_in = rand() % (int) (pow(2, 5) - 1);
         wbs = 0;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test RDD Output (rdd = alu_out)
-        model.clk = 1;
-        model.rstn = 1;
-        model.wbs = wbs;
-        model.rdn_in = rdn_in;
-        model.mrd = mrd;
-        model.alu_out = alu_out;
-        model.eval();
-        REQUIRE((uint32_t) model.rdd == (uint32_t) alu_out);
-    }
-
-}
-
-TEST_CASE("Write Back State 1") {
-    VMEMWB model;
-    bool clk;
-    bool rstn;
-    uint8_t wbs;
-    uint8_t rdn_in;
-    uint32_t alu_out;
-    uint32_t mrd;
-
-    for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        wbs = 1;
         alu_out = rand() % (int) (pow(2, 32) - 1);
         mrd = rand() % (int) (pow(2, 32) - 1);
         
@@ -118,6 +84,42 @@ TEST_CASE("Write Back State 1") {
 }
 
 
+TEST_CASE("Write Back State 1") {
+    VMEMWB model;
+    bool clk;
+    bool rstn;
+    uint8_t wbs;
+    uint8_t rdn_in;
+    uint32_t alu_out;
+    uint32_t mrd;
+
+    for (int i = 0; i < 1000; i++) {
+        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        wbs = 1;
+        alu_out = rand() % (int) (pow(2, 32) - 1);
+        mrd = rand() % (int) (pow(2, 32) - 1);
+        
+        //Initialize Module
+        model.rstn = 1;
+        model.clk = 0;
+        model.eval();
+        model.rstn = 0;
+        model.eval();
+
+        
+        //Test RDD Output (rdd = sign extend mrd[15:0])
+        model.clk = 1;
+        model.rstn = 1;
+        model.wbs = wbs;
+        model.rdn_in = rdn_in;
+        model.mrd = mrd;
+        model.alu_out = alu_out;
+        model.eval();
+        REQUIRE((uint32_t) model.rdd == sign_extend(mrd, 16));
+    }
+
+}
+
 TEST_CASE("Write Back State 2") {
     VMEMWB model;
     bool clk;
@@ -141,7 +143,7 @@ TEST_CASE("Write Back State 2") {
         model.eval();
 
         
-        //Test RDD Output (rdd = sign extend mrd[15:0])
+        //Test RDD Output (rdd = mrd)
         model.clk = 1;
         model.rstn = 1;
         model.wbs = wbs;
@@ -149,9 +151,8 @@ TEST_CASE("Write Back State 2") {
         model.mrd = mrd;
         model.alu_out = alu_out;
         model.eval();
-        REQUIRE((uint32_t) model.rdd == sign_extend(mrd, 16));
+        REQUIRE((uint32_t) model.rdd == (uint32_t) mrd);
     }
-
 }
 
 TEST_CASE("Write Back State 3") {
@@ -177,7 +178,7 @@ TEST_CASE("Write Back State 3") {
         model.eval();
 
         
-        //Test RDD Output (rdd = mrd[7:0])
+        //Test RDD Output (rdd = alu_out)
         model.clk = 1;
         model.rstn = 1;
         model.wbs = wbs;
@@ -185,8 +186,9 @@ TEST_CASE("Write Back State 3") {
         model.mrd = mrd;
         model.alu_out = alu_out;
         model.eval();
-        REQUIRE((uint32_t) model.rdd == (uint32_t) (mrd & ((int) (pow(2, 8) - 1))));
+        REQUIRE((uint32_t) model.rdd == (uint32_t) alu_out);
     }
+
 }
 
 TEST_CASE("Write Back State 4") {
@@ -212,7 +214,7 @@ TEST_CASE("Write Back State 4") {
         model.eval();
 
         
-        //Test RDD Output (rdd = mrd[15:0])
+        //Test RDD Output (rdd = mrd[7:0])
         model.clk = 1;
         model.rstn = 1;
         model.wbs = wbs;
@@ -220,7 +222,7 @@ TEST_CASE("Write Back State 4") {
         model.mrd = mrd;
         model.alu_out = alu_out;
         model.eval();
-        REQUIRE((uint32_t) model.rdd == (uint32_t) (mrd & ((int) (pow(2, 16) - 1))));
+        REQUIRE((uint32_t) model.rdd == (uint32_t) (mrd & ((int) (pow(2, 8) - 1))));
     }
 }
 
@@ -247,7 +249,7 @@ TEST_CASE("Write Back State 5") {
         model.eval();
 
         
-        //Test RDD Output (rdd = mrd)
+        //Test RDD Output (rdd = mrd[15:0])
         model.clk = 1;
         model.rstn = 1;
         model.wbs = wbs;
@@ -255,6 +257,8 @@ TEST_CASE("Write Back State 5") {
         model.mrd = mrd;
         model.alu_out = alu_out;
         model.eval();
-        REQUIRE((uint32_t) model.rdd == (uint32_t) mrd);
+        REQUIRE((uint32_t) model.rdd == (uint32_t) (mrd & ((int) (pow(2, 16) - 1))));
     }
 }
+
+
