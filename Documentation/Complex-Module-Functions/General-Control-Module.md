@@ -171,9 +171,9 @@
     - pc_en = 1
     - immode = 1
   - ID Stage:
-    - addr_mode = 
-    - a_sel = 
-    - b_sel = 
+    - addr_mode = 0
+    - a_sel = 0
+    - b_sel = 0
   - EX Stage:
     - alu_mode = 
     - branch_cond = 
