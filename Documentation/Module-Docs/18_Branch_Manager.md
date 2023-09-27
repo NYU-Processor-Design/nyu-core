@@ -24,6 +24,7 @@
 |Name|Bits wide|
 |:---|:---:|
 |```flush```|1-bit|
+|```npc```|32-bits|
 
 ## Functionality
 ### Registers
