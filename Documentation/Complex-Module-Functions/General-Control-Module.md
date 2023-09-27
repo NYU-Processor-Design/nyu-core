@@ -9,6 +9,7 @@
 |```rstn```|1-bit|Reset Signal|
 |```ins```|32-bits|The Next 4-Byte Long Instruction|
 |```flush```|1-bit|Signal that Pipeline is being flushed|
+|```npc```|32-bits|Correct Next Progam Counter Address|
 |```p_state```|#-bits|Input from Processor State Module|
 
 ## **Outputs:**
@@ -84,12 +85,12 @@
     - 1: Enabled
 #### **WB Stage:**
   - **wbs**
-    - 0: rdd = alu_out
-    - 1: rdd = sign extend mrd[7:0]
-    - 2: rdd = sign extend mrd[15:0]
-    - 3: rdd = mrd[7:0]
-    - 4: rdd = mrd[15:0]
-    - 5: rdd = mrd
+    - 0: rdd = sign extend mrd[7:0]
+    - 1: rdd = sign extend mrd[15:0]
+    - 2: rdd = mrd
+    - 3: rdd = alu_out
+    - 4: rdd = mrd[7:0]
+    - 5: rdd = mrd[15:0]
   - **wbe**
     - 0: don't update register[rdn]
     - 1: register[rdn] = rdd
@@ -109,6 +110,7 @@
 
 #### R Type (ins[6:0] = 0110011):
   - IF Stage:
+    - pc_en = 1
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
@@ -122,10 +124,69 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
-#### I Type (ins[6:0] = 0010011, 0000011, 1100111, 1110011):
+#### I Type 1 (ins[6:0] = 0010011):
   - IF Stage:
+    - pc_en = 1
+    - immode = 1
+  - ID Stage:
+    - addr_mode = N/A
+    - a_sel = 0
+    - b_sel = 1
+  - EX Stage:
+    - alu_mode:
+       - If ins[14:12] = 0x5:
+         - alu_mode = ins[31:25] + ins[14:12] 
+       - Else:
+         - alu_mode = ins[14:12] 
+    - branch_cond = 0
+  - MEM Stage:
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
+  - WB Stage:
+    - wbs = 3
+    - wbe = 1
+#### I Type 2 (ins[6:0] = 0000011):
+  - IF Stage:
+    - pc_en = 1
+    - immode = 1
+  - ID Stage:
+    - addr_mode = N/A
+    - a_sel = N/A
+    - b_sel = N/A
+  - EX Stage:
+    - alu_mode = N/A
+    - branch_cond = 0
+  - MEM Stage:
+    - data_mode = N/A
+    - dcache_rw = 0
+    - dcache_en = 1
+  - WB Stage:
+    - wbs = ins[14:12]
+    - wbe = 1
+#### I Type 3 (ins[6:0] = 1100111):
+  - IF Stage:
+    - pc_en = 1
+    - immode = 1
+  - ID Stage:
+    - addr_mode = 0
+    - a_sel = 0
+    - b_sel = 0
+  - EX Stage:
+    - alu_mode = 
+    - branch_cond = 
+  - MEM Stage:
+    - data_mode =
+    - dcache_rw = 
+    - dcache_en = 
+  - WB Stage:
+    - wbs =
+    - wbe =
+#### I Type 4 (ins[6:0] = 1110011):
+  - IF Stage:
+    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = 
@@ -143,6 +204,7 @@
     - wbe = 
 #### S Type (ins[6:0] = 0100011):
   - IF Stage:
+    - pc_en = 1
     - immode = 2
   - ID Stage:
     - addr_mode = 1
@@ -160,6 +222,7 @@
     - wbe = 0
 #### B Type (ins[6:0] = 1100011):
   - IF Stage:
+    - pc_en = 1
     - immode = 3
   - ID Stage:
     - addr_mode = N/A
@@ -187,6 +250,7 @@
     - wbe = 0
 #### U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
+    - pc_en = 1
     - immode = 4
   - ID Stage:
     - addr_mode = N/A
@@ -200,10 +264,11 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### J Type (ins[6:0] = 1101111):
   - IF Stage:
+    - pc_en = 1
     - immode = 5
   - ID Stage:
     - addr_mode = N/A
@@ -217,10 +282,11 @@
     - dcache_rw = N/A
     - dcache_en = 0
   - WB Stage:
-    - wbs = 0
+    - wbs = 3
     - wbe = 1
 #### NOP (ins[6:0] = 0000000):
   - IF Stage:
+    - pc_en = 0
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
