@@ -9,6 +9,7 @@
 |```rstn```|1-bit|Reset Signal|
 |```ins```|32-bits|The Next 4-Byte Long Instruction|
 |```flush```|1-bit|Signal that Pipeline is being flushed|
+|```npc```|32-bits|Correct Next Progam Counter Address|
 |```p_state```|#-bits|Input from Processor State Module|
 
 ## **Outputs:**
