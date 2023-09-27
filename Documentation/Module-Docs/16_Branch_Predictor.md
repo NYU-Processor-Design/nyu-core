@@ -1,4 +1,4 @@
-# THIS MODULE IS NOT YET OUTLINED #
+# THIS OUTLINE IS NOT YET COMPLETE #
 
 # Branch Predictor #
 (Any Notes would go here)
@@ -14,28 +14,27 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```branch_occr```|2-bits|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```branch_taken```|1-bit|
 
 ## Functionality
 ### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
+  - 1-bit ```name``` register
 ### On posedge clk
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
-    |Name|Bits wide|
+    |```name```|```reg```|
     |---|---|
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
   
 
 ### Asynchronous active low reset
-  - Register values reset to 0
+  - Register values reset to 0z
