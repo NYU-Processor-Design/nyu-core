@@ -17,12 +17,12 @@ module MEMWB #(
     else begin
     rdn <= rdn_in;
       case(wbs)
-        0: rdd = alu_out;
-        1: rdd = {{{WordSize - 8{mrd[7]}}}, mrd[7:0]};
-        2: rdd = {{{WordSize - 16{mrd[15]}}}, mrd[15:0]};
-        3: rdd = {{{WordSize - 8{1'b0}}}, mrd[7:0]};
-        4: rdd = {{{WordSize - 16{1'b0}}}, mrd[15:0]};
-        5: rdd = mrd;
+        0: rdd = {{{WordSize - 8{mrd[7]}}}, mrd[7:0]};
+        1: rdd = {{{WordSize - 16{mrd[15]}}}, mrd[15:0]};
+        2: rdd = mrd;
+        3: rdd = alu_out;
+        4: rdd = {{{WordSize - 8{1'b0}}}, mrd[7:0]};
+        5: rdd = {{{WordSize - 16{1'b0}}}, mrd[15:0]};
       default rdd = 0;
       endcase
     end

@@ -25,6 +25,7 @@
   |---|---|
   |```addr_mode == 0```|```branch_addr = pc + imm```|
   |```addr_mode == 1```|```branch_addr = imm + rs1d```|
+
 ```npc```
   |```branch_taken```|```npc```|
   |---|---|
