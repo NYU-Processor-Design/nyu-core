@@ -19,6 +19,7 @@
 |```pc_en```|1-bit|Enables or disables program counter updating|
 |```immode```|3-bits|Controls how the immediate value is constructed from the instruction|
 |```wbe```|1-bit|Enables or disables writing to the destination register|
+|```branch_occr```|2-bits|Specifies if instruction is guaranteed to branch, guaranteed to not branch, or could do either|
 |```addr_mode```|1-bit|Specifies how the memory address to potentially branch to is calculated|
 |```a_sel```|1-bit|Selects what input is used as the primary input to the ALU|
 |```b_sel```|2-bit|Selects what input is used as the secondary input to the ALU|
@@ -46,6 +47,10 @@
   - **addr_mode**
     - 0: branch_addr = pc + imm
     - 1: branch_addr = imm + rs1d
+  - **branch_occr**
+    - 0: non-branching instruction
+    - 1: always-branching instruction
+    - 2: branch-condition instruction
   - **a_sel**
     - 0: a = rs1d
     - 1: a = pc
@@ -114,6 +119,7 @@
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 0
     - a_sel = 0
     - b_sel = 0
   - EX Stage:
@@ -132,6 +138,7 @@
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 0
     - a_sel = 0
     - b_sel = 1
   - EX Stage:
@@ -154,6 +161,7 @@
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 0
     - a_sel = N/A
     - b_sel = N/A
   - EX Stage:
@@ -172,11 +180,12 @@
     - immode = 1
   - ID Stage:
     - addr_mode = 0
+    - branch_occr = 2
     - a_sel = 0
     - b_sel = 0
   - EX Stage:
     - alu_mode = 
-    - branch_cond = 
+    - branch_cond = 3
   - MEM Stage:
     - data_mode =
     - dcache_rw = 
@@ -189,7 +198,8 @@
     - pc_en = 1
     - immode = 1
   - ID Stage:
-    - addr_mode = 
+    - addr_mode =
+    - branch_occr = 
     - a_sel = 
     - b_sel = 
   - EX Stage:
@@ -208,6 +218,7 @@
     - immode = 2
   - ID Stage:
     - addr_mode = 1
+    - branch_occr = 0
     - a_sel = N/A
     - b_sel = N/A
   - EX Stage:
@@ -226,6 +237,7 @@
     - immode = 3
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 2
     - a_sel = 0
     - b_sel = 0
   - EX Stage:
@@ -254,6 +266,7 @@
     - immode = 4
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 0
     - a_sel = ins[5:4]
     - b_sel = 3
   - EX Stage:
@@ -272,11 +285,12 @@
     - immode = 5
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 1
     - a_sel = 1
     - b_sel = 2
   - EX Stage:
     - alu_mode = 0
-    - branch_cond = 1
+    - branch_cond = 3
   - MEM Stage:
     - data_mode = N/A
     - dcache_rw = N/A
@@ -290,6 +304,7 @@
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
+    - branch_occr = 0
     - a_sel = 0
     - b_sel = 0
   - EX Stage:
