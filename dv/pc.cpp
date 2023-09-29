@@ -18,6 +18,7 @@ TEST_CASE("PC Test") {
   
     model.rstn = 0;
     model.npc = npc_input;
+    //model.pc_en = 1;
     model.eval();
     REQUIRE(model.pc == 0);
   
@@ -29,10 +30,21 @@ TEST_CASE("PC Test") {
   
     model.rstn = 1;
     model.clk = 0;
+    model.pc_en = 1;
     model.eval();
 
     model.clk = 1;
     model.npc = npc_input;
+    model.eval();
+
+    REQUIRE(model.pc == npc_input);
+
+    model.clk = 0;
+    model.eval();
+
+    model.clk = 1;
+    model.pc_en = 0;
+    model.npc = rand() % 4294967295;
     model.eval();
 
     REQUIRE(model.pc == npc_input);
