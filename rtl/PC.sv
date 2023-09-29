@@ -4,6 +4,7 @@ module PC #(
 )(
   input clk,
   input rstn,
+  input pc_en,
   input [WordSize - 1:0] npc,
   output logic [WordSize - 1:0] pc
 );
@@ -11,8 +12,9 @@ module PC #(
   always @ (posedge clk or negedge rstn) begin
     if (rstn == 0)
       pc <= 0;
-    else
-      pc <= npc;
+    else begin
+      if (pc_en)
+        pc <= npc;
+    end
   end
-  
 endmodule
