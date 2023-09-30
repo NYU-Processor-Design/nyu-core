@@ -32,7 +32,7 @@ TEST_CASE("PC Reset") {
   }
 }
 
-TEST_CASE("PC Enable/Disable") {
+TEST_CASE("PC Enable Disable") {
   VPC model;
   uint32_t npc_input;
 
