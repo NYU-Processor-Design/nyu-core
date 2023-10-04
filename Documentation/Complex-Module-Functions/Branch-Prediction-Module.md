@@ -10,6 +10,8 @@
 |```branch_occr```|2-bits|Specifies if instruction is guaranteed to branch, guaranteed to not branch, or could do either|
 
 ## **Outputs:**
+
+|Name|Bits wide|Description|
 |:---|:---|:---:|
 |```branch_taken```|1-bit|Branch Taken Signal|
 
