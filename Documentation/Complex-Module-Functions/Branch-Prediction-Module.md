@@ -14,3 +14,6 @@
 # **Functionality:**
 
 ## **Registers:**
+
+## **Branch Prediction**
+
