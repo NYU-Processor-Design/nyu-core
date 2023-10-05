@@ -1,5 +1,4 @@
 # IF/ID Latch #
-Note: The inputs and outputs for this module should be made into an interface
 
 ## Contents
 * [Inputs](#inputs)
