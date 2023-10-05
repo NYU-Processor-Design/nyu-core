@@ -36,18 +36,4 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED INTERFACES
 |```name```|#-bit|
 |```name```|#-bit|
 
-### Module N
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
 
