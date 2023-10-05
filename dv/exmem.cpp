@@ -31,7 +31,7 @@ TEST_CASE("Reset"){
 
     // test reset
     model.rstn = 0;
-    model.eval = 0;
+    model.eval() = 0;
     REQUIRE(model.rdn == 0 && model.alu_out == 0 && model.mem_data == 0 && model.branch_taken == 0);
   }
 }
