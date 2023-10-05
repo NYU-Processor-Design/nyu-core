@@ -5,7 +5,7 @@ module EXMEM #(
   input [4:0] rdn_in,
   input [WordSize - 1:0] alu_out_in, rs2d,
   input branch_taken_in,
-  output branch_taken,
+  output logic branch_taken,
   output logic [4:0] rdn,
   output logic [WordSize - 1:0] alu_out, mem_data
 );
