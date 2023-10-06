@@ -32,7 +32,10 @@ TEST_CASE("Reset"){
     // test reset
     model.rstn = 0;
     model.eval();
-    REQUIRE(model.rdn == 0 && model.alu_out == 0 && model.mem_data == 0 && model.branch_taken == 0);
+    REQUIRE(model.rdn == 0);
+    REQUIRE(model.alu_out == 0);
+    REQUIRE(model.mem_data == 0);
+    REQUIRE(model.branch_taken == 0);
   }
 }
 
