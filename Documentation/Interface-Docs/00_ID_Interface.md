@@ -5,6 +5,7 @@
 * [Modules](#modules)
   * [IF/ID Latch](#if/id_latch)
   * [ID/EX Latch](#id/ex_latch)
+* [Connections](#connections)
 
 ## Modules
 
@@ -25,3 +26,11 @@
 |```imm```|32-bit|
 |```pc_in```|32-bit|
 |```rdn_in```|5-bit|
+
+## Connections
+
+|IF/ID|ID/EX|
+|:---|:---:|
+|```imm```|```imm```|
+|```pc```|```pc_in```|
+|```rdn```|```rdn_in```|
