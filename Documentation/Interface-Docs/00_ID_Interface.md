@@ -13,13 +13,15 @@
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```imm```|32-bit|
+|```pc```|32-bit|
+|```rdn```|5-bit|
 
 ### ID/EX Latch
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```imm```|32-bit|
+|```pc_in```|32-bit|
+|```rdn_in```|5-bit|
