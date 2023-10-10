@@ -5,6 +5,8 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED INTERFACES
 
 ## Contents
 * [Modules](#modules)
+  * [Module 1](#module1)
+  * [Module 2](#module2)
 
 ## Modules
 
@@ -36,4 +38,11 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED INTERFACES
 |```name```|#-bit|
 |```name```|#-bit|
 
+## Connections
 
+|Module 1|Module 2|
+|:---|:---:|
+|```name```|```name```|
+|```name```|```name```|
+|```name```|```name```|
+|```name```|```name```|
