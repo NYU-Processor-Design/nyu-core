@@ -321,7 +321,13 @@
 ## **Hazard Detection:**
 
 ### Setting the Hazard Register:
-  - Description: When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline. As such, we use combinational logic to check if the instruction in the IF_ins register is dependent on any instruction currently in the other stages of the pipeline; if there is a dependency, the hazard signal is set and we insert NOPs to stall execution, otherwise, we continue as normal. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
+
+#### Description:
+When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline. As such, we use combinational logic to check if the instruction in the IF_ins register is dependent on any instruction currently in the other stages of the pipeline; if there is a dependency, the hazard signal is set and we insert NOPs to stall execution, otherwise, we continue as normal. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
+
+#### Hazard Detection Logic:
+
+
 ### Hazard Dependent Outputs and Registers:
   - Hazard = 0:
     - ID_ins = IF_ins
