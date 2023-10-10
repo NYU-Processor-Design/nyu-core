@@ -179,20 +179,20 @@
     - pc_en = 1
     - immode = 1
   - ID Stage:
-    - addr_mode = 0
-    - branch_occr = 2
-    - a_sel = 0
-    - b_sel = 0
+    - addr_mode = 1
+    - branch_occr = 1
+    - a_sel = 1
+    - b_sel = 2
   - EX Stage:
-    - alu_mode = 
+    - alu_mode = 0
     - branch_cond = 3
   - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
+    - data_mode = N/A
+    - dcache_rw = N/A
+    - dcache_en = 0
   - WB Stage:
-    - wbs =
-    - wbe =
+    - wbs = 3
+    - wbe = 1
 #### I Type 4 (ins[6:0] = 1110011):
   - IF Stage:
     - pc_en = 1
