@@ -15,7 +15,6 @@
 |Input|Bits wide|
 |:---|:---:|
 |```rdn```|5-bits|
-|```branch_taken```|1-bit|
 |```rs2d```|32-bits|
 
 ### EX/MEM Latch
@@ -24,7 +23,6 @@
 |Input|Bits wide|
 |:---|:---:|
 |```rdn_in```|5-bits|
-|```branch_taken_in```|1-bit|
 |```rs2d```|32-bits|
 
 
@@ -33,5 +31,4 @@
 |ID/EX|EX/MEM|
 |:---|:---:|
 |```rdn```|```rdn_in```|
-|```branch_taken```|```branch_taken_in```|
 |```rs2d```|```rs2d```|
