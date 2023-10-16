@@ -320,13 +320,10 @@
       
 ## **Hazard Detection:**
 
-### Setting the Hazard Register:
+### Hazard Description:
+When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline.  A similar rule needs to be applied for branching hazards, since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the IF_ins register is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
 
-#### Description:
-When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline. As such, we use combinational logic to check if the instruction in the IF_ins register is dependent on any instruction currently in the other stages of the pipeline; if there is a dependency, the hazard signal is set and we insert NOPs to stall execution, otherwise, we continue as normal. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
-
-#### Hazard Detection Logic:
-
+### Hazard Detection Logic:
 
 ### Hazard Dependent Outputs and Registers:
   - Hazard = 0:
@@ -335,4 +332,8 @@ When the IF_ins instruction poses a read-write, write-read, or write-write hazar
   - Hazard = 1:
     - ID_ins = NOP (32'b0)
     - pc_en = 0
+
+## **Branch Prediction and Pipeline Flushing:**
+
+### Flushing Description:
 
