@@ -329,8 +329,3 @@ When the IF_ins instruction poses a read-write, write-read, or write-write hazar
   - Hazard = 1:
     - ID_ins = NOP (32'b0)
     - pc_en = 0
-
-## **Branch Prediction and Pipeline Flushing:**
-
-### Flushing Description:
-Since we predict in the ID phase and check the prediction in the MEM phase, the pipeline advances twice before we can detect and act on a misprediction. Since we insert a NOP for potential branching instructions for hazard prevention reasons, this means that the furthest errant instructions can make it is the ID phase. 
