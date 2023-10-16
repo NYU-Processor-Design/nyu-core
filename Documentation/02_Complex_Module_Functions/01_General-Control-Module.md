@@ -9,8 +9,6 @@
 |```rstn```|1-bit|Reset Signal|
 |```ins```|32-bits|The Next 4-Byte Long Instruction|
 |```flush```|1-bit|Signal that Pipeline is being flushed|
-|```npc```|32-bits|Correct Next Progam Counter Address|
-|```p_state```|#-bits|Input from Processor State Module|
 
 ## **Outputs:**
 
@@ -336,4 +334,4 @@ When the IF_ins instruction poses a read-write, write-read, or write-write hazar
 ## **Branch Prediction and Pipeline Flushing:**
 
 ### Flushing Description:
-
+Since we predict in the ID phase and check the prediction in the MEM phase, the pipeline advances twice before we can detect and act on a misprediction. Since we insert a NOP for potential branching instructions for hazard prevention reasons, this means that the furthest errant instructions can make it is the ID phase. 
