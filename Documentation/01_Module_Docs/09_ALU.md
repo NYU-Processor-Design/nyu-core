@@ -18,7 +18,7 @@
 |```alu_out```|32-bits|
 
 ## Functionality 
-**alu_mode**
+- **alu_mode**
     - 0x00: Addition
     - 0x01: Logical Left Shift
     - 0x02; Signed Set on Less Than
