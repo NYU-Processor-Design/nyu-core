@@ -25,4 +25,8 @@
   |```flush == 0```|```npc = npc_in```|
   |```flush == 1```|```npc = npc_corr```|
 
-* ```rstn``` = ```~flush```
+* ```rstn```
+  |```flush```|```rstn```|
+  |---|---|
+  |```flush == 0```|```rstn = Z```|
+  |```flush == 1```|```rstn = 0```|
