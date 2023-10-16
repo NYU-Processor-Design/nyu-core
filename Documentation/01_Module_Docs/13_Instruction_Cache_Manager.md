@@ -14,8 +14,6 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```clk```|1-bit|
-|```rstn```|1-bit|
 |```pc```|32-bits|
 
 ## Outputs
@@ -27,7 +25,7 @@
 ### Registers
   - #-bit ```name``` register
   - #-bit ```name``` register
-### On posedge clk
+### Combinational
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
@@ -36,6 +34,3 @@
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
   
-
-### Asynchronous active low reset
-  - Register values reset to 0
