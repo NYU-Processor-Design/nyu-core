@@ -8,7 +8,6 @@
 |```clk```|1-bit|Clock Signal|
 |```rstn```|1-bit|Reset Signal|
 |```ins```|32-bits|The Next 4-Byte Long Instruction|
-|```flush```|1-bit|Signal that Pipeline is being flushed|
 
 ## **Outputs:**
 
