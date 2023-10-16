@@ -12,6 +12,7 @@
 |```imm```|32-bits|
 |```rs1d```|32-bits|
 |```branch_taken```|1-bit|
+|```pc```|32-bits|
 
 ## Outputs
 |Name|Bits wide|
@@ -29,6 +30,6 @@
 ```npc```
   |```branch_taken```|```npc```|
   |---|---|
-  |```branch_taken == 0```|```npc = pc```|
+  |```branch_taken == 0```|```npc = pc + 4```|
   |```branch_taken = 1```|```npc = branch_addr```|
   
