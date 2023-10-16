@@ -1,6 +1,6 @@
 # THIS MODULE IS NOT YET OUTLINED #
 
-# Processor State #
+# Pipeline Reset Module#
 (Any Notes would go here)
 
 ## Contents
