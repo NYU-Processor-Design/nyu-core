@@ -42,7 +42,7 @@ The pipeline will require 4 latch modules:
 
 Control Modules:
 - [Processor State Module](/Documentation/Module-Docs/08_Processor_State.md)
-- [General Control Module](/Documentation/Module-Docs/05_General_Control_Module.md)
+- [Pipeline Reset Module](/Documentation/Module-Docs/05_General_Control_Module.md)
 
 ## Cache
 
