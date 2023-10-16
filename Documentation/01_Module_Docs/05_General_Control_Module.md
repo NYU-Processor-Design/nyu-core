@@ -17,8 +17,6 @@ Note: The inputs and outputs for this module should be made into an interface
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```ins```|32-bits|
-|```npc```|32-bits|
-|```p_state```|#-bits|
 
 ## Outputs
 |Name|Bits wide|
