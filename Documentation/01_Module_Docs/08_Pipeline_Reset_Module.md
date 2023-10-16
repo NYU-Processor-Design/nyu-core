@@ -1,41 +1,28 @@
-# THIS MODULE IS NOT YET OUTLINED #
-
-# Pipeline Reset Module#
-(Any Notes would go here)
+# Pipeline Reset Module #
 
 ## Contents
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Functionality](#functionality)
-  * [Registers](#registers)
-  * [Clk](#on-posedge-clk)
-  * [Active low reset](#asynchronous-active-low-reset)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```npc_in```|32-bit|
+|```npc_corr```|32-bit|
+|```flush```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```npc```|32-bit|
 
 ## Functionality
-### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
-### On posedge clk
-  - ```somebranch = someval```
-  - Use a table when necessary if statements are used:
-  - ```name```
-    |Name|Bits wide|
-    |---|---|
-    |```name == 0```|```reg = val```|
-    |```name == 1```|```reg = val```|
-  
+* ```npc```
+  |```flush```|```npc```|
+  |---|---|
+  |```flush == 0```|```npc = npc_in```|
+  |```flush == 1```|```npc = npc_corr```|
 
-### Asynchronous active low reset
-  - Register values reset to 0
+* ```rstn``` = ```~flush```
