@@ -20,7 +20,7 @@
 
 ## Functionality
 * ```npc```
-  |```flush``|```npc```|
+  |```flush```|```npc```|
   |---|---|
   |```flush == 0```|```npc = npc_in```|
   |```flush == 1```|```npc = npc_corr```|
