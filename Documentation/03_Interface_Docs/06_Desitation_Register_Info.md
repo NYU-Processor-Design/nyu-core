@@ -1,4 +1,4 @@
-# THIS MODULE IS NOT YET OUTLINED #
+# THIS INTERFACE IS NOT YET OUTLINED #
 
 # Interface Name #
 (Any Notes would go here)
