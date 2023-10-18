@@ -1,48 +1,35 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
-(Any Notes would go here)
+# Data Cache Manager Control #
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [General Control Module](#general_control_module)
+  * [Data Cache Manager](#data_cache_manager)
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### General Control Module
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```dcache_en```|1-bit|
+|```dcache_rw```|1-bit|
+|```data_mode```|2-bit|
 
-### Module 2
+### Data Cache Manager
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```dcache_en```|1-bit|
+|```dcache_rw```|1-bit|
+|```data_mode```|2-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|General Control Module|Data Cache Manager|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```dcache_en```|```dcache_en```|
+|```dcache_rw```|```dcache_rw```|
+|```data_mode```|```data_mode```|
