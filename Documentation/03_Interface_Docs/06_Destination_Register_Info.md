@@ -1,48 +1,32 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
-(Any Notes would go here)
+# Destination Register Info #
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [MEM/WB Latch](#mem/wb_latch)
+  * [General Purpose Registers](#general_purpose_registers)
 
 ## Modules
 
 ### Module 1
 
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rdn```|5-bit|
+|```rdd```|32-bit|
 
 ### Module 2
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rdn```|5-bit|
+|```rdd```|32-bit|
 
 ## Connections
 
 |Module 1|Module 2|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```rdn```|```rdm```|
+|```rdd```|```rdd```|
+
