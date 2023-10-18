@@ -7,6 +7,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED INTERFACES
 * [Modules](#modules)
   * [Module 1](#module1)
   * [Module 2](#module2)
+* [Connections](#connections)
 
 ## Modules
 
