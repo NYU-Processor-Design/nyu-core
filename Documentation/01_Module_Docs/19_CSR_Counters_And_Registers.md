@@ -1,6 +1,6 @@
 # THIS MODULE IS NOT YET OUTLINED #
 
-# CSR Counters #
+# CSR Counters And Registers #
 (Any Notes would go here)
 
 ## Contents
