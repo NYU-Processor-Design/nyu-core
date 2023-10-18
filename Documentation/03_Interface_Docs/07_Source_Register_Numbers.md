@@ -1,48 +1,33 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
+# Source Register Numbers #
 
-# Interface Name #
-(Any Notes would go here)
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [IF/ID Latch](#if/id_latch)
+  * [General Purpose Registers](#general_purpose_registers)
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### IF/ID Latch
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rs1n```|5-bit|
+|```rs2n```|5-bit|
 
-### Module 2
+### General Purpose Registers
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rs1n```|5-bit|
+|```rs2n```|5-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|IF/ID Latch|General Purpose Registers|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```rs1n```|```rs1n```|
+|```rs2n```|```rs2n```|
