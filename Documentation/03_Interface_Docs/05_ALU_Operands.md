@@ -1,48 +1,32 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
-(Any Notes would go here)
+# ALU Operands #
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [ID/EX Latch](#id_ex_latch)
+  * [ALU](#alu)
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### ID/EX Latch
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```a```|32-bit|
+|```b```|32-bit|
 
-### Module 2
+### ALU
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```a```|32-bit|
+|```b```|32-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|ID/EX Latch|ALU|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```a```|```a```|
+|```b```|```b```|
