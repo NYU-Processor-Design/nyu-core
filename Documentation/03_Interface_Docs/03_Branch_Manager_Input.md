@@ -1,48 +1,36 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
-(Any Notes would go here)
+# Branch Manager Input #
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [ID/EX Latch](#id/ex_latch)
+  * [Branch Manager](#branch_manager)'
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### ID/EX Latch
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```branch_taken```|1-bit|
+|```pc```|32-bit|
+|```branch_addr```|32-bit|
 
-### Module 2
+### Branch Manager
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pred_taken```|1-bit|
+|```pred_pc```|32-bit|
+|```pred_addr```|32-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|ID/EX Latch|Branch Manager|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```branch_taken```|```pred_taken```|
+|```pc```|```pred_pc```|
+|```branch_addr```|```pred_addr```|
+
