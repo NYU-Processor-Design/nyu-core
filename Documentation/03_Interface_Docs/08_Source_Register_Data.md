@@ -1,48 +1,32 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
-(Any Notes would go here)
+# Source Register Data #
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [General Purpose Registers](#general_purpose_registers)
+  * [ID/EX Latch](#id/ex_latch)
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### General Purpose Registers
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rs1d```|32-bit|
+|```rs2d```|32-bit|
 
 ### Module 2
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rs1d```|32-bit|
+|```rs2d_in```|32-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|General Purpose Registers|ID/EX Latch|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```rs1d```|```rs1d```|
+|```rs2d```|```rs2d_in```|
