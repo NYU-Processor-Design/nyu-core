@@ -9,8 +9,8 @@
 |Name|Bits wide|
 |:---|:---:|
 |```alu_mode```|8-bits|
-|```a```|8-bits|
-|```b```|8-bits|
+|```a```|32-bits|
+|```b```|32-bits|
 
 ## Outputs
 |Name|Bits wide|
