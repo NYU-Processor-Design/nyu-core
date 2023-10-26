@@ -1,48 +1,33 @@
-# THIS INTERFACE IS NOT YET OUTLINED #
-
-# Interface Name #
+# Flush Bus #
 (Any Notes would go here)
 
 ## Contents
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
+  * [Branch Manager](#branch_manager)
+  * [Pipeline Reset Module](#pipeline_reset_module)
+* [Connections](#connections)
 
 ## Modules
 
-### Module 1
-
-#### Inputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+### Branch Manager
 
 #### Outputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```npc```|32-bit|
+|```flush```|1-bit|
 
-### Module 2
+### Pipeline Reset Module
 
 #### Inputs
 |Input|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Outputs
-|Input|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```npc_corr```|32-bit|
+|```flush```|1-bit|
 
 ## Connections
 
-|Module 1|Module 2|
+|Branch Manager|Pipeline Reset Module|
 |:---|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
+|```npc```|```npc_corr```|
+|```flush```|```flush```|
