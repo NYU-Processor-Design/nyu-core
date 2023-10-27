@@ -14,7 +14,7 @@ module Branch_Addr_Calc # (
 
 always_comb begin
     case(addr_mode)
-        PC:
+        PC: begin
             branch_addr = pc + imm;
             case(branch_taken)
                 BNT: 
@@ -22,7 +22,8 @@ always_comb begin
                 BT:
                     npc = branch_addr;
             endcase
-        RD:
+            end
+        RD: begin
             branch_addr = imm + rs1d;
             case(branch_taken)
                 BNT: 
@@ -30,6 +31,7 @@ always_comb begin
                 BT:
                     npc = branch_addr;
             endcase
+            end
         default: 
             branch_addr = pc + imm;
             npc = pc;
