@@ -32,9 +32,10 @@ always_comb begin
                 npc = pc;
             end
         end
-        default: 
+        default: begin
             branch_addr = pc + imm;
             npc = pc;
+        end
     endcase
 end
 
