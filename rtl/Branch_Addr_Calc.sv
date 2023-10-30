@@ -17,11 +17,13 @@ always_comb begin
             case (branch_taken)
                 2'b00: npc = pc_in;
                 2'b01: npc = branch_addr;
+            endcase
         RD:
             branch_addr = imm + rs1d;
             case (branch_taken)
                 2'b00: npc = pc_in;
                 2'b01: npc = branch_addr;
+            endcase
         default:
             branch_addr = pc_in + imm;
             npc = pc_in;
