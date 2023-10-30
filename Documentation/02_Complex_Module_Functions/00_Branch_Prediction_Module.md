@@ -19,6 +19,12 @@
 # **Functionality:**
 
 ## **Registers:**
+- 1-bit ```curr_pred```
+- 1-bit ```pred_acc_prev```
+- 1-bit ```pred_acc_prev_prev```
 
 ## **Branch Prediction**
+
+### **Branch Prediction Algorithm**
+- Branch Prediction will be 2-bit, where the predicted branch outcome only changes after two incorrect predictions.
 
