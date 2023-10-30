@@ -14,23 +14,28 @@ always_comb begin
     case(addr_mode)
         PC:
             case (branch_taken)
-                2'b00: 
-                    npc <= pc_in;
-                    branch_addr <= pc_in + imm;
-                2'b01: 
-                    npc <= branch_addr;
-                    branch_addr <= pc_in + imm;
+                2'b00: begin
+                    branch_addr = pc_in + imm,
+                    npc = pc_in;
+                end
+                2'b01: begin
+                    branch_addr = pc_in + imm,
+                    npc = branch_addr; 
+                end 
             endcase
-            
         RD:
             case (branch_taken)
-                2'b00: npc <= pc_in;
-                2'b01: npc <= branch_addr;
+                2'b00: begin
+                    branch_addr = imm + rs1d,
+                    npc = pc_in;
+                end
+                2'b01: 
+                    branch_addr = imm + rs1d,
+                    npc = branch_addr;
             endcase
-            branch_addr <= imm + rs1d;
         default:
-            branch_addr <= pc_in + imm;
-            npc <= pc_in;
+            branch_addr = pc_in + imm,
+            npc = pc_in;
     endcase
 end
 
