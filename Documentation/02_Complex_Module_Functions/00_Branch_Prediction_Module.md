@@ -20,8 +20,7 @@
 
 ## **Registers:**
 - 1-bit ```curr_pred```
-- 1-bit ```pred_acc_prev```
-- 1-bit ```pred_acc_prev_prev```
+- 2-bit ```incorrect_pred```
 
 ## **Branch Prediction**
 
