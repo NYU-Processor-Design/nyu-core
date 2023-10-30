@@ -15,22 +15,22 @@ always_comb begin
         PC:
             case (branch_taken)
                 2'b00: 
-                    npc = pc_in;
-                    branch_addr = pc_in + imm;
+                    npc <= pc_in;
+                    branch_addr <= pc_in + imm;
                 2'b01: 
-                    npc = branch_addr;
-                    branch_addr = pc_in + imm;
+                    npc <= branch_addr;
+                    branch_addr <= pc_in + imm;
             endcase
             
         RD:
             case (branch_taken)
-                2'b00: npc = pc_in;
-                2'b01: npc = branch_addr;
+                2'b00: npc <= pc_in;
+                2'b01: npc <= branch_addr;
             endcase
-            branch_addr = imm + rs1d;
+            branch_addr <= imm + rs1d;
         default:
-            branch_addr = pc_in + imm;
-            npc = pc_in;
+            branch_addr <= pc_in + imm;
+            npc <= pc_in;
     endcase
 end
 
