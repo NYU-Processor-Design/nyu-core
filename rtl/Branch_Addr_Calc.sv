@@ -29,13 +29,15 @@ always_comb begin
                     branch_addr = imm + rs1d;
                     npc = pc_in;
                 end
-                2'b01: 
+                2'b01: begin
                     branch_addr = imm + rs1d;
                     npc = branch_addr;
+                end
             endcase
-        default:
+        default: begin
             branch_addr = pc_in + imm;
             npc = pc_in;
+        end
     endcase
 end
 
