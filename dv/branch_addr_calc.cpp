@@ -22,8 +22,8 @@ TEST_CASE("PC No Branch") {  //Case when branch_addr = pc + imm, but branch is n
         model.rs1d = rs1d;
         model.branch_taken = taken;
         model.eval();
-        REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.pc + model.imm));
-        REQUIRE((uint32_t) model.npc == (uint32_t) model.pc);
+        REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.pc_in + model.imm));
+        REQUIRE((uint32_t) model.npc == (uint32_t) model.pc_in);
     }
 }
 
@@ -45,7 +45,7 @@ TEST_CASE("PC Branch") { //Case when branch_addr = pc + imm, and branch is taken
         model.rs1d = rs1d;
         model.branch_taken = taken;
         model.eval();
-        REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.pc + model.imm));
+        REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.pc_in + model.imm));
         REQUIRE((uint32_t) model.npc == (uint32_t) model.branch_addr);
     }
 }
@@ -70,7 +70,7 @@ TEST_CASE("RS1D No Branch") { //Case when branch_addr = imm + rs1d, but branch i
         model.branch_taken = taken;
         model.eval();
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.imm + model.rs1d));
-        REQUIRE((uint32_t) model.npc == (uint32_t) model.pc);
+        REQUIRE((uint32_t) model.npc == (uint32_t) model.pc_in);
     }
 }
 
