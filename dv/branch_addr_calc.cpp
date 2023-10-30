@@ -59,7 +59,7 @@ TEST_CASE("RS1D No Branch") { //Case when branch_addr = imm + rs1d, but branch i
     bool taken;
     uint32_t imm;
     uint32_t rs1d;
-    unint32_t pc_in;
+    uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
         imm = rand() % (int) (pow(2, 32) - 1);
@@ -83,7 +83,7 @@ TEST_CASE("RS1D Branch") { //Case when branch_addr = rs1d, and branch is taken
     bool taken;
     uint32_t imm;
     uint32_t rs1d;
-    unint32_t pc_in;
+    uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
         imm = rand() % (int) (pow(2, 32) - 1);
