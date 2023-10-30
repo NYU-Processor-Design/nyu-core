@@ -14,10 +14,14 @@ always_comb begin
     case(addr_mode)
         PC:
             case (branch_taken)
-                2'b00: npc = pc_in;
-                2'b01: npc = branch_addr;
+                2'b00: 
+                    npc = pc_in;
+                    branch_addr = pc_in + imm;
+                2'b01: 
+                    npc = branch_addr;
+                    branch_addr = pc_in + imm;
             endcase
-            branch_addr = pc_in + imm;
+            
         RD:
             case (branch_taken)
                 2'b00: npc = pc_in;
