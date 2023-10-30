@@ -13,16 +13,16 @@ module Branch_Addr_Calc # (
 always_comb begin
     case(addr_mode)
         PC:
-            branch_addr = pc_in + imm;
             case (branch_taken)
                 2'b00: npc = pc_in;
                 2'b01: npc = branch_addr;
+                branch_addr = pc_in + imm;
             endcase
         RD:
-            branch_addr = imm + rs1d;
             case (branch_taken)
                 2'b00: npc = pc_in;
                 2'b01: npc = branch_addr;
+                branch_addr = imm + rs1d;
             endcase
         default:
             branch_addr = pc_in + imm;
