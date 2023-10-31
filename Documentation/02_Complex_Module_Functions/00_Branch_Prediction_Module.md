@@ -5,7 +5,7 @@
 |Name|Bits wide|Description|
 |:---|:---|:---:|
 |```clk```|1-bit|Clock Signal|
-|```rstn```|1-bit|Reset Signal|
+|```rstn_h```|1-bit|Hard Reset Signal|
 |```act_taken```|1-bit|Actual branch taken|
 |```pred_taken```|1-bit|Predicted branch taken|
 |```branch_cond```|2-bits|Specifies if instruction in MEM is guaranteed to branch or we predicted|
@@ -48,4 +48,7 @@
  - else if ```act_taken``` ^ ```pred_taken``` == 0, ```incorrect_pred``` = 0 and ```curr_pred``` stays the same
  - else if ```act_taken``` ^ ```pred_taken``` == 1 and ```incorrect_pred``` == 1, ```curr_pred``` = ~```curr_pred```
  - else ```incorrect_pred``` == 1 and ```curr_pred``` stays the same
+
+## **Reseting**
+- Note that because this module needs to keep track of incorrect predictions even after a soft reset to flush the pipeline, it cannot be connected to the rstn line, instead we use rstn_h which is a hard reset line that pull rstn low when it is pulled low but is not necessarily pulled low when rstn is. The rstn_h line is what will be used to hardware reset the core on boot.
 
