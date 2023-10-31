@@ -34,8 +34,8 @@
     * ```act_taken```
       |```act_taken```|```npc```|
       |:---|:---:|
-      |```act_taken == 0```|```npc = curr_ins_pc + 4```|
-      |```act_taken == 1```|```npc = curr_ins_addr```|
+      |```act_taken == 0```|```npc = pred_pc + 4```|
+      |```act_taken == 1```|```npc = pred_addr```|
   - Else
     * ```flush = 0```
     * ```pred_taken```
