@@ -27,12 +27,9 @@
 
 ## Functionality
 ### Registers
-  - 32-bits ```curr_ins_addr``` register
-  - 32-bits ```curr_ins_pc``` register
-  - 1-bit ```curr_ins_pred``` register
   - 1-bit ```restart``` register
-### Combinational
-  - If ```(curr_ins_pred != act_taken)&&(!restart)```
+### On posedge clk
+  - If ```(pred_taken != act_taken)&&(!restart)```
     * ```flush = 1```
     * ```act_taken```
       |```act_taken```|```npc```|
@@ -46,12 +43,7 @@
       |:---|:---:|
       |```pred_taken == 0```|```npc = pred_pc + 4```|
       |```pred_taken == 1```|```npc = pred_addr```|
-### On posedge clk
-  - ```curr_ins_addr = pred_addr```
-  - ```curr_ins_pc = pred_pc```
-  - ```curr_ins_pred = pred_taken```
-  - If ```restart```, ```restart = 0```
+   - If ```restart```, ```restart = 0```
 
 ### Asynchronous active low reset
   - ```restart``` set to 1
-  - All other registers set to 0
