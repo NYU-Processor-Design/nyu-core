@@ -1,7 +1,4 @@
-# THIS OUTLINE IS NOT YET COMPLETE #
-
 # Branch Predictor #
-(Any Notes would go here)
 
 ## Contents
 * [Inputs](#inputs)
@@ -15,8 +12,12 @@
 |Name|Bits wide|
 |:---|:---:|
 |```clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```branch_occr```|2-bits|
+|```act_taken```|1-bit|
+|```pred_taken```|1-bit|
+|```branch_cond```|2-bits|
+
 
 ## Outputs
 |Name|Bits wide|
@@ -25,16 +26,23 @@
 
 ## Functionality
 ### Registers
-  - 1-bit ```name``` register
-### On posedge clk
-  - ```somebranch = someval```
-  - Use a table when necessary if statements are used:
-  - ```name```
-    |```name```|```reg```|
+  - 1-bit ```curr_pred``` register
+  - 1-bit ```incorrect_pred``` register
+### Combinational
+  - ```branch_occr```
+    |```branch_occr```|```reg```|
     |---|---|
-    |```name == 0```|```reg = val```|
-    |```name == 1```|```reg = val```|
-  
+    |```branch_occr[1] == 0```|```branch_taken = branch_occr[0]```|
+    |```branch_occr[1] == 1```|```branch_taken = curr_pred```|
+### On posedge clk
+  - Use a table when necessary if statements are used:
+  - ```branch_cond```, ```pred_taken```, ```act_taken```
+    |```condition```|```curr_pred```|```incorrect_pred```|
+    |---|---|---|
+    |^```branch_cond``` == 0|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = ```incorrect_pred```|
+    |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 0)|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = 0|
+     |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 1) & (```incorrect_pred``` == 1|```curr_pred``` = ~```curr_pred```|```incorrect_pred``` = 1|
+    |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 1) & (```incorrect_pred``` == 0)|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = 1|
 
-### Asynchronous active low reset
-  - Register values reset to 0z
+### Asynchronous active low reset on rstn_h
+  - Register values reset to 0
