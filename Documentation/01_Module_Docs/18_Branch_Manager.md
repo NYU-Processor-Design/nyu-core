@@ -31,7 +31,7 @@
   - 32-bits ```curr_ins_pc``` register
   - 1-bit ```curr_ins_pred``` register
   - 1-bit ```restart``` register
-### Combintational
+### Combinational
   - If ```(curr_ins_pred != act_taken)&&(!restart)```
     * ```flush = 1```
     * ```act_taken```
