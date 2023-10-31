@@ -28,6 +28,8 @@
 ## Functionality
 ### Registers
   - 1-bit ```restart``` register
+  - 32-bit ```npc``` register
+  - 1-bit ```flush``` register
 ### On posedge clk
   - If ```(pred_taken != act_taken)&&(!restart)```
     * ```flush = 1```
@@ -47,3 +49,4 @@
 
 ### Asynchronous active low reset
   - ```restart``` set to 1
+  - All other registers set to 0
