@@ -16,12 +16,10 @@
 |```rdn_in```|5-bits|
 |```alu_out_in```|32-bits|
 |```rs2d```|32-bits|
-|```branch_taken_in```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```branch_taken```|1-bit|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
 |```mem_data```|32-bits|
@@ -36,7 +34,6 @@
 ### On posedge clk
   - ```rdn = rdn_in```
   - ```alu_out = alu_out_in```
-  - ```branch_taken = branch_taken_in```
   - ```mem_data = rs2d```
 
 ### Asynchronous active low reset
