@@ -1,23 +1,23 @@
 # L1 Data Cache Module Documentation
 
 ### Inputs
-1. **clk**: System clock signal.
-2. **reset**: Reset signal for initializing the cache.
-3. **request_address**: A 32-bit input representing the memory address for read or write operations.
-4. **write_data**: A 32-bit input representing the data to be written to the cache.
-5. **write_enable**: An input signal to control write operations to the cache.
+1. **`clk`**: System clock signal.
+2. **`reset`**: Reset signal for initializing the cache.
+3. **`request_address`**: A 32-bit input representing the memory address for read or write operations.
+4. **`write_data`**: A 32-bit input representing the data to be written to the cache.
+5. **`write_enable`**: An input signal to control write operations to the cache.
 
 ### Outputs
-1. **response_data**: A 32-bit output representing the data read from the cache.
+1. **`response_data`**: A 32-bit output representing the data read from the cache.
 
 ## Functionality
 The `l1_data_cache` module is designed to provide a data caching mechanism that stores frequently accessed data to improve memory access speed. It operates based on the following functionality:
 
-## On Posedge
+### On Posedge
 
-The L1 Data Cache is a synchronous circuit, operating on a clock signal. On the positive edge (posedge) of the clock, the following operations are performed:
+The L1 Data Cache is a synchronous circuit, operating on a clock signal. On the positive edge (`posedge`) of the clock, the following operations are performed:
 
-- **Initialization**: On reset (`rst` signal), the cache is initialized, and the LRU counters and dirty bits are set to initial values.
+- **Initialization**: On reset (`reset` signal), the cache is initialized, and the LRU counters and dirty bits are set to initial values.
 
 - **Write Operations**:
   - When a write operation is enabled (`write_enable`), the module performs the following steps:
@@ -34,7 +34,7 @@ The L1 Data Cache is a synchronous circuit, operating on a clock signal. On the 
     4. If the data is not in the cache (a cache miss), it can fetch the data from the main memory and potentially implement write allocate.
 
 
-## Registers
+### Registers
 The module utilizes several registers to maintain cache state and metadata:
 
 - **`cache_data`**: A 3D array storing the data in the cache.
@@ -42,18 +42,17 @@ The module utilizes several registers to maintain cache state and metadata:
 - **`cache_tags`**: A 2D array storing the tag information for cache sets and blocks.
 - **`dirty_bit`**: A 2D array indicating whether the data in each block is dirty (needs to be written back to memory).
 
-## Combinational and Sequential Logic
+### Combinational and Sequential Logic
 
 - The L1 Data Cache uses both combinational and sequential logic. Combinational logic is used for address decoding, tag comparison, and hit/miss detection. Sequential logic is used to store cache lines, implement the LRU replacement policy, and track the write-back status of cache lines.
 
 
-## Cache logic
+### Cache logic
 The cache should use the following logic:
 
-- **`Write allocate`**`:  When the processor writes data to the cache, the cache should fetch the block from the main memory and store it in the cache if the block is not present in the cache.
-- **`Write back`**:       When the processor writes data to the cache, the cache should update the data in the cache and set the dirty bit to high. The cache should write the data to the main memory only when the block is evicted from the cache.
-- **`Lookthrough`**`: When the cache misses, the cache should fetch the block from the main memory and store it in the cache. The processor should not stall during this time.
-- **`LRU`**: The cache should use the LRU policy to determine the least recently used block.
-
+- **`Write allocate`**`:  When the processor writes data to the cache, the cache allocates a block from main memory and stores the data in the cache, even if the block is not currently needed.
+- **`Write back`**:       When the processor writes data to the cache, the cache updates the data in the cache and sets the dirty bit to high. The cache writes the data back to main memory only when the block is evicted from the cache or when the cache is flushed.
+- **`Lookthrough`**`:     When the cache misses, the cache fetches the block from main memory and stores it in the cache. The processor does not stall during this time, but the instruction that caused the cache miss is delayed.
+- **`LRU`**:              The LRU policy evicts the least recently used block from the cache when the cache is full.
 
 
