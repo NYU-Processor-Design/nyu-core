@@ -3,21 +3,24 @@
 // Look-through:  which means it checks the main memory for cache misses.
 // LRU (Least Recently Used):  which means the least recently used cache line is selected for replacement.
 
-module L1_data_cache(
+module L1_data_cache #(
+
+    parameter ADDRESS_LENGTH      = 32,                                              
+    parameter CACHE_SIZE          = 16 * 1024,                                       
+    parameter BLOCK_SIZE          = ADDRESS_LENGTH,                                              
+    parameter ASSOCIATIVITY       = 4     
+)(
 
     input clk, reset, write_enable,
     input [31:0] request_address, write_data,
     output reg [31:0] response_data
 );
     // Cache Configuration
-    parameter ADDRESS_WIDTH       = 32;                                              
-    parameter CACHE_SIZE          = 16 * 1024;                                       
-    parameter BLOCK_SIZE          = 32;                                              
-    parameter ASSOCIATIVITY       = 4;                                                
-    parameter BLOCK_WIDTH         = $clog2(BLOCK_SIZE);                               
-    parameter NO_OF_SETS          = CACHE_SIZE / (BLOCK_SIZE * ASSOCIATIVITY);        
-    parameter INDEX_WIDTH         = $clog2(NO_OF_SETS);                                  
-    parameter TAG_WIDTH           = ADDRESS_WIDTH - (BLOCK_WIDTH + INDEX_WIDTH);
+                                           
+    localparam BLOCK_WIDTH         = $clog2(BLOCK_SIZE);                               
+    localparam NO_OF_SETS          = CACHE_SIZE / (BLOCK_SIZE * ASSOCIATIVITY);        
+    localparam INDEX_WIDTH         = $clog2(NO_OF_SETS);                                  
+    localparam TAG_WIDTH           = ADDRESS_LENGTH - (BLOCK_WIDTH + INDEX_WIDTH);
     
     //cache data arrays
 //    reg [31:0] cache_data [0:NO_OF_SETS-1][0:ASSOCIATIVITY-1][0:BLOCK_SIZE/4-1];
@@ -29,25 +32,18 @@ module L1_data_cache(
     
     // Helper function to find the least recently used block in a set NOT AUTOMAIC (blocking)
     // automatic fucntion is non blocking, non automatics are blocking
-    function integer get_lru_block(
-    
-        input [ASSOCIATIVITY-1:0] lru_set
-    );
-        integer lru_block_index, i, min_lru_value;
-        begin 
-        
-            lru_block_index = 0;
-            min_lru_value = lru_set[0];
-            
-            for (i = 1; i < ASSOCIATIVITY; i = i + 1) begin
-                if (lru_set[i] < min_lru_value) begin
-                    lru_block_index = i;
-                    min_lru_value = lru_set[i];
-                end
+    function integer get_lru_way(input integer set_index);
+        integer lru_way = 0;
+        begin
+            for (integer i = 0; i < ASSOCIATIVITY; i++) begin
+                if (lru_counter[set_index][i] < lru_counter[set_index][lru_block])
+                    lru_way = i;
             end
-            get_lru_block = lru_block_index;
+
+            return lru_way;
         end
     endfunction
+
     
     
     integer set;
@@ -142,3 +138,5 @@ module L1_data_cache(
     
     end    
 endmodule
+
+
