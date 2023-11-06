@@ -1,12 +1,14 @@
 # ID/EX Latch #
 
 ## Contents
-* [Inputs](#inputs)
-* [Outputs](#outputs)
-* [Functionality](#functionality)
-  * [Registers](#registers)
-  * [Clk](#on-posedge-clk)
-  * [Active low reset](#asynchronous-active-low-reset)
+- [ID/EX Latch](#idex-latch)
+  - [Contents](#contents)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+  - [Functionality](#functionality)
+    - [Registers](#registers)
+    - [On posedge clk](#on-posedge-clk)
+    - [Asynchronous active low reset](#asynchronous-active-low-reset)
 
 ## Inputs
 |Name|Bits wide|
@@ -57,7 +59,7 @@
     |State|Output|
     |---|---|
     |```a_sel == 0```|```a = rs1d```|
-    |```a_sel == 1```|```a = pc```|
+    |```a_sel == 1```|```a = pc_in```|
     |```a_sel == 3```|```a = 0```|
   - ```b```
 
