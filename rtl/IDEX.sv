@@ -1,8 +1,8 @@
 module IDEX #(
   WordSize = 32
 )(
-  input clk, rstn, branch_taken_in
-  input[1:0] a_sel, b_sel
+  input clk, rstn, branch_taken_in,
+  input[1:0] a_sel, b_sel,
   input[31:0] ins,
   input[WordSize - 1:0] pc_in, imm, rs1d, rs2d_in, branch_addr_in,
   input[4:0] rdn_in,
@@ -14,7 +14,7 @@ module IDEX #(
   always @ (posedge clk or negedge rstn) begin
     if (!rstn) begin
       rdn <= 0;
-      a <= 0l
+      a <= 0;
       b <= 0;
       branch_addr <= 0;
       pc <= 0;
@@ -29,7 +29,7 @@ module IDEX #(
       pc <= pc_in;
       case(a_sel)
         0: a <= rs1d;
-        1: a <= pc;
+        1: a <= pc_in;
         3: a <= 0;
       default a <= 0;
       endcase
