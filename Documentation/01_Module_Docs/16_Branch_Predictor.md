@@ -1,12 +1,15 @@
 # Branch Predictor #
 
 ## Contents
-* [Inputs](#inputs)
-* [Outputs](#outputs)
-* [Functionality](#functionality)
-  * [Registers](#registers)
-  * [Clk](#on-posedge-clk)
-  * [Active low reset](#asynchronous-active-low-reset)
+- [Branch Predictor](#branch-predictor)
+  - [Contents](#contents)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+  - [Functionality](#functionality)
+    - [Registers](#registers)
+    - [Combinational](#combinational)
+    - [On posedge clk](#on-posedge-clk)
+    - [Asynchronous active low reset on rstn\_h](#asynchronous-active-low-reset-on-rstn_h)
 
 ## Inputs
 |Name|Bits wide|
@@ -35,7 +38,6 @@
     |```branch_occr[1] == 0```|```branch_taken = branch_occr[0]```|
     |```branch_occr[1] == 1```|```branch_taken = curr_pred```|
 ### On posedge clk
-  - Use a table when necessary if statements are used:
   - ```branch_cond```, ```pred_taken```, ```act_taken```
     |```condition```|```curr_pred```|```incorrect_pred```|
     |---|---|---|
