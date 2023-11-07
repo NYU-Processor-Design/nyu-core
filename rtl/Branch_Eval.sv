@@ -21,7 +21,6 @@ always_comb begin
         ALU: branch_taken = |alu_out;
         NALU: branch_taken = ~(|alu_out);
         AL: branch_taken = 1;
-        default: branch_taken = 0;
     endcase
 end
 
