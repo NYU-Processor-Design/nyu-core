@@ -38,7 +38,6 @@ module IDEX #(
         1: b <= imm;
         2: b <= 4;
         3: b <= imm << 12;
-      default b <= 0;
       endcase
     end
   end
