@@ -14,7 +14,7 @@ TEST_CASE("") {
     model.eval();
     model.rstn_h = 0;
     model.eval();
-
+    
     
     //Test Module
     for (int i = 0; i < 1000; i++) {
