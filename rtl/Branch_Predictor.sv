@@ -33,7 +33,6 @@ always_comb begin
     case(branch_occr[1]) 
     0: branch_taken = branch_occr[0];
     1: branch_taken = curr_pred;
-    default branch_taken = 0;
     endcase
 end
 endmodule
