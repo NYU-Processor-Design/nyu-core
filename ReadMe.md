@@ -14,6 +14,7 @@ The core modules include:
 - [Arithmatic Logic Unit (ALU)](/Documentation/01_Module_Docs/09_ALU.md)
 - [General Registers](/Documentation/01_Module_Docs/00_CPU_general_purpose_registers.md)
 - [Program Counter](/Documentation/01_Module_Docs/15_Program_Counter.md)
+- [CSR Counters and Registers](/Documentation/01_Module_Docs/19_CSR_Counters_And_Registers.md)
 
 ## Branching Logic
 
@@ -62,5 +63,7 @@ Cache Modules:
 
 [Development and Testing Guidelines](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/dev-test-process.md)
 
-[Offical RISCV Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+[Offical RISCV Unprivileged Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+
+[Offical RISCV Privileged Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-privileged-v1.10.pdf)
 
