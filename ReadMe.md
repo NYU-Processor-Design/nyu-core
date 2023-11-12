@@ -14,7 +14,7 @@ The core modules include:
 - [Arithmatic Logic Unit (ALU)](/Documentation/01_Module_Docs/09_ALU.md)
 - [General Registers](/Documentation/01_Module_Docs/00_CPU_general_purpose_registers.md)
 - [Program Counter](/Documentation/01_Module_Docs/15_Program_Counter.md)
-- [CSR Counters and Registers](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/01_Module_Docs/19_CSR_Counters_And_Registers.md)
+- [CSR Counters and Registers](/Documentation/01_Module_Docs/19_CSR_Counters_And_Registers.md)
 
 ## Branching Logic
 
