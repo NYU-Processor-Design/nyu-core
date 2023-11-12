@@ -62,5 +62,7 @@ Cache Modules:
 
 [Development and Testing Guidelines](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/dev-test-process.md)
 
-[Offical RISCV Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+[Offical RISCV Unprivileged Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
+
+[Offical RISCV Privileged Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-privileged-v1.10.pdf)
 
