@@ -190,25 +190,6 @@
   - WB Stage:
     - wbs = 3
     - wbe = 1
-#### I Type 4 (ins[6:0] = 1110011):
-  - IF Stage:
-    - pc_en = 1
-    - immode = 1
-  - ID Stage:
-    - addr_mode =
-    - branch_occr = 
-    - a_sel = 
-    - b_sel = 
-  - EX Stage:
-    - alu_mode = 
-    - branch_cond = 
-  - MEM Stage:
-    - data_mode =
-    - dcache_rw = 
-    - dcache_en = 
-  - WB Stage:
-    - wbs =
-    - wbe = 
 #### S Type (ins[6:0] = 0100011):
   - IF Stage:
     - pc_en = 1
@@ -295,7 +276,7 @@
   - WB Stage:
     - wbs = 3
     - wbe = 1
-#### NOP (ins[6:0] = 0000000, 0001111):
+#### NOP (ins[6:0] = 0000000, 0001111, 1110011):
   - IF Stage:
     - pc_en = 0
     - immode = 0
