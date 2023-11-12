@@ -295,7 +295,7 @@
   - WB Stage:
     - wbs = 3
     - wbe = 1
-#### NOP (ins[6:0] = 0000000):
+#### NOP (ins[6:0] = 0000000, 0001111):
   - IF Stage:
     - pc_en = 0
     - immode = 0
