@@ -3,7 +3,7 @@ module Pipeline_Reset #(
 )(
   input [WordSize - 1:0] npc_in, npc_corr,
   input flush,
-  output [WordSize - 1:0] npc,
+  output logic [WordSize - 1:0] npc,
   output logic rstn
 );
 
