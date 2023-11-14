@@ -299,7 +299,9 @@
 ## **Hazard Detection:**
 
 ### Hazard Description:
-When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline.  A similar rule needs to be applied for branching hazards, since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the IF_ins register is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
+When the IF_ins instruction poses a read-after-write, or write-after-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline.  A similar rule needs to be applied for branching hazards, since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the IF_ins register is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present. 
+
+Note that we don't have to worry about write-after-read hazards since we do not reorder instructions and there is no way for a subsequent instruction to read data from either the memory or registers before the proceeding instruction can write the data.
 
 ### Instructions That Can Pose Hazards:
 
@@ -314,8 +316,7 @@ When the IF_ins instruction poses a read-write, write-read, or write-write hazar
 - All J Type Instructions: They all write to CPU registers
 
 #### Hazards Related to Memory
-- All I Type 2 Instructions: They all read from memory
-- All S Type Instructions: They all write to memory
+- Can't have memory hazards since all interactions with memory happen in the MEM stage so no conflicts can happen between two instructions
 
 #### Branching Hazards
 - All I Type 3 Instructions: They can all branch
@@ -323,6 +324,14 @@ When the IF_ins instruction poses a read-write, write-read, or write-write hazar
 - All J Type Instructions: They can all branch
 
 ### Hazard Detection Logic:
+
+#### Detecting if IF_ins holds branch hazard:
+- If IF_ins[6:0] == 1100111, 1100011, 1101111, hazard = 1
+
+#### Detecting if IF_ins holds data hazard:
+- Since we don't have to write-after-read hazards, S and B type instructions only need to be screened for in IF_ins, not anywhere else
+- 
+
 
 ### Hazard Dependent Outputs and Registers:
   - Hazard = 0:
