@@ -329,7 +329,7 @@ Note that we don't have to worry about write-after-read hazards since we do not 
 - If IF_ins[6:0] == 1100111, 1100011, 1101111, hazard = 1
 
 #### Detecting if IF_ins holds data hazard:
-- Since we don't have to write-after-read hazards, S and B type instructions only need to be screened for in IF_ins, not anywhere else
+- Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in IF_ins, not anywhere else
 - 
 
 
