@@ -31,8 +31,8 @@ TEST_CASE("Flush") {
     for (int i = 0; i < 1000; i++) {
         pred_taken = rand() % (int) (pow(2, 1) - 1);
         act_taken = rand() % (int) (pow(2, 1) - 1);
-        pred_pc = rand() % (int) (pow(32, 1) - 1);
-        pred_addr = rand() % (int) (pow(32, 1) - 1);
+        pred_pc = rand() % (int) (pow(2, 32) - 1);
+        pred_addr = rand() % (int) (pow(2, 32) - 1);
         
         model.clk = 0;
         model.eval();
@@ -78,8 +78,8 @@ TEST_CASE("Incorrect Prediction") {
     for (int i = 0; i < 1000; i++) {
         pred_taken = rand() % (int) (pow(2, 1) - 1);
         act_taken = ~pred_taken;
-        pred_pc = rand() % (int) (pow(32, 1) - 1);
-        pred_addr = rand() % (int) (pow(32, 1) - 1);
+        pred_pc = rand() % (int) (pow(2, 32) - 1);
+        pred_addr = rand() % (int) (pow(2, 32) - 1);
         
         model.clk = 0;
         model.eval();
@@ -128,8 +128,8 @@ TEST_CASE("Correct Prediction") {
     for (int i = 0; i < 1000; i++) {
         pred_taken = rand() % (int) (pow(2, 1) - 1);
         act_taken = pred_taken;
-        pred_pc = rand() % (int) (pow(32, 1) - 1);
-        pred_addr = rand() % (int) (pow(32, 1) - 1);
+        pred_pc = rand() % (int) (pow(2, 32) - 1);
+        pred_addr = rand() % (int) (pow(2, 32) - 1);
         
         model.clk = 0;
         model.eval();
