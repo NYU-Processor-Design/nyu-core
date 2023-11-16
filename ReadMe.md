@@ -56,7 +56,7 @@ Cache Modules:
 
 ## Current Draft of CPU Diagram
 
-![cpu](https://github.com/ShinyMiraidon/nyu-core/assets/114675487/504891b2-0377-4881-aada-df4a0ddea2b0)
+![cpu](https://github.com/NYU-Processor-Design/nyu-core/assets/114675487/d2adc764-56b6-488d-8cb7-284b008d1e3e)
 
 ## Further Reading
 
