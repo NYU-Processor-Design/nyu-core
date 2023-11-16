@@ -11,6 +11,8 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
+|```cache_clk```|1-bit|
+|```rstn```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bits|
@@ -24,7 +26,10 @@
 |```mrd```|32-bits|
 
 ## Functionality
-### Combinational
+### Registers
+  - #-bit ```name``` register
+  - #-bit ```name``` register
+### On posedge cache_clk
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
@@ -32,4 +37,3 @@
     |---|---|
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
- 

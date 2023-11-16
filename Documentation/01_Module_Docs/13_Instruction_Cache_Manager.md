@@ -14,18 +14,20 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
+|```cache_clk```|1-bit|
+|```rstn```|1-bit|
 |```pc```|32-bits|
+
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
 |```ins```|32-bits|
 
-## Functionality
 ### Registers
   - #-bit ```name``` register
   - #-bit ```name``` register
-### Combinational
+### On posedge cache_clk
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
@@ -33,4 +35,3 @@
     |---|---|
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
-  
