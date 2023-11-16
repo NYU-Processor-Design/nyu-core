@@ -42,21 +42,23 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
-### On posedge clk
+  - 1-bit ```hazard``` register
+### Combinational
 
-#### Instruction Control Signals
-- Instruction Opcodes
+#### Instruction Opcodes
     |Type|Opcode|
     |---|---|
-    |R|0110011|
-    |I1|0010011|
-    |I2|0000011|
-    |I3|1100111|
-    |S|0100011|
-    |B|1100011|
-    |U|0110111, 0010111|
-    |J|1101111|
-    |NOP|0000000, 0001111, 1110011|
+    |R|0b0110011|
+    |I1|0b0010011|
+    |I2|0b0000011|
+    |I3|0b1100111|
+    |S|0b0100011|
+    |B|0b1100011|
+    |U|0b0110111, 0b0010111|
+    |J|0b1101111|
+    |NOP|0b0000000, 0b0001111, 0b1110011|
+  
+#### Instruction Decode
 - ```IF_ins[6:0]```
     |```IF_ins[6:0]```|```pc_en```|```immode```|
     |---|---|---|
@@ -118,6 +120,25 @@ Note: The inputs and outputs for this module should be made into an interface
     |```WB_ins[6:0]``` == J|```wbs``` = 3|```wbe``` = 1|
     |```WB_ins[6:0]``` == NOP|```wbs``` = 0|```wbe``` = 0|
 
+#### Hazard Detection
+- If ```IF_ins[6:0]``` == I3, B, J
+     - ```hazard = 1```
+     - 
 
+### On posedge clk
+- ```hazard```
+   - if ```hazard```
+        - ```IF_ins``` = 0
+        - ```ID_ins``` = ```IF_ins```
+        - ```EX_ins``` = ```ID_ins```
+        - ```MEM_ins``` = ```EX_ins```
+        - ```WB_ins``` = ```MEM_ins```
+   - else
+        - ```IF_ins``` = ```ins```
+        - ```ID_ins``` = ```IF_ins```
+        - ```EX_ins``` = ```ID_ins```
+        - ```MEM_ins``` = ```EX_ins```
+        - ```WB_ins``` = ```MEM_ins```
+    
 ### Asynchronous active low reset
   - Register values reset to 0
