@@ -64,7 +64,7 @@ Note: The inputs and outputs for this module should be made into an interface
 #### Instruction Decode
 - ```IF_ins[6:0]```
     |```IF_ins[6:0]```|```immode```|
-    |---|---|---|
+    |---|---|
     |```IF_ins[6:0]``` == R|```immode``` = 0|
     |```IF_ins[6:0]``` == I1|```immode``` = 1|
     |```IF_ins[6:0]``` == I2|```immode``` = 1|
