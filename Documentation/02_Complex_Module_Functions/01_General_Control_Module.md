@@ -29,11 +29,7 @@
 
 ### **Output Options:**
  
-- **pc_en**
-  - 0: pc stays the same
-  - 1: pc = npc
 #### **IF Stage:**
- 
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
@@ -101,7 +97,6 @@
 # **Functionality:**
 
 ## **Registers:**
-  - 32-bit ```IF_ins``` register
   - 32-bit ```ID_ins``` register
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
@@ -291,7 +286,7 @@
 ## **Hazard Detection:**
 
 ### Hazard Description:
-When the IF_ins instruction poses a read-after-write or write-after-write hazard, we need to stall that instruction until the instruction it depends on exits the pipeline. A similar rule needs to be applied for branching hazards since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the IF_ins register is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present. 
+When the ins instruction poses a read-after-write or write-after-write hazard, we need to stall that instruction until the instruction it depends on exits the pipeline. A similar rule needs to be applied for branching hazards since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the ins input is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present. 
 
 Note that we don't have to worry about write-after-read hazards since we do not reorder instructions and there is no way for a subsequent instruction to read data from either the memory or registers before the proceeding instruction can write the data.
 
@@ -322,27 +317,27 @@ Note that we don't have to worry about write-after-read hazards since we do not 
 
 #### Detecting if IF_ins holds data hazard
 - Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in IF_ins, not anywhere else
-- If (IF_ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111)
+- If (ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111)
 and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
-ID_ins[11:7] == IF_ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
-1100111, 0110111, 0010111 and EX_ins[11:7] == IF_ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
+ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
+1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and MEM_ins[11:7] == 
-IF_ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
-0010111 and WB_ins[11:7] == IF_ins[11:7] != 0))
+ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
+0010111 and WB_ins[11:7] == ins[11:7] != 0))
 
 #### Combination Logic
-- If (IF_ins[6:0] == 1100111, 1100011, 1101111) hazard = 1
-- Else if ((IF_ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111) and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
-ID_ins[11:7] == IF_ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
-1100111, 0110111, 0010111 and EX_ins[11:7] == IF_ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
+- If (ins[6:0] == 1100111, 1100011, 1101111) hazard = 1
+- Else if ((ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111) and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
+ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
+1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and MEM_ins[11:7] == 
-IF_ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
-0010111 and WB_ins[11:7] == IF_ins[11:7] != 0))) hazard = 1
+ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
+0010111 and WB_ins[11:7] == ins[11:7] != 0))) hazard = 1
 - Else hazard = 0
 
 ### Hazard Dependent Outputs and Registers:
   - Hazard = 0:
-    - ID_ins = IF_ins
+    - ID_ins = ins
     - pc_en = 1
   - Hazard = 1:
     - ID_ins = NOP (32'b0)
