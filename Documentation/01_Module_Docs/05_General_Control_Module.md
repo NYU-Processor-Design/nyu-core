@@ -43,6 +43,31 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
 ### On posedge clk
+- Instruction Opcodes
+    |Type|Opcode|
+    |---|---|
+    |R|0110011|
+    |I1|0010011|
+    |I2|0000011|
+    |I3|1100111|
+    |S|0100011|
+    |B|1100011|
+    |U|0110111, 0010111|
+    |J|1101111|
+    |NOP|0000000, 0001111, 1110011|
+- ```IF_ins[6:0]```
+    |```IF_ins```|```pc_en```|```immode```|
+    |---|---|---|
+    |```IF_ins[6:0]``` == R|```pc_en``` = 1|```immode``` = 0|
+    |```IF_ins[6:0]``` == I1|```pc_en``` = 1|```immode``` = 1|
+    |```IF_ins[6:0]``` == I2|```pc_en``` = 1|```immode``` = 1|
+    |```IF_ins[6:0]``` == I3|```pc_en``` = 1|```immode``` = 1|
+    |```IF_ins[6:0]``` == S|```pc_en``` = 1|```immode``` = 2|
+    |```IF_ins[6:0]``` == B|```pc_en``` = 1|```immode``` = 3|
+    |```IF_ins[6:0]``` == U|```pc_en``` = 1|```immode``` = 4|
+    |```IF_ins[6:0]``` == J|```pc_en``` = 1|```immode``` = 5|
+    |```IF_ins[6:0]``` == NOP|```pc_en``` = 0|```immode``` = 0|
+
 
 
 ### Asynchronous active low reset
