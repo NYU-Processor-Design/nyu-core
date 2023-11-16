@@ -313,10 +313,10 @@ Note that we don't have to worry about write-after-read hazards since we do not 
 ### Hazard Detection Logic:
 
 #### Detecting if IF_ins holds branch hazard
-- If IF_ins[6:0] == 1100111, 1100011, 1101111, hazard = 1
+- If ins[6:0] == 1100111, 1100011, 1101111, hazard = 1
 
 #### Detecting if IF_ins holds data hazard
-- Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in IF_ins, not anywhere else
+- Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in ins, not anywhere else
 - If (ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111)
 and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
 ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
