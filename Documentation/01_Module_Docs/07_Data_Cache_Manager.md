@@ -26,7 +26,10 @@
 |```mrd```|32-bits|
 
 ## Functionality
-### Combinational
+### Registers
+  - #-bit ```name``` register
+  - #-bit ```name``` register
+### On posedge clk
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```
@@ -34,4 +37,3 @@
     |---|---|
     |```name == 0```|```reg = val```|
     |```name == 1```|```reg = val```|
- 
