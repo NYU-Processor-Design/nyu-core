@@ -102,7 +102,7 @@
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
 ## **Combinational Logic Signals:**
-  - 1-bit ```Hazard```
+  - 1-bit ```hazard```
 
 ## **Instruction Type Decoding:**
 
@@ -313,7 +313,7 @@ Note that we don't have to worry about write-after-read hazards since we do not 
 ### Hazard Detection Logic:
 
 #### Detecting if IF_ins holds branch hazard
-- If ins[6:0] == 1100111, 1100011, 1101111, hazard = 1
+- If (ins[6:0] == 1100111, 1100011, 1101111) and (hazard == 0), hazard = 1
 
 #### Detecting if IF_ins holds data hazard
 - Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in ins, not anywhere else
@@ -323,10 +323,10 @@ ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 11
 1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and MEM_ins[11:7] == 
 ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
-0010111 and WB_ins[11:7] == ins[11:7] != 0))
+0010111 and WB_ins[11:7] == ins[11:7] != 0)), hazard = 1
 
 #### Combination Logic
-- If (ins[6:0] == 1100111, 1100011, 1101111) hazard = 1
+- If (ins[6:0] == 1100111, 1100011, 1101111) and (hazard == 0), hazard = 1
 - Else if ((ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111) and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
 ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
 1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
@@ -336,9 +336,9 @@ ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 
 - Else hazard = 0
 
 ### Hazard Dependent Outputs and Registers:
-  - Hazard = 0:
+  - hazard = 0:
     - ID_ins = ins
     - pc_en = 1
-  - Hazard = 1:
+  - hazard = 1:
     - ID_ins = NOP (32'b0)
     - pc_en = 0
