@@ -126,11 +126,17 @@ Note: The inputs and outputs for this module should be made into an interface
 - ```pc_en``` = ~```hazard```
 - If (```ins[6:0]``` == I3, B, J) and (```hazard``` == 0)
      - ```hazard``` = 1
-- Else if ```ins[6:0]``` == R, I1, I2, S, U
-     - If ID_ins[6:0] =
+- Else if ```ins[6:0]``` == R, I1, I2, I3, S, B, U, J
+     - If (```ID_ins[6:0]``` == R, I1, I2, I3, U, J) and (```ID_ins[11:7]``` == ```ins[11:7]```) and (```ID_ins[11:7]``` != 0)
+          - ```hazard``` = 1
+     - If (```EX_ins[6:0]``` == R, I1, I2, I3, U, J) and (```EX_ins[11:7]``` == ```ins[11:7]```) and (```EX_ins[11:7]``` != 0)
+          - ```hazard``` = 1
+     - If (```MEM_ins[6:0]``` == R, I1, I2, I3, U, J) and (```MEM_ins[11:7]``` == ```ins[11:7]```) and (```MEM_ins[11:7]``` != 0)
+          - ```hazard``` = 1
+     - If (```WB_ins[6:0]``` == R, I1, I2, I3, U, J) and (```WB_ins[11:7]``` == ```ins[11:7]```) and and (```WB_ins[11:7]``` != 0)
+          - ```hazard``` = 1
 - Else
      - ```hazard``` = 0
-
 
 ### On posedge clk
 - ```hazard```
