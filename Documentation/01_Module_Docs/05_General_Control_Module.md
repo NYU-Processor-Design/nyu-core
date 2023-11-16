@@ -48,7 +48,8 @@ Note: The inputs and outputs for this module should be made into an interface
 ### Combinational
 
 #### Instruction Opcodes
-    |Type|Opcode|
+
+|Type|Opcode|
     |---|---|
     |R|0b0110011|
     |I1|0b0010011|
