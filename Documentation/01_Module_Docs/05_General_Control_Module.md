@@ -67,6 +67,19 @@ Note: The inputs and outputs for this module should be made into an interface
     |```IF_ins[6:0]``` == U|```pc_en``` = 1|```immode``` = 4|
     |```IF_ins[6:0]``` == J|```pc_en``` = 1|```immode``` = 5|
     |```IF_ins[6:0]``` == NOP|```pc_en``` = 0|```immode``` = 0|
+- ```ID_ins[6:0]```
+    |```ID_ins```|```addr_mode```|```branch_occr```|```a_sel```|```b_sel```|
+    |---|---|---|---|---|
+    |```ID_ins[6:0]``` == R|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
+    |```ID_ins[6:0]``` == I1|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 1|
+    |```ID_ins[6:0]``` == I2|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
+    |```ID_ins[6:0]``` == I3|```addr_mode``` = 1|```branch_occr``` = 1|```a_sel``` = 1|```b_sel``` = 2|
+    |```ID_ins[6:0]``` == S|```addr_mode``` = 1|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
+    |```ID_ins[6:0]``` == B|```addr_mode``` = 0|```branch_occr``` = 2|```a_sel``` = 0|```b_sel``` = 0|
+    |```ID_ins[6:0]``` == U|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = ```ID_ins[5:4]```|```b_sel``` = 3|
+    |```ID_ins[6:0]``` == J|```addr_mode``` = 0|```branch_occr``` = 1|```a_sel``` = 1|```b_sel``` = 2|
+    |```ID_ins[6:0]``` == NOP|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
+
 
 
 
