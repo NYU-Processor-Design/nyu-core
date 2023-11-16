@@ -50,16 +50,16 @@ Note: The inputs and outputs for this module should be made into an interface
 #### Instruction Opcodes
 
 |Type|Opcode|
-    |---|---|
-    |R|0b0110011|
-    |I1|0b0010011|
-    |I2|0b0000011|
-    |I3|0b1100111|
-    |S|0b0100011|
-    |B|0b1100011|
-    |U|0b0110111, 0b0010111|
-    |J|0b1101111|
-    |NOP|0b0000000, 0b0001111, 0b1110011|
+|---|---|
+|R|0b0110011|
+|I1|0b0010011|
+|I2|0b0000011|
+|I3|0b1100111|
+|S|0b0100011|
+|B|0b1100011|
+|U|0b0110111, 0b0010111|
+|J|0b1101111|
+|NOP|0b0000000, 0b0001111, 0b1110011|
   
 #### Instruction Decode
 - ```IF_ins[6:0]```
