@@ -43,6 +43,8 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
 ### On posedge clk
+
+#### Instruction Control Signals
 - Instruction Opcodes
     |Type|Opcode|
     |---|---|
@@ -56,7 +58,7 @@ Note: The inputs and outputs for this module should be made into an interface
     |J|1101111|
     |NOP|0000000, 0001111, 1110011|
 - ```IF_ins[6:0]```
-    |```IF_ins```|```pc_en```|```immode```|
+    |```IF_ins[6:0]```|```pc_en```|```immode```|
     |---|---|---|
     |```IF_ins[6:0]``` == R|```pc_en``` = 1|```immode``` = 0|
     |```IF_ins[6:0]``` == I1|```pc_en``` = 1|```immode``` = 1|
@@ -68,7 +70,7 @@ Note: The inputs and outputs for this module should be made into an interface
     |```IF_ins[6:0]``` == J|```pc_en``` = 1|```immode``` = 5|
     |```IF_ins[6:0]``` == NOP|```pc_en``` = 0|```immode``` = 0|
 - ```ID_ins[6:0]```
-    |```ID_ins```|```addr_mode```|```branch_occr```|```a_sel```|```b_sel```|
+    |```ID_ins[6:0]```|```addr_mode```|```branch_occr```|```a_sel```|```b_sel```|
     |---|---|---|---|---|
     |```ID_ins[6:0]``` == R|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
     |```ID_ins[6:0]``` == I1|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 1|
@@ -79,8 +81,42 @@ Note: The inputs and outputs for this module should be made into an interface
     |```ID_ins[6:0]``` == U|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = ```ID_ins[5:4]```|```b_sel``` = 3|
     |```ID_ins[6:0]``` == J|```addr_mode``` = 0|```branch_occr``` = 1|```a_sel``` = 1|```b_sel``` = 2|
     |```ID_ins[6:0]``` == NOP|```addr_mode``` = 0|```branch_occr``` = 0|```a_sel``` = 0|```b_sel``` = 0|
-
-
+- ```EX_ins[6:0]```
+    |```EX_ins[6:0]```|```alu_mode```|```branch_cond```|
+    |---|---|---|
+    |```EX_ins[6:0]``` == R|```alu_mode``` = ```EX_ins[31:25]``` + ```EX_ins[14:12]```|```branch_cond``` = 0|
+    |```EX_ins[6:0]``` == I1|```alu_mode``` = ```EX_ins[31:25]``` + ```EX_ins[14:12]``` if ```EX_ins[14:12]``` == 0x5, ```alu_mode``` = ```EX_ins[14:12]```|```branch_cond``` = 0 otherwise|
+    |```EX_ins[6:0]``` == I2|```alu_mode``` = 0|```branch_cond``` = 0|
+    |```EX_ins[6:0]``` == I3|```alu_mode``` = 0|```branch_cond``` = 3|
+    |```EX_ins[6:0]``` == S|```alu_mode``` = 0|```branch_cond``` = 0|
+    |```EX_ins[6:0]``` == B|```alu_mode``` = 0x02 if ```EX_ins[14:12]``` == 4 or 5, ```alu_mode``` = 0x03 if ```EX_ins[14:12]``` == 6 or 7, ```alu_mode``` = 0x20 otherwise |```branch_cond``` = 1 if ```EX_ins[14:12]``` == 1 or 4 or 6,  ```branch_cond``` = 2| otherwise
+    |```EX_ins[6:0]``` == U|```alu_mode``` = 0|```branch_cond``` = 0|
+    |```EX_ins[6:0]``` == J|```alu_mode``` = 0|```branch_cond``` = 3|
+    |```EX_ins[6:0]``` == NOP|```alu_mode``` = 0|```branch_cond``` = 0|
+- ```MEM_ins[6:0]```
+    |```MEM_ins[6:0]```|```data_mode```|```dcache_rw```|```dcache_en```|
+    |---|---|---|---|
+    |```MEM_ins[6:0]``` == R|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == I1|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == I2|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 1|
+    |```MEM_ins[6:0]``` == I3|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == S|```data_mode``` = ```MEM_ins[14:12]```|```dcache_rw``` = 1|```dcache_en``` = 1|
+    |```MEM_ins[6:0]``` == B|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == U|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == J|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+    |```MEM_ins[6:0]``` == NOP|```data_mode``` = 0|```dcache_rw``` = 0|```dcache_en``` = 0|
+- ```WB_ins[6:0]```
+    |```WB_ins[6:0]```|```wbs```|```wbe```|
+    |---|---|---|
+    |```WB_ins[6:0]``` == R|```wbs``` = 3|```wbe``` = 1|
+    |```WB_ins[6:0]``` == I1|```wbs``` = 3|```wbe``` = 1|
+    |```WB_ins[6:0]``` == I2|```wbs``` = ```WB_ins[14:12]```|```wbe``` = 1|
+    |```WB_ins[6:0]``` == I3|```wbs``` = 3|```wbe``` = 1|
+    |```WB_ins[6:0]``` == S|```wbs``` = 0|```wbe``` = 0|
+    |```WB_ins[6:0]``` == B|```wbs``` = 0|```wbe``` = 0|
+    |```WB_ins[6:0]``` == U|```wbs``` = 3|```wbe``` = 1|
+    |```WB_ins[6:0]``` == J|```wbs``` = 3|```wbe``` = 1|
+    |```WB_ins[6:0]``` == NOP|```wbs``` = 0|```wbe``` = 0|
 
 
 ### Asynchronous active low reset
