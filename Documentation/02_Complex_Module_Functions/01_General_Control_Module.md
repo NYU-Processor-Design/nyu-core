@@ -28,11 +28,8 @@
 |```wbs```|3-bits|Specifies what data to store in the destination register|
 
 ### **Output Options:**
-
+ 
 #### **IF Stage:**
-  - **pc_en**
-    - 0: pc stays the same
-    - 1: pc = npc
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
@@ -100,19 +97,17 @@
 # **Functionality:**
 
 ## **Registers:**
-  - 32-bit ```IF_ins``` register
   - 32-bit ```ID_ins``` register
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
 ## **Combinational Logic Signals:**
-  - 1-bit ```Hazard```
+  - 1-bit ```hazard```
 
 ## **Instruction Type Decoding:**
 
 #### R Type (ins[6:0] = 0110011):
   - IF Stage:
-    - pc_en = 1
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
@@ -131,7 +126,6 @@
     - wbe = 1
 #### I Type 1 (ins[6:0] = 0010011):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
@@ -154,7 +148,6 @@
     - wbe = 1
 #### I Type 2 (ins[6:0] = 0000011):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
@@ -173,7 +166,6 @@
     - wbe = 1
 #### I Type 3 (ins[6:0] = 1100111):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = 1
@@ -192,7 +184,6 @@
     - wbe = 1
 #### S Type (ins[6:0] = 0100011):
   - IF Stage:
-    - pc_en = 1
     - immode = 2
   - ID Stage:
     - addr_mode = 1
@@ -210,8 +201,7 @@
     - wbs = N/A
     - wbe = 0
 #### B Type (ins[6:0] = 1100011):
-  - IF Stage:
-    - pc_en = 1
+  - IF Stage
     - immode = 3
   - ID Stage:
     - addr_mode = N/A
@@ -240,7 +230,6 @@
     - wbe = 0
 #### U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
-    - pc_en = 1
     - immode = 4
   - ID Stage:
     - addr_mode = N/A
@@ -259,7 +248,6 @@
     - wbe = 1
 #### J Type (ins[6:0] = 1101111):
   - IF Stage:
-    - pc_en = 1
     - immode = 5
   - ID Stage:
     - addr_mode = N/A
@@ -278,7 +266,6 @@
     - wbe = 1
 #### NOP (ins[6:0] = 0000000, 0001111, 1110011):
   - IF Stage:
-    - pc_en = 0
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
@@ -299,14 +286,59 @@
 ## **Hazard Detection:**
 
 ### Hazard Description:
-When the IF_ins instruction poses a read-write, write-read, or write-write hazard we need to stall that instruction until the instruction it depends on exits the pipeline.  A similar rule needs to be applied for branching hazards, since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the IF_ins register is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present.
+When the ins instruction poses a read-after-write or write-after-write hazard, we need to stall that instruction until the instruction it depends on exits the pipeline. A similar rule needs to be applied for branching hazards since we could potentially load an errant instruction into the IF stage. As such, we use combinational logic to check if the instruction in the ins input is a branching instruction or otherwise dependent on any instruction currently in the other stages of the pipeline; if there is a branching instruction or dependency, the hazard signal is set and we insert a NOP to stall execution, otherwise, we continue as normal with the hazard signal not set. This hazard detection logic must be combinational and not rely on the clock cycle so that we can entirely and instantly prevent the pipeline from advancing to the next instruction for as long as the hazard is present. 
+
+Note that we don't have to worry about write-after-read hazards since we do not reorder instructions and there is no way for a subsequent instruction to read data from either the memory or registers before the proceeding instruction can write the data.
+
+### Instructions That Can Pose Hazards:
+
+#### Hazards Related to CPU Registers
+- All R Type Instructions: They all read and write to CPU registers
+- All I Type 1 Instructions: They all read and write to CPU registers
+- All I Type 2 Instructions: They all read and write to CPU registers
+- All I Type 3 Instructions: They all read and write to CPU registers
+- All S Type Instructions: They all read from CPU registers
+- All B Type Instructions: They all read from CPU registers
+- All U Type Instructions: They all write to CPU registers
+- All J Type Instructions: They all write to CPU registers
+
+#### Hazards Related to Memory
+- Can't have memory hazards since all interactions with memory happen in the MEM stage so no conflicts can happen between two instructions
+
+#### Branching Hazards
+- All I Type 3 Instructions: They can all branch
+- All B Type Instructions: They can all branch
+- All J Type Instructions: They can all branch
 
 ### Hazard Detection Logic:
 
+#### Detecting if IF_ins holds branch hazard
+- If (ins[6:0] == 1100111, 1100011, 1101111) and (hazard == 0), hazard = 1
+
+#### Detecting if IF_ins holds data hazard
+- Since we don't have to worry about write-after-read hazards, S and B type instructions only need to be screened for in ins, not anywhere else
+- If (ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111)
+and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
+ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
+1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
+0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and MEM_ins[11:7] == 
+ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
+0010111 and WB_ins[11:7] == ins[11:7] != 0)), hazard = 1
+
+#### Combination Logic
+- If (ins[6:0] == 1100111, 1100011, 1101111) and (hazard == 0), hazard = 1
+- Else if ((ins[6:0] == 0110011, 0010011, 0000011, 0100011, 1100011, 1101111, 1100111, 0110111, 0010111) and ((ID_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and     
+ID_ins[11:7] == ins[11:7] != 0) or (EX_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 
+1100111, 0110111, 0010111 and EX_ins[11:7] == ins[11:7] != 0) or (MEM_ins[6:0] == 0110011, 
+0010011, 0000011, 1101111, 1100111, 0110111, 0010111 and MEM_ins[11:7] == 
+ins[11:7] != 0) or (WB_ins[6:0] == 0110011, 0010011, 0000011, 1101111, 1100111, 0110111, 
+0010111 and WB_ins[11:7] == ins[11:7] != 0))) hazard = 1
+- Else hazard = 0
+
 ### Hazard Dependent Outputs and Registers:
-  - Hazard = 0:
-    - ID_ins = IF_ins
+  - hazard = 0:
+    - ID_ins = ins
     - pc_en = 1
-  - Hazard = 1:
+  - hazard = 1:
     - ID_ins = NOP (32'b0)
     - pc_en = 0
