@@ -11,6 +11,8 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
+|```clk```|1-bit|
+|```rstn```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bits|
