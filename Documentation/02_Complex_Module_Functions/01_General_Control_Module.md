@@ -28,11 +28,12 @@
 |```wbs```|3-bits|Specifies what data to store in the destination register|
 
 ### **Output Options:**
-
+ 
+- **pc_en**
+  - 0: pc stays the same
+  - 1: pc = npc
 #### **IF Stage:**
-  - **pc_en**
-    - 0: pc stays the same
-    - 1: pc = npc
+ 
   - **immode**
     - 0: imm = 32'b0
     - 1: imm = {20{ins[31]}}, ins[31:20]}
@@ -112,7 +113,6 @@
 
 #### R Type (ins[6:0] = 0110011):
   - IF Stage:
-    - pc_en = 1
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
@@ -131,7 +131,6 @@
     - wbe = 1
 #### I Type 1 (ins[6:0] = 0010011):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
@@ -154,7 +153,6 @@
     - wbe = 1
 #### I Type 2 (ins[6:0] = 0000011):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = N/A
@@ -173,7 +171,6 @@
     - wbe = 1
 #### I Type 3 (ins[6:0] = 1100111):
   - IF Stage:
-    - pc_en = 1
     - immode = 1
   - ID Stage:
     - addr_mode = 1
@@ -192,7 +189,6 @@
     - wbe = 1
 #### S Type (ins[6:0] = 0100011):
   - IF Stage:
-    - pc_en = 1
     - immode = 2
   - ID Stage:
     - addr_mode = 1
@@ -210,8 +206,7 @@
     - wbs = N/A
     - wbe = 0
 #### B Type (ins[6:0] = 1100011):
-  - IF Stage:
-    - pc_en = 1
+  - IF Stage
     - immode = 3
   - ID Stage:
     - addr_mode = N/A
@@ -240,7 +235,6 @@
     - wbe = 0
 #### U Type (ins[6:0] = 0110111, 0010111):
   - IF Stage:
-    - pc_en = 1
     - immode = 4
   - ID Stage:
     - addr_mode = N/A
@@ -259,7 +253,6 @@
     - wbe = 1
 #### J Type (ins[6:0] = 1101111):
   - IF Stage:
-    - pc_en = 1
     - immode = 5
   - ID Stage:
     - addr_mode = N/A
@@ -278,7 +271,6 @@
     - wbe = 1
 #### NOP (ins[6:0] = 0000000, 0001111, 1110011):
   - IF Stage:
-    - pc_en = 0
     - immode = 0
   - ID Stage:
     - addr_mode = N/A
