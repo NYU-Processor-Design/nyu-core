@@ -60,17 +60,17 @@ Note: The inputs and outputs for this module should be made into an interface
   
 #### Instruction Decode
 - ```IF_ins[6:0]```
-    |```IF_ins[6:0]```|```pc_en```|```immode```|
+    |```IF_ins[6:0]```|```immode```|
     |---|---|---|
-    |```IF_ins[6:0]``` == R|```pc_en``` = 1|```immode``` = 0|
-    |```IF_ins[6:0]``` == I1|```pc_en``` = 1|```immode``` = 1|
-    |```IF_ins[6:0]``` == I2|```pc_en``` = 1|```immode``` = 1|
-    |```IF_ins[6:0]``` == I3|```pc_en``` = 1|```immode``` = 1|
-    |```IF_ins[6:0]``` == S|```pc_en``` = 1|```immode``` = 2|
-    |```IF_ins[6:0]``` == B|```pc_en``` = 1|```immode``` = 3|
-    |```IF_ins[6:0]``` == U|```pc_en``` = 1|```immode``` = 4|
-    |```IF_ins[6:0]``` == J|```pc_en``` = 1|```immode``` = 5|
-    |```IF_ins[6:0]``` == NOP|```pc_en``` = 0|```immode``` = 0|
+    |```IF_ins[6:0]``` == R|```immode``` = 0|
+    |```IF_ins[6:0]``` == I1|```immode``` = 1|
+    |```IF_ins[6:0]``` == I2|```immode``` = 1|
+    |```IF_ins[6:0]``` == I3|```immode``` = 1|
+    |```IF_ins[6:0]``` == S|```immode``` = 2|
+    |```IF_ins[6:0]``` == B|```immode``` = 3|
+    |```IF_ins[6:0]``` == U|```immode``` = 4|
+    |```IF_ins[6:0]``` == J|```immode``` = 5|
+    |```IF_ins[6:0]``` == NOP|```immode``` = 0|
 - ```ID_ins[6:0]```
     |```ID_ins[6:0]```|```addr_mode```|```branch_occr```|```a_sel```|```b_sel```|
     |---|---|---|---|---|
