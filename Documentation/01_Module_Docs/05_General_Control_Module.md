@@ -36,13 +36,15 @@ Note: The inputs and outputs for this module should be made into an interface
 |```wbs```|3-bits|
 
 ## Functionality
-### Registers
-  - 32-bit ```IF_ins``` register
+### Register
   - 32-bit ```ID_ins``` register
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
-  - 1-bit ```hazard``` register
+  - 
+### **Combinational Logic Signals:**
+  - 1-bit ```hazard```
+    
 ### Combinational
 
 #### Instruction Opcodes
@@ -121,21 +123,24 @@ Note: The inputs and outputs for this module should be made into an interface
     |```WB_ins[6:0]``` == NOP|```wbs``` = 0|```wbe``` = 0|
 
 #### Hazard Detection
-- If ```IF_ins[6:0]``` == I3, B, J
-     - ```hazard = 1```
-     - 
+- ```pc_en``` = ~```hazard```
+- If (```ins[6:0]``` == I3, B, J) and (```hazard``` == 0)
+     - ```hazard``` = 1
+- Else if ```ins[6:0]``` == R, I1, I2, S, U
+     - If ID_ins[6:0] =
+- Else
+     - ```hazard``` = 0
+
 
 ### On posedge clk
 - ```hazard```
    - if ```hazard```
-        - ```IF_ins``` = 0
-        - ```ID_ins``` = ```IF_ins```
+        - ```ID_ins``` = 0
         - ```EX_ins``` = ```ID_ins```
         - ```MEM_ins``` = ```EX_ins```
         - ```WB_ins``` = ```MEM_ins```
    - else
-        - ```IF_ins``` = ```ins```
-        - ```ID_ins``` = ```IF_ins```
+        - ```ID_ins``` = ```ins```
         - ```EX_ins``` = ```ID_ins```
         - ```MEM_ins``` = ```EX_ins```
         - ```WB_ins``` = ```MEM_ins```
