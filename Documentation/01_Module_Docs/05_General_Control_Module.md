@@ -41,7 +41,7 @@ Note: The inputs and outputs for this module should be made into an interface
   - 32-bit ```EX_ins``` register
   - 32-bit ```MEM_ins``` register
   - 32-bit ```WB_ins``` register
-  - 
+
 ### **Combinational Logic Signals:**
   - 1-bit ```hazard```
     
