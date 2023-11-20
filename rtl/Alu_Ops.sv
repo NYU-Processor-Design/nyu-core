@@ -8,7 +8,7 @@ modport id_ex (
 output [WordSize - 1:0] a, b
 );
 
-modport branch_manager {
+modport alu {
 input [WordSize - 1:0] a, b
 };
 endinterface
