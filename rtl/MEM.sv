@@ -2,7 +2,7 @@ interface MEM #(
   WordSize = 32
 )();
 
-logic [WordSize - 1:0] alu_out,
+logic [WordSize - 1:0] alu_out;
 logic [4:0] rdn;
 
 modport ex_mem (
