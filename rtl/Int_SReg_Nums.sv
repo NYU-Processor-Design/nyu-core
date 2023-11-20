@@ -1,4 +1,4 @@
-interface SReg_Nums();
+interface Int_SReg_Nums();
 
 logic [4:0] rs1n, rs2n;
 
