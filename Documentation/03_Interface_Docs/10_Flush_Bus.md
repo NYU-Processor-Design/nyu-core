@@ -1,5 +1,4 @@
 # Flush Bus #
-(Any Notes would go here)
 
 ## Contents
 * [Modules](#modules)
