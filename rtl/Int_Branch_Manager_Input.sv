@@ -1,4 +1,4 @@
-interface Branch_Manager_Input #(
+interface Int_Branch_Manager_Input #(
   WordSize = 32
 )();
 
