@@ -36,13 +36,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### External Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -50,13 +50,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### Internal Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -66,13 +66,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### External Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -80,13 +80,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### Internal Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -96,13 +96,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### External Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -110,13 +110,13 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ##### Internal Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
 
@@ -131,7 +131,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 ## Internal Connections
 
 |Module 1|Module 2|Module N|
-|:---|:---:|:---:|
+|:---:|:---:|:---:|
 |```name```|```name```|```name```|
 |```name```|```name```|```name```|
 |```name```|```name```|```name```|
