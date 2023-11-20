@@ -14,7 +14,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
   * [Interface 1](#interface1)
   * [Interface 2](#interface2)
   * [Interface N](#interfaceN)
-* [Connections](#connections)
+* [Internal Connections](#internal_connections)
 
 ## Inputs
 |Name|Bits wide|
@@ -128,7 +128,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ### Interface N
 
-## Connections
+## Internal Connections
 
 |Module 1|Module 2|Module N|
 |:---|:---:|:---:|
