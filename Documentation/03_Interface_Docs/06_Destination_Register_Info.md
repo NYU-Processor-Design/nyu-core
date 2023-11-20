@@ -7,7 +7,7 @@
 
 ## Modules
 
-### Module 1
+### MEM/WB Latch
 
 #### Outputs
 |Input|Bits wide|
@@ -15,7 +15,7 @@
 |```rdn```|5-bit|
 |```rdd```|32-bit|
 
-### Module 2
+### Registers
 
 #### Inputs
 |Input|Bits wide|
