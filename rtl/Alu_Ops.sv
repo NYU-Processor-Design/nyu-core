@@ -8,7 +8,7 @@ modport id_ex (
 output [WordSize - 1:0] a, b
 );
 
-modport alu {
+modport alu (
 input [WordSize - 1:0] a, b
-};
+);
 endinterface
