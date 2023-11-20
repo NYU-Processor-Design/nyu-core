@@ -1,4 +1,4 @@
-interface ID #(
+interface Int_ID #(
   WordSize = 32
 )();
 
