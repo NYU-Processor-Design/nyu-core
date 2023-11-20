@@ -10,8 +10,8 @@ output [WordSize - 1:0] rdd,
 output [4:0] rdn
 );
 
-modport registers {
+modport registers (
 input [WordSize - 1:0] rdd,
 input [4:0] rdn
-};
+);
 endinterface
