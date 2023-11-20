@@ -43,3 +43,11 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ### Interface N
 
+## Connections
+
+|Module 1|Module 2|Module N|
+|:---|:---:|:---:|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
