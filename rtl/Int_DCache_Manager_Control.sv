@@ -8,7 +8,7 @@ output dcache_en, dcache_rw,
 output [1:0] data_mode
 );
 
-modport dcache_manager {
+modport con_mem {
 input dcache_en, dcache_rw,
 input [1:0] data_mode
 };
