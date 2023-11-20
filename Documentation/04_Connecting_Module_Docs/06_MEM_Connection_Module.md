@@ -70,6 +70,7 @@
 #### Internal IO
 
 ##### Internal Inputs
+|:---|:---:|
 |```addr```|32-bits|
 |```data```|32-bits|
 
