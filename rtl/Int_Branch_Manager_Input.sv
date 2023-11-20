@@ -6,13 +6,11 @@ logic [WordSize - 1:0] pc, addr;
 logic taken;
 
 modport id_ex (
-output [WordSize - 1:0] pc, addr,
-output taken
+output pc, addr, taken
 );
 
 modport branch_manager (
-input [WordSize - 1:0] pc, addr,
-input taken
+input pc, addr, taken
 );
 
 modport branch_predictor (
