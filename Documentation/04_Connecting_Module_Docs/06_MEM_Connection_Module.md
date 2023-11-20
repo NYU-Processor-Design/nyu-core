@@ -99,6 +99,7 @@
 #### Internal IO
 
 ##### Internal Inputs
+|:---|:---:|
 |```rdn_in```|5-bits|
 |```alu_out```|32-bits|
 |```mrd```|32-bits|
