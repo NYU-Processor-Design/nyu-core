@@ -1,4 +1,4 @@
-interface DCache_Manager_Control();
+interface Int_DCache_Manager_Control();
 
 logic dcache_en, dcache_rw;
 logic [1:0] data_mode;
