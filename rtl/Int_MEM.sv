@@ -6,17 +6,15 @@ logic [WordSize - 1:0] alu_out;
 logic [4:0] rdn;
 
 modport ex_mem (
-output [WordSize - 1:0] alu_out,
-output [4:0] rdn
+  output alu_out, rdn
 );
 
 modport mem_wb (
-input [WordSize - 1:0] alu_out,
-input [4:0] rdn
+input alu_out, rdn
 );
 
 modport dcache_manager (
-input [WordSize - 1:0] alu_out,
+input alu_out,
 );
   
 endinterface
