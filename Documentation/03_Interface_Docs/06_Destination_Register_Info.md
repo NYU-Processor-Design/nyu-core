@@ -25,7 +25,7 @@
 
 ## Connections
 
-|Module 1|Module 2|
+|MEM/WB|Registers|
 |:---|:---:|
 |```rdn```|```rdm```|
 |```rdd```|```rdd```|
