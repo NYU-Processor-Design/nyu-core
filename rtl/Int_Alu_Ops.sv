@@ -1,4 +1,4 @@
-interface Alu_Ops #(
+interface Int_Alu_Ops #(
   WordSize = 32
 )();
 
