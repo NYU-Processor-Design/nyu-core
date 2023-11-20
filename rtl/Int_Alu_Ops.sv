@@ -5,10 +5,10 @@ interface Int_Alu_Ops #(
 logic [WordSize - 1:0] a, b;
 
 modport id_ex (
-output [WordSize - 1:0] a, b
+output a, b
 );
 
 modport alu (
-input [WordSize - 1:0] a, b
+input a, b
 );
 endinterface
