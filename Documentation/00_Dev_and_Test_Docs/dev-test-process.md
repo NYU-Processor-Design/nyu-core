@@ -14,6 +14,8 @@ There are two main parts/files you need to add when implementing a component.
 + Module: this will be a System Verilog file with the module itself, based on the component outline.
 
   + The module file should be stored in the /nyu-core/**rtl** folder.
+      
+      + For interfaces and connection modules, a prefix is added to destingush them from base level modules. Int for interfaces and Con for connection modules.
 + Test: this is a C++ file with a design verification test that ensures your module works properly.
 
   + The test file belongs in the /nyu-core/**dv** folder.
