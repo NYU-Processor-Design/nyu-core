@@ -3,7 +3,7 @@
 ## Contents
 * [Modules](#modules)
   * [General Control Module](#general_control_module)
-  * [Data Cache Manager](#data_cache_manager)
+  * [MEM Connection Module](#mem_connection_module)
 * [Connections](#connections)
 
 ## Modules
@@ -17,7 +17,7 @@
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bit|
 
-### Data Cache Manager
+### MEM Connection Module
 
 #### Inputs
 |Input|Bits wide|
@@ -28,7 +28,7 @@
 
 ## Connections
 
-|General Control Module|Data Cache Manager|
+|General Control Module|MEM_Connection_Module|
 |:---|:---:|
 |```dcache_en```|```dcache_en```|
 |```dcache_rw```|```dcache_rw```|
