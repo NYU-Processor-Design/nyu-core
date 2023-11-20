@@ -1,4 +1,4 @@
-interface MEM #(
+interface Int_MEM #(
   WordSize = 32
 )();
 
