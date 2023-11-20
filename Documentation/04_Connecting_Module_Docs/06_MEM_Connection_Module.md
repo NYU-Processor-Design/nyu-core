@@ -38,7 +38,7 @@
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```rdn_in```|5-bits|
@@ -49,7 +49,7 @@
 
 ##### Internal Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
 |```mem_data```|32-bits|
@@ -60,7 +60,7 @@
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
 |```dcache_en```|1-bit|
@@ -70,13 +70,13 @@
 #### Internal IO
 
 ##### Internal Inputs
-|:---|:---:|
+|:---:|:---:|
 |```addr```|32-bits|
 |```data```|32-bits|
 
 #### Internal Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```mrd```|32-bits|
 
 ### MEM/WB Latch
@@ -85,21 +85,21 @@
 
 ##### External Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```clk```|1-bit|
 |```rstn```|1-bit|
 |```wbs```|3-bits|
 
 ##### External Outputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```rdn```|5-bits|
 |```rdd```|32-bits|
 
 #### Internal IO
 
 ##### Internal Inputs
-|:---|:---:|
+|:---:|:---:|
 |```rdn_in```|5-bits|
 |```alu_out```|32-bits|
 |```mrd```|32-bits|
@@ -107,7 +107,7 @@
 ## Internal Connections
 
 |EX/MEM|Data Cache Manager|MEM/WB|
-|:---|:---:|:---:|
+|:---:|:---:|:---:|
 |```rdn```||```rdn_in```|
 |```alu_out```|```addr```|```alu_out```|
 |```mem_data```|```data```||
