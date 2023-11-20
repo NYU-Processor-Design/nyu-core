@@ -10,8 +10,13 @@ output [WordSize - 1:0] pc, addr,
 output taken
 );
 
-modport branch_manager {
+modport branch_manager (
 input [WordSize - 1:0] pc, addr,
 input taken
-};
+);
+
+modport branch_predictor (
+input taken
+);
+  
 endinterface
