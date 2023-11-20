@@ -14,4 +14,8 @@ modport id_ex {
 input [WordSize - 1:0] imm, pc,
 input [4:0] rdn
 };
+
+modport branch_addr_calc {
+input [WordSize - 1:0] imm, pc,
+};
 endinterface
