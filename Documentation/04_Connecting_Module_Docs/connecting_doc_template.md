@@ -10,6 +10,10 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
   * [Module 1](#module1)
   * [Module 2](#module2)
   * [Module N](#moduleN)
+* [Interfaces](#interfaces)
+  * [Interface 1](#interface1)
+  * [Interface 2](#interface2)
+  * [Interface N](#interfaceN)
 
 ## Inputs
 |Name|Bits wide|
@@ -31,4 +35,11 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ### Module N
 
+## Interfaces
+
+### Interface 1
+
+### Interface 2
+
+### Interface N
 
