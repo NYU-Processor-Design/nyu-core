@@ -1,4 +1,4 @@
-interface DReg_Info #(
+interface Int_DReg_Info #(
   WordSize = 32
 )();
 
