@@ -5,12 +5,12 @@ interface DReg_Info #(
 logic [WordSize - 1:0] rdd;
 logic [4:0] rdn;
 
-modport id_ex (
+modport mem_wb (
 output [WordSize - 1:0] rdd,
 output [4:0] rdn
 );
 
-modport branch_manager {
+modport registers {
 input [WordSize - 1:0] rdd,
 input [4:0] rdn
 };
