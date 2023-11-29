@@ -1,4 +1,5 @@
 # MEM Connection Module #
+(Verilog module known as Con_MEM)
 
 ## Contents
 * [Inputs](#inputs)
