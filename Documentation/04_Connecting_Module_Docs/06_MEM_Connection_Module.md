@@ -70,6 +70,7 @@
 #### Internal IO
 
 ##### Internal Inputs
+|Name|Bits wide|
 |:---:|:---:|
 |```addr```|32-bits|
 |```data```|32-bits|
@@ -99,6 +100,7 @@
 #### Internal IO
 
 ##### Internal Inputs
+|Name|Bits wide|
 |:---:|:---:|
 |```rdn_in```|5-bits|
 |```alu_out```|32-bits|
