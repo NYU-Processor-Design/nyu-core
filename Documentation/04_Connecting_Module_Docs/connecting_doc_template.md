@@ -10,10 +10,6 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
   * [Module 1](#module1)
   * [Module 2](#module2)
   * [Module N](#moduleN)
-* [Interfaces](#interfaces)
-  * [Interface 1](#interface1)
-  * [Interface 2](#interface2)
-  * [Interface N](#interfaceN)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
@@ -119,14 +115,6 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 |:---:|:---:|
 |```name```|#-bit|
 |```name```|#-bit|
-
-## Interfaces
-
-### Interface 1
-
-### Interface 2
-
-### Interface N
 
 ## Internal Connections
 
