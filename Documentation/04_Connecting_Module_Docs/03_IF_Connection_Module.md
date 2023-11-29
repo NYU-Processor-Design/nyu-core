@@ -12,112 +12,68 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```cache_clk```|1-bit|
+|```rstn```|1-bit|
+|```pc_en```|1-bit|
+|```npc```|32-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc```|32-bit|
+|```ins```|32-bit|
 
 ## Modules
 
-### Module 1
+### PC
 
 #### External IO
 
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```pc_en```|1-bit|
+|```npc```|32-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc```|32-bit|
 
 #### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc```|32-bit|
 
-### Module 2
+### Instruction Cache
 
 #### External IO
 
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```cache_clk```|1-bit|
+|```rstn```|1-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```ins```|32-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-### Module N
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc```|32-bit|
 
 ## Internal Connections
 
-|Module 1|Module 2|Module N|
+|PC|Instruction Cache|
 |:---:|:---:|:---:|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
+|```pc```|```pc```|
