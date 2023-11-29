@@ -5,7 +5,7 @@
 * [Outputs](#outputs)
 * [Modules](#modules)
   * [EX/MEM Latch](#exmem_latch)
-  * [Data Cache Manager](#data_cache_manager)
+  * [Data Cache](#data_cache)
 * [Internal Connections](#internal_connections)
 
 
@@ -57,7 +57,7 @@
 |:---:|:---:|
 |```mem_data```|32-bits|
 
-### Data Cache Manager
+### Data Cache
 
 #### External IO
 
@@ -87,7 +87,7 @@
 
 ## Internal Connections
 
-|EX/MEM|Data Cache Manager|
+|EX/MEM|Data Cache|
 |:---:|:---:|
 |```alu_out```|```addr```|
 |```mem_data```|```data```|
