@@ -46,6 +46,7 @@
 
 ##### External Outputs
 |Name|Bits wide|
+|:---:|:---:|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
 
