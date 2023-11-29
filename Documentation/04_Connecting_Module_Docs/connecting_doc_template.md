@@ -44,7 +44,7 @@ USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
 
 ### Interface N
 
-## Non-Interfaced Internal Connections
+## Internal Connections
 
 |Module 1|Module 2|Module N|
 |:---:|:---:|:---:|
