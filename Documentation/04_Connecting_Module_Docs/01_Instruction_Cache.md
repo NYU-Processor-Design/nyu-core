@@ -1,32 +1,95 @@
-# THIS CONNECTION MODULE IS NOT YET OUTLINED #
+THIS OUTLINE IS INCOMPLETE
 
-# Module Name #
-(Any Notes would go here)
+# Instruction Cache #
+(Verilog module known as Conn_Instruction_Cache)
 
 ## Contents
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
-  * [Module N](#moduleN)
+  * [Instruction Cache Manager](#instruction_cache_manager)
+  * [L1 Instruction Cache](#l1_instruction_cache)
+* [Internal Connections](#internal_connections)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```cache_clk```|1-bit|
+|```rstn```|1-bit|
+|```pc```|32-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```ins```|32-bit|
 
 ## Modules
 
-### Module 1
+### Instruction Cache Manager
 
-### Module 2
+#### External IO
 
-### Module N
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+### L1 Instruction Cache
+
+#### External IO
+
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+## Internal Connections
+
+|Module 1|Module 2|Module N|
+|:---:|:---:|:---:|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
+|```name```|```name```|```name```|
