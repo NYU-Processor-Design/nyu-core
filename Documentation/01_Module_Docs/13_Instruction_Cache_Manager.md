@@ -22,7 +22,7 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```ins```|32-bits|
+|```name```|#-bits|
 
 ### Registers
   - #-bit ```name``` register
