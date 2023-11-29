@@ -80,7 +80,7 @@
 
 #### External IO
 
-#### External Outputs
+##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
 |```mrd```|32-bits|
