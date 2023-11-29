@@ -23,7 +23,7 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```mrd```|32-bits|
+|```name```|#-bits|
 
 ## Functionality
 ### Registers
