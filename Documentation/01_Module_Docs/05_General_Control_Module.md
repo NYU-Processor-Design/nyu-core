@@ -1,7 +1,4 @@
-# THIS OUTLINE IS NOT YET COMPLETE #
-
 # General Control Module #
-Note: The inputs and outputs for this module should be made into an interface
 
 ## Contents
 * [Inputs](#inputs)
