@@ -19,10 +19,10 @@ TEST_CASE("rdn Passthrough") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        wbs = rand() % (int) (pow(2, 3) - 1);
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        rdn_in = rand() % (int) (pow(2, 5) );
+        wbs = rand() % (int) (pow(2, 3) );
+        alu_out = rand() % (int) (pow(2, 32) );
+        mrd = rand() % (int) (pow(2, 32) );
         
         //Initialize Module
         model.rstn = 1;
@@ -57,10 +57,10 @@ TEST_CASE("Write Back State 0") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 0;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -94,10 +94,10 @@ TEST_CASE("Write Back State 1") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 1;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -130,10 +130,10 @@ TEST_CASE("Write Back State 2") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 2;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -165,10 +165,10 @@ TEST_CASE("Write Back State 3") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 3;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -201,10 +201,10 @@ TEST_CASE("Write Back State 4") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 4;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -236,10 +236,10 @@ TEST_CASE("Write Back State 5") {
     uint32_t mrd;
 
     for (int i = 0; i < 1000; i++) {
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
         wbs = 5;
-        alu_out = rand() % (int) (pow(2, 32) - 1);
-        mrd = rand() % (int) (pow(2, 32) - 1);
+        alu_out = rand() % (int) (pow(2, 32));
+        mrd = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;

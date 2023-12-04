@@ -15,8 +15,8 @@ uint32_t test(uint32_t a, uint32_t b, uint8_t op) {
 
 TEST_CASE("ADD") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x0);
         REQUIRE(result == (uint32_t) (a + b));
     }
@@ -24,8 +24,8 @@ TEST_CASE("ADD") {
 
 TEST_CASE("SUB") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x20);
         REQUIRE(result == (uint32_t) (a + (~b + 1)));
     }
@@ -33,8 +33,8 @@ TEST_CASE("SUB") {
 
 TEST_CASE("XOR") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x04);
         REQUIRE(result == (a ^ b));
     }
@@ -42,8 +42,8 @@ TEST_CASE("XOR") {
 
 TEST_CASE("OR") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x06);
         REQUIRE(result == (a | b));
     }
@@ -51,8 +51,8 @@ TEST_CASE("OR") {
 
 TEST_CASE("AND") {
     for (int i = 0; i < 1000; i++) {
-       uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+       uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x07);
         REQUIRE(result == (a & b));
     }
@@ -60,8 +60,8 @@ TEST_CASE("AND") {
 
 TEST_CASE("LLS") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x01);
         REQUIRE(result == (a << (b & 31)));
     }
@@ -69,8 +69,8 @@ TEST_CASE("LLS") {
 
 TEST_CASE("LRS") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x05);
         REQUIRE(result == (a >> (b & 31)));
     }
@@ -78,8 +78,8 @@ TEST_CASE("LRS") {
 
 TEST_CASE("ARS") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32) );
         uint32_t result = test(a, b, 0x25);
         uint32_t expected;
         if (a >> 31) {
@@ -99,8 +99,8 @@ TEST_CASE("ARS") {
 
 TEST_CASE("SSLT") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32));
         uint32_t result = test(a, b, 0x02);
         REQUIRE(result == (((a & (1 << 31)) & ~(b & (1 << 31)))? 1 : (~(a & (1 << 31)) & (b & (1 << 31))) ? 0 : a < b));
     }
@@ -108,8 +108,8 @@ TEST_CASE("SSLT") {
 
 TEST_CASE("USLT") {
     for (int i = 0; i < 1000; i++) {
-        uint32_t a = rand() % (int) (pow(2, 32) - 1);
-        uint32_t b = rand() % (int) (pow(2, 32)  - 1);
+        uint32_t a = rand() % (int) (pow(2, 32));
+        uint32_t b = rand() % (int) (pow(2, 32) );
         uint32_t result = test(a, b, 0x03);
         REQUIRE(result == (a < b));
     }

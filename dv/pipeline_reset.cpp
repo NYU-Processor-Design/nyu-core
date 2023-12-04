@@ -19,8 +19,8 @@ TEST_CASE("flush == 0") {
     uint32_t npc_corr;
     
     for (int i = 0; i < 1000; i++) {
-        npc_in = rand() % (int) (pow(2, 32) - 1);
-        npc_corr = rand() % (int) (pow(2, 32) - 1);
+        npc_in = rand() % (int) (pow(2, 32));
+        npc_corr = rand() % (int) (pow(2, 32));
 
         model.flush = 0;
         model.npc_in = npc_in;
@@ -40,8 +40,8 @@ TEST_CASE("flush == 1") {
     uint32_t npc_corr;
     
     for (int i = 0; i < 1000; i++) {
-        npc_in = rand() % (int) (pow(2, 32) - 1);
-        npc_corr = rand() % (int) (pow(2, 32) - 1);
+        npc_in = rand() % (int) (pow(2, 32));
+        npc_corr = rand() % (int) (pow(2, 32));
 
         model.flush = 1;
         model.npc_in = npc_in;

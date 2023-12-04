@@ -25,10 +25,10 @@ TEST_CASE("Non Prediction Instruction") {
 
     //Test Module
     for (int i = 0; i < 1000; i++) {
-        branch_occr = rand() % (int) (pow(2, 1) - 1);
-        act_taken = rand() % (int) (pow(2, 1) - 1);
-        pred_taken = rand() % (int) (pow(2, 1) - 1);
-        branch_cond = rand() % (int) (pow(2, 2) - 1);
+        branch_occr = rand() % (int) (pow(2, 1));
+        act_taken = rand() % (int) (pow(2, 1));
+        pred_taken = rand() % (int) (pow(2, 1));
+        branch_cond = rand() % (int) (pow(2, 2));
 
         model.clk = 0;
         model.eval();
@@ -66,10 +66,10 @@ TEST_CASE("Prediction Instruction") {
 
     //Test Module
     for (int i = 0; i < 1000; i++) {
-        branch_occr = 2 + rand() % (int) (pow(2, 1) - 1);
-        act_taken = rand() % (int) (pow(2, 1) - 1);
-        pred_taken = rand() % (int) (pow(2, 1) - 1);
-        branch_cond = rand() % (int) (pow(2, 2) - 1);
+        branch_occr = 2 + rand() % (int) (pow(2, 1));
+        act_taken = rand() % (int) (pow(2, 1));
+        pred_taken = rand() % (int) (pow(2, 1));
+        branch_cond = rand() % (int) (pow(2, 2));
         
         model.clk = 0;
         model.eval();

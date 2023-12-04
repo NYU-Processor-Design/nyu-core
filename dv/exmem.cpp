@@ -13,9 +13,9 @@ TEST_CASE("Reset"){
   uint32_t rs2d;
 
   for (int i = 0; i < 1000; i++) {
-    rdn_in = rand() % (int) (pow(2,5) - 1);
-    alu_out_in = rand() % (int) (pow(2,32) - 1);
-    rs2d = rand() % (int) (pow(2,32) - 1);
+    rdn_in = rand() % (int) (pow(2,5));
+    alu_out_in = rand() % (int) (pow(2,32));
+    rs2d = rand() % (int) (pow(2,32));
     
     // initialize module
     model.rstn = 1;
@@ -47,9 +47,9 @@ TEST_CASE("ExMem Latch") {
   bool branch_taken_in;
 
   for (int i = 0; i < 1000; i++) {
-    rdn_in = rand() % (int) (pow(2,5) - 1);
-    alu_out_in = rand() % (int) (pow(2,32) - 1);
-    rs2d = rand() % (int) (pow(2,32) - 1);
+    rdn_in = rand() % (int) (pow(2,5));
+    alu_out_in = rand() % (int) (pow(2,32));
+    rs2d = rand() % (int) (pow(2,32));
 
     // reset module
     model.rstn = 1;

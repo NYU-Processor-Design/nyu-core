@@ -19,7 +19,7 @@ TEST_CASE("REGS") {
     model.eval();
 
     for(int regdst = 1; regdst < 32; regdst++) {
-      dstdata = rand() % (int) (pow(2, 32) - 1);
+      dstdata = rand() % (int) (pow(2, 32));
       regvals[regdst] = dstdata;
 
       model.clk = 0;
@@ -35,8 +35,8 @@ TEST_CASE("REGS") {
     }
 
     // read two random registers
-    regsrc1 = rand() % (int) 31;
-    regsrc2 = rand() % (int) 31;
+    regsrc1 = rand() % (int) 32;
+    regsrc2 = rand() % (int) 32;
     model.wbe = 0;
     model.clk = 0;
     model.eval();
