@@ -17,10 +17,11 @@ module Alu #(
 )(
     input [WordSize - 1:0] a, b,
     input [5:0] alu_mode,
-    output logic [WordSize - 1:0] alu_out,
-    logic[WordSize - 1:0] adder_result,
-    logic do_sub, carry
+    output logic [WordSize - 1:0] alu_out
 );
+
+    logic[WordSize - 1:0] adder_result;
+    logic do_sub, carry;
 
 assign do_sub = alu_mode[5] | (alu_mode == SSLT) | (alu_mode == USLT);
 

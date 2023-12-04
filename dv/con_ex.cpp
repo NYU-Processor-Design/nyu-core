@@ -5,7 +5,7 @@
 #include <math.h>
 
 
-TEST_CASE("Value Passthrough") {
+TEST_CASE("Value Passthrough Con") {
     
     VCon_EX model;
     uint8_t a_sel;
@@ -75,7 +75,7 @@ uint32_t calc_b (uint8_t b_sel, uint32_t rs2d, uint32_t imm) {
 }
 
 
-TEST_CASE("ADD") {
+TEST_CASE("ADD Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -133,7 +133,7 @@ TEST_CASE("ADD") {
     }   
 }
 
-TEST_CASE("SUB") {
+TEST_CASE("SUB Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -191,7 +191,7 @@ TEST_CASE("SUB") {
     }  
 }
 
-TEST_CASE("XOR") {
+TEST_CASE("XOR Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -249,7 +249,7 @@ TEST_CASE("XOR") {
     }  
 }
 
-TEST_CASE("OR") {
+TEST_CASE("OR Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -307,7 +307,7 @@ TEST_CASE("OR") {
     }  
 }
 
-TEST_CASE("AND") {
+TEST_CASE("AND Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -334,7 +334,7 @@ TEST_CASE("AND") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x07;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
@@ -365,7 +365,7 @@ TEST_CASE("AND") {
     }  
 }
 
-TEST_CASE("LLS") {
+TEST_CASE("LLS Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -392,7 +392,7 @@ TEST_CASE("LLS") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x01;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
@@ -423,7 +423,7 @@ TEST_CASE("LLS") {
     }  
 }
 
-TEST_CASE("LRS") {
+TEST_CASE("LRS Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -450,7 +450,7 @@ TEST_CASE("LRS") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x05;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
@@ -483,7 +483,7 @@ TEST_CASE("LRS") {
 
 }
 
-TEST_CASE("ARS") {
+TEST_CASE("ARS Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -511,7 +511,7 @@ TEST_CASE("ARS") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x25;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
@@ -553,7 +553,7 @@ TEST_CASE("ARS") {
 
 }
 
-TEST_CASE("SSLT") {
+TEST_CASE("SSLT Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -580,7 +580,7 @@ TEST_CASE("SSLT") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x02;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
@@ -613,7 +613,7 @@ TEST_CASE("SSLT") {
 
 }
 
-TEST_CASE("USLT") {
+TEST_CASE("USLT Con") {
 
     VCon_EX model;
     uint8_t a_sel;
@@ -640,7 +640,7 @@ TEST_CASE("USLT") {
         rs1d = rand() % (int) (pow(2, 32));
         rs2d_in = rand() % (int) (pow(2, 32));
         branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
+        alu_mode = 0x03;
         
         a = calc_a(a_sel, rs1d, pc_in);
         b = calc_b(b_sel, rs2d_in, imm);
