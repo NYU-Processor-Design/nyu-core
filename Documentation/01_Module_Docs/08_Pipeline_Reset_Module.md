@@ -15,7 +15,7 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```rstn```|1-bit|
+|```rstn```|1-bit Tri-State|
 |```npc```|32-bit|
 
 ## Functionality
