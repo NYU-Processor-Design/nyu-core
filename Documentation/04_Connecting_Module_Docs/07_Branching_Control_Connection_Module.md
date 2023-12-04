@@ -1,5 +1,3 @@
-USE THIS TEMPLATE AS A GUIDE TO DOCUMENT OUTLINED CONNECTION MODULES
-
 # Module Name #
 (Any Notes would go here)
 
