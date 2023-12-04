@@ -1,127 +1,104 @@
-# THIS CONNECTION MODULE IS NOT YET OUTLINED #
-
-# Module Name #
-(Any Notes would go here)
+# EX Connection Module #
+(Verilog module known as Con_EX)
 
 ## Contents
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
-  * [Module N](#moduleN)
+  * [ID/EX Latch](#id_ex_latch)
+  * [ALU](#alu)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```a_sel```|2-bit|
+|```b_sel```|2-bit|
+|```branch_taken_in```|1-bit|
+|```imm```|32-bit|
+|```pc_in```|32-bit|
+|```rdn_in```|5-bit|
+|```rs1d```|32-bit|
+|```rs2d_in```|32-bit|
+|```branch_addr_in```|32-bit|
+|```alu_mode```|8-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```branch_taken```|1-bit|
+|```pc```|32-bit|
+|```branch_addr```|32-bit|
+|```rdn```|5-bit|
+|```rs2d```|32-bit|
+|```alu_out```|32-bit|
 
 ## Modules
 
-### Module 1
+### ID/EX Latch
 
 #### External IO
 
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```a_sel```|2-bit|
+|```b_sel```|2-bit|
+|```branch_taken_in```|1-bit|
+|```imm```|32-bit|
+|```pc_in```|32-bit|
+|```rdn_in```|5-bit|
+|```rs1d```|32-bit|
+|```rs2d_in```|32-bit|
+|```branch_addr_in```|32-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```branch_taken```|1-bit|
+|```pc```|32-bit|
+|```branch_addr```|32-bit|
+|```rdn```|5-bit|
+|```rs2d```|32-bit|
 
 #### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```a```|32-bit|
+|```b```|32-bit|
 
-### Module 2
+### ALU
 
 #### External IO
 
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```alu_mode```|8-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```alu_out```|32-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-### Module N
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```a```|32-bit|
+|```b```|32-bit|
 
 ## Internal Connections
 
-|Module 1|Module 2|Module N|
-|:---:|:---:|:---:|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
+|ID/EX|ALU|
+|:---:|:---:|
+|```a```|```a```|
+|```b```|```b```|
 
