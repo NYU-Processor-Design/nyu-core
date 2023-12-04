@@ -63,8 +63,8 @@ It's time to check your module functionality and design verification. Create a p
     for (int i = 0; i < 1000; i++) {
     
       //random number generation
-      uint32_t input = rand() % (int) (pow(2, 32) - 1); // mod your random number by the largest possible value of the input size
-      // the input here is 32 bits, so we mod by pow(2, 32) - 1
+      uint32_t input = rand() % (int) (pow(2, 32)); // mod your random number by the largest possible value of the input  + 1
+      // the input here is 32 bits, so we mod by pow(2, 32)
       
       model.input1 = input;
       model.eval();
