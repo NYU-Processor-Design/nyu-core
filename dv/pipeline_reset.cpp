@@ -28,7 +28,7 @@ TEST_CASE("flush == 0") {
         model.eval();
 
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE(model.rstn == 0); //Verilator translates High Z outputs to 0 
+        REQUIRE(model.rstn_out == 0); //Verilator translates High Z outputs to 0 
 
     }
 }
@@ -49,7 +49,7 @@ TEST_CASE("flush == 1") {
         model.eval();
 
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
-        REQUIRE(model.rstn == 0); //Expect actual 0 output here, not High Z
+        REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
 
     }
 }
