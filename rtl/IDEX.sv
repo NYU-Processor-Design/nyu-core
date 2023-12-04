@@ -3,7 +3,6 @@ module IDEX #(
 )(
   input clk, rstn, branch_taken_in,
   input[1:0] a_sel, b_sel,
-  input[31:0] ins,
   input[WordSize - 1:0] pc_in, imm, rs1d, rs2d_in, branch_addr_in,
   input[4:0] rdn_in,
   output logic branch_taken,

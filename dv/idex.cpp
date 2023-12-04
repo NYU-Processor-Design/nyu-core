@@ -19,15 +19,15 @@ TEST_CASE("Value Passthroughs") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
-        a_sel = rand() % (int) (pow(2, 2) - 1);
-        b_sel = rand() % (int) (pow(2, 2) - 1);
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
+        a_sel = rand() % (int) (pow(2, 2));
+        b_sel = rand() % (int) (pow(2, 2));
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -54,6 +54,7 @@ TEST_CASE("Value Passthroughs") {
         REQUIRE((uint8_t) model.rdn == (uint8_t) rdn_in);
         REQUIRE((bool) model.branch_taken == (bool) branch_taken_in);
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) branch_addr_in);
+        REQUIRE((uint32_t) model.rs2d == (uint32_t) rs2d_in);
     }
 }   
 
@@ -71,15 +72,15 @@ TEST_CASE("a_sel = 0") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
         a_sel = 0;
-        b_sel = rand() % (int) (pow(2, 2) - 1);
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        b_sel = rand() % (int) (pow(2, 2));
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -120,15 +121,15 @@ TEST_CASE("a_sel = 1") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
         a_sel = 1;
-        b_sel = rand() % (int) (pow(2, 2) - 1);
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        b_sel = rand() % (int) (pow(2, 2));
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -169,15 +170,15 @@ TEST_CASE("a_sel = 3") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
         a_sel = 3;
-        b_sel = rand() % (int) (pow(2, 2) - 1);
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        b_sel = rand() % (int) (pow(2, 2));
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -218,15 +219,15 @@ TEST_CASE("b_sel = 0") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
-        a_sel = rand() % (int) (pow(2, 2) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
+        a_sel = rand() % (int) (pow(2, 2));
         b_sel = 0;
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -267,15 +268,15 @@ TEST_CASE("b_sel = 1") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
-        a_sel = rand() % (int) (pow(2, 2) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
+        a_sel = rand() % (int) (pow(2, 2));
         b_sel = 1;
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -316,15 +317,15 @@ TEST_CASE("b_sel = 2") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
-        a_sel = rand() % (int) (pow(2, 2) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
+        a_sel = rand() % (int) (pow(2, 2));
         b_sel = 2;
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
@@ -365,15 +366,15 @@ TEST_CASE("b_sel = 3") {
     uint32_t branch_addr_in;
 
     for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1) - 1);
-        a_sel = rand() % (int) (pow(2, 2) - 1);
+        branch_taken_in  = rand() % (int) (pow(2, 1));
+        a_sel = rand() % (int) (pow(2, 2));
         b_sel = 3;
-        rdn_in = rand() % (int) (pow(2, 5) - 1);
-        imm = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
-        rs2d_in = rand() % (int) (pow(2, 32) - 1);
-        branch_addr_in = rand() % (int) (pow(2, 32) - 1);
+        rdn_in = rand() % (int) (pow(2, 5));
+        imm = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
+        rs2d_in = rand() % (int) (pow(2, 32));
+        branch_addr_in = rand() % (int) (pow(2, 32));
         
         //Initialize Module
         model.rstn = 1;
