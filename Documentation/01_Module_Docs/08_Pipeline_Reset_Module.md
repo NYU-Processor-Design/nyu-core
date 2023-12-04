@@ -15,7 +15,7 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```rstn```|1-bit|
+|```rstn_out```|1-bit Tri-State|
 |```npc```|32-bit|
 
 ## Functionality
@@ -25,8 +25,8 @@
   |```flush == 0```|```npc = npc_in```|
   |```flush == 1```|```npc = npc_corr```|
 
-* ```rstn```
-  |```flush```|```rstn```|
+* ```rstn_out```
+  |```flush```|```rstn_out```|
   |---|---|
-  |```flush == 0```|```rstn = Z```|
-  |```flush == 1```|```rstn = 0```|
+  |```flush == 0```|```rstn_out = Z```|
+  |```flush == 1```|```rstn_out = 0```|

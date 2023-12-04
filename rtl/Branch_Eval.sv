@@ -12,15 +12,15 @@ module Branch_Eval #(
 )(
     input [WordSize - 1:0] alu_out,
     input [1:0] branch_cond,
-    output logic branch_taken
+    output logic act_taken
 );
 
 always_comb begin 
     case(branch_cond)
-        NE: branch_taken = 0;  
-        ALU: branch_taken = |alu_out;
-        NALU: branch_taken = ~(|alu_out);
-        AL: branch_taken = 1;
+        NE: act_taken = 0;  
+        ALU: act_taken = |alu_out;
+        NALU: act_taken = ~(|alu_out);
+        AL: act_taken = 1;
     endcase
 end
 
