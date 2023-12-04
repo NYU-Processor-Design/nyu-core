@@ -1,26 +1,36 @@
-# Module Name #
-(Any Notes would go here)
+# Branching Control Connection Module #
+(Verilog module known as Con_Branch_Cont)
 
 ## Contents
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
-  * [Module N](#moduleN)
+  * [Pipeline Reset Module](#pipeline_reset_module)
+  * [Branch Predictor](#branch_predictor)
+  * [Branch Manager](#branch_manager)
+  * [Branch Evaluator](#branch_evaluator)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```rstn_h```|1-bit|
+|```branch_occr```|2-bit|
+|```branch_cond```|2-bit|
+|```pred_taken```|1-bit|
+|```pred_pc```|32-bit|
+|```pred_addr```|32-bit|
+|```alu_out```|32-bit|
+|```npc_in```|32-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```npc```|32-bit|
+|```rstn_out```|1-bit Tri-State|
+|```branch_taken```|1-bit|
 
 ## Modules
 
