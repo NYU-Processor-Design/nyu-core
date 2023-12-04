@@ -14,9 +14,9 @@ TEST_CASE("PC Passthrough") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        immode = rand() % (int) (7);
+        ins_in = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        immode = rand() % (int) (8);
         
         //Initialize Module
         model.rstn = 1;
@@ -46,9 +46,9 @@ TEST_CASE("Decipher Register Numbers") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
-        immode = rand() % (int) (7);
+        ins_in = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32));
+        immode = rand() % (int) (8);
         
         //Initialize Module
         model.rstn = 1;
@@ -81,8 +81,8 @@ TEST_CASE("Imm Mode 0") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32) );
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 0;
         
         //Initialize Module
@@ -115,8 +115,8 @@ TEST_CASE("Imm Mode 1") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32) );
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 1;
         
         //Initialize Module
@@ -148,8 +148,8 @@ TEST_CASE("Imm Mode 2") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32) );
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 2;
         
         //Initialize Module
@@ -180,8 +180,8 @@ TEST_CASE("Imm Mode 3") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32));
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 3;
         
         //Initialize Module
@@ -213,8 +213,8 @@ TEST_CASE("Imm Mode 4") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32) );
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 4;
         
         //Initialize Module
@@ -246,8 +246,8 @@ TEST_CASE("Imm Mode 5") {
     uint32_t ins_in;
 
     for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) - 1);
-        pc_in = rand() % (int) (pow(2, 32) - 1);
+        ins_in = rand() % (int) (pow(2, 32) );
+        pc_in = rand() % (int) (pow(2, 32) );
         immode = 5;
         
         //Initialize Module

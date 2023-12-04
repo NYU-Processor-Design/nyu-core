@@ -13,8 +13,8 @@ TEST_CASE("PC No Branch") {  //Case when branch_addr = pc + imm, but branch is n
     uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
-        imm = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
+        imm = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
         mode = 0;
         taken = 0;
 
@@ -37,8 +37,8 @@ TEST_CASE("PC Branch") { //Case when branch_addr = pc + imm, and branch is taken
     uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
-        imm = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
+        imm = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
         mode = 0;
         taken = 1;
         
@@ -62,8 +62,8 @@ TEST_CASE("RS1D No Branch") { //Case when branch_addr = imm + rs1d, but branch i
     uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
-        imm = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
+        imm = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
         mode = 1;
         taken = 0;
         
@@ -86,8 +86,8 @@ TEST_CASE("RS1D Branch") { //Case when branch_addr = rs1d, and branch is taken
     uint32_t pc_in;
     
     for (int i = 0; i < 1000; i++) {
-        imm = rand() % (int) (pow(2, 32) - 1);
-        rs1d = rand() % (int) (pow(2, 32) - 1);
+        imm = rand() % (int) (pow(2, 32));
+        rs1d = rand() % (int) (pow(2, 32));
         mode = 1;
         taken = 1;
         
