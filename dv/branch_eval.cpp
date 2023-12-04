@@ -9,7 +9,7 @@ bool test(uint32_t alu_out, uint8_t cond) {
     model.alu_out = alu_out;
     model.branch_cond = cond;
     model.eval();
-    return model.branch_taken;
+    return model.act_taken;
 }
 
 TEST_CASE("Never Branch") {  //Case when non branching instruction
