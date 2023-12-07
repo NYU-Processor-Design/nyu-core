@@ -17,16 +17,19 @@
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
 |```pc```|32-bits|
+|```ins_in```|32-bits|
 
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bits|
+|```ins_out```|32-bits|
 
 ### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
+  - 32-bit ```pc``` register
+  - 32-bit ```ins_in``` register
+  - 32-bit ```ins_out``` register
+
 ### On posedge cache_clk
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
