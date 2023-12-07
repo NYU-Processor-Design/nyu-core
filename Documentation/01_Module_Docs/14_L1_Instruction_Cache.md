@@ -1,7 +1,7 @@
 # THIS MODULE IS NOT YET OUTLINED #
 
 # L1 Instruction Cache #
-(Any Notes would go here)
+Not sure about the index, offset, tag bit
 
 ## Contents
 * [Inputs](#inputs)
@@ -14,20 +14,24 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```tag_in```|17-bit|
+|```index_in```|9-bit|
+|```offset_in```|6-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```ins```|32-bit|
 
 ## Functionality
 ### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
+  - 32-bit ```ins``` register
+  - 17-bit ```tag``` register
+  - 9-bit ```index``` register
+  - 6-bit ```offset``` register
+
 ### On posedge clk
+  - Check if hit or miss
   - ```somebranch = someval```
   - Use a table when necessary if statements are used:
   - ```name```

@@ -1,7 +1,9 @@
 # THIS OUTLINE IS NOT YET COMPLETE #
 
 # Instruction Cache Manager #
-(Any Notes would go here)
+*NOTES*:
+- Cache manager calculate the cache parameters (index, tag, offset) from the `pc` and pass them into the cache for instruction retrieval.
+
 
 ## Contents
 * [Inputs](#inputs)
@@ -15,20 +17,23 @@
 |Name|Bits wide|
 |:---|:---:|
 |```cache_clk```|1-bit|
+|```ins_in```|32-bits|
 |```rstn```|1-bit|
 |```pc```|32-bits|
-|```ins_in```|32-bits|
 
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
 |```ins_out```|32-bits|
+|```tag```|17-bit|
+|```index```|9-bit|
+|```offset```|6-bit|
 
 ### Registers
   - 32-bit ```pc``` register
   - 32-bit ```ins_in``` register
-  - 32-bit ```ins_out``` register
+
 
 ### On posedge cache_clk
   - ```somebranch = someval```
