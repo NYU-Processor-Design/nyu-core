@@ -28,10 +28,10 @@
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```imm```|32-bit|
-|```pc```|32-bit|
+|```imm_out```|32-bit|
+|```pc_out```|32-bit|
 |```rdn```|5-bit|
-|```rs1d```|32-bit|
+|```rs1d_out```|32-bit|
 |```rs2d```|32-bit|
 |```npc```|32-bit|
 |```branch_addr```|32-bit|
