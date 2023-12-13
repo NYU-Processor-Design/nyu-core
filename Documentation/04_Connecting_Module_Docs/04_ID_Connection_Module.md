@@ -22,7 +22,6 @@
 |```wbe```|1-bit|
 |```addr_mode```|1-bit|
 |```branch_taken```|1-bit|
-|```rdn_in```|5-bit|
 |```rdd```|32-bit|
 
 ## Outputs
