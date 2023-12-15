@@ -1,7 +1,7 @@
 # THIS MODULE IS NOT COMPLETE #
 
 # L1 Instruction Cache #
-Not sure about the index, offset, tag bit
+Not sure about the index, offset, tag bit. Still need to work on functionality
 
 ## Contents
 * [Inputs](#inputs)
