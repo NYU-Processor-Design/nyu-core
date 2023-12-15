@@ -1,5 +1,7 @@
 # THIS OUTLINE IS NOT COMPLETE #
 
+Still needs to work on functionality
+
 # Instruction Cache Manager #
 *NOTES*:
 - Cache manager calculate the cache parameters (index, tag, offset) from the `pc` and pass them into the cache for instruction retrieval.
