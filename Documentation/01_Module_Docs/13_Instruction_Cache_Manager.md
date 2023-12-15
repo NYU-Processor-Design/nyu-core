@@ -1,4 +1,4 @@
-# THIS OUTLINE IS NOT YET COMPLETE #
+# THIS OUTLINE IS NOT COMPLETE #
 
 # Instruction Cache Manager #
 *NOTES*:
