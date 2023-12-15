@@ -1,11 +1,11 @@
 #include <catch2/catch_test_macros.hpp>
-#include <VCon_Branching_Control.h>
+#include <VCon_Branch_Cont.h>
 #include <cstdint>
 #include <stdlib.h>
 #include <math.h>
 
 TEST_CASE("Value Passthrough Con"){
-    VCon_Branching_Control model;
+    VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
@@ -49,7 +49,7 @@ TEST_CASE("Value Passthrough Con"){
 }
 
 TEST_CASE("Branch Prediction Correct"){
-    VCon_Branching_Control model;
+    VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;

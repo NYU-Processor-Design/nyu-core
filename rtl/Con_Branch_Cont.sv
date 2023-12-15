@@ -1,4 +1,4 @@
-module Con_Branching_Control #(
+module Con_Branch_Cont #(
     WordSize=32
 )(
     input clk,rstn,rstn_h,pred_taken,
