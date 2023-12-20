@@ -533,6 +533,7 @@ TEST_CASE("Con_ID PC No Branch") {  //Case when branch_addr = pc + imm, but bran
     uint32_t ins;
     uint32_t pc_in;
     uint32_t rdd;
+    uint8_t rdn_in;
 
     for (int i = 0; i < 1000; i++) {
         wbe = rand() % (int) (pow(2, 1));
@@ -542,6 +543,7 @@ TEST_CASE("Con_ID PC No Branch") {  //Case when branch_addr = pc + imm, but bran
         ins =  rand() % (int) (pow(2, 32));
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
+        rdn_in = rand() % (int) (pow(2, 5));
         
         //Initialize Module
         model.rstn = 1;
@@ -562,6 +564,7 @@ TEST_CASE("Con_ID PC No Branch") {  //Case when branch_addr = pc + imm, but bran
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         model.cache_clk = 1;
@@ -574,6 +577,7 @@ TEST_CASE("Con_ID PC No Branch") {  //Case when branch_addr = pc + imm, but bran
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) (pc_in + model.imm));
@@ -595,6 +599,7 @@ TEST_CASE("Con_ID PC Branch") {  //Case when branch_addr = pc + imm, and branch 
     uint32_t ins;
     uint32_t pc_in;
     uint32_t rdd;
+    uint8_t rdn_in;
 
     for (int i = 0; i < 1000; i++) {
         wbe = rand() % (int) (pow(2, 1));
@@ -604,6 +609,7 @@ TEST_CASE("Con_ID PC Branch") {  //Case when branch_addr = pc + imm, and branch 
         ins =  rand() % (int) (pow(2, 32));
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
+        rdn_in = rand() % (int) (pow(2, 5));
         
         //Initialize Module
         model.rstn = 1;
@@ -624,6 +630,7 @@ TEST_CASE("Con_ID PC Branch") {  //Case when branch_addr = pc + imm, and branch 
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         model.cache_clk = 1;
@@ -636,6 +643,7 @@ TEST_CASE("Con_ID PC Branch") {  //Case when branch_addr = pc + imm, and branch 
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) (pc_in + model.imm));
@@ -656,6 +664,7 @@ TEST_CASE("Con_ID RS1D No Branch") {  //Case when branch_addr = imm + rs1d, but 
     uint32_t ins;
     uint32_t pc_in;
     uint32_t rdd;
+    uint8_t rdn_in;
 
     //Initialize Module
         model.rstn = 1;
@@ -673,6 +682,7 @@ TEST_CASE("Con_ID RS1D No Branch") {  //Case when branch_addr = imm + rs1d, but 
         ins =  rand() % (int) (pow(2, 32));
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
+        rdn_in = rand() % (int) (pow(2, 5));
         
 
         //Test
@@ -686,6 +696,7 @@ TEST_CASE("Con_ID RS1D No Branch") {  //Case when branch_addr = imm + rs1d, but 
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         model.cache_clk = 1;
@@ -698,6 +709,7 @@ TEST_CASE("Con_ID RS1D No Branch") {  //Case when branch_addr = imm + rs1d, but 
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.imm + model.rs1d));
@@ -717,6 +729,7 @@ TEST_CASE("Con_ID RS1D Branch") {  //Case when branch_addr = rs1d, and branch is
     uint32_t ins;
     uint32_t pc_in;
     uint32_t rdd;
+    uint8_t rdn_in;
 
      //Initialize Module
         model.rstn = 1;
@@ -734,6 +747,7 @@ TEST_CASE("Con_ID RS1D Branch") {  //Case when branch_addr = rs1d, and branch is
         ins =  rand() % (int) (pow(2, 32));
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
+        rdn_in = rand() % (int) (pow(2, 5));
 
         //Test
         model.clk = 1;
@@ -746,6 +760,7 @@ TEST_CASE("Con_ID RS1D Branch") {  //Case when branch_addr = rs1d, and branch is
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         model.cache_clk = 1;
@@ -758,6 +773,7 @@ TEST_CASE("Con_ID RS1D Branch") {  //Case when branch_addr = rs1d, and branch is
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         REQUIRE((uint32_t) model.branch_addr == (uint32_t) (model.imm + model.rs1d));
@@ -778,6 +794,7 @@ TEST_CASE("Con_ID REGS") {
     uint32_t ins;
     uint32_t pc_in;
     uint32_t rdd;
+    uint8_t rdn_in;
 
      //Initialize Module
         model.rstn = 1;
@@ -795,6 +812,7 @@ TEST_CASE("Con_ID REGS") {
         ins =  rand() % (int) (pow(2, 32));
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
+        rdn_in = rand() % (int) (pow(2, 5));
 
         //Test
         model.clk = 1;
@@ -807,6 +825,7 @@ TEST_CASE("Con_ID REGS") {
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         model.cache_clk = 1;
@@ -819,6 +838,7 @@ TEST_CASE("Con_ID REGS") {
         model.ins = ins;
         model.pc_in = pc_in;
         model.rdd = rdd;
+        model.rdn_in = rdn_in;
         model.eval();
 
         
