@@ -23,6 +23,7 @@
 |```addr_mode```|1-bit|
 |```branch_taken```|1-bit|
 |```rdd```|32-bit|
+|```rdn_in```|5-bit|
 
 ## Outputs
 |Name|Bits wide|
@@ -77,7 +78,7 @@
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
 |```wbe```|1-bit|
-|```rdn```|5-bit|
+|```rdn_in```|5-bit|
 |```rdd```|32-bit|
 
 ##### External Outputs
