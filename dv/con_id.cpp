@@ -795,6 +795,9 @@ TEST_CASE("Con_ID REGS") {
     uint32_t pc_in;
     uint32_t rdd;
     uint8_t rdn_in;
+    uint32_t regvals[32] = {0};
+    uint8_t rs1n;
+    uint8_t rs2n;
 
      //Initialize Module
         model.rstn = 1;
@@ -813,6 +816,13 @@ TEST_CASE("Con_ID REGS") {
         pc_in = rand() % (int) (pow(2, 32));
         rdd = rand() % (int) (pow(2, 32));
         rdn_in = rand() % (int) (pow(2, 5));
+
+        //Calculate RS1N and RS2N
+        rs1n = (uint8_t) ((ins_in & (31 << 15)) >> 15);
+        rs2n = (uint8_t) ((ins_in & (31 << 20)) >> 20);
+
+        //Simulate register behavior
+        if (wbe && rdn_in) regvals[rdn_in] = (uint32_t) rdd;
 
         //Test
         model.clk = 1;
@@ -840,7 +850,8 @@ TEST_CASE("Con_ID REGS") {
         model.rdd = rdd;
         model.rdn_in = rdn_in;
         model.eval();
-
         
+        REQUIRE((uint32_t) model.rs1d == (uint32_t) regvals[rs1n]);
+        REQUIRE((uint32_t) model.rs2d == (uint32_t) regvals[rs2n]);
     }
 }
