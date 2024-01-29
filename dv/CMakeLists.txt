@@ -3,11 +3,11 @@ find_package(nyu-util REQUIRED CONFIG)
 
 add_executable(tests)
 target_sources(tests PRIVATE
-con_ex.cpp alu.cpp con_branch_cont.cpp branch_eval.cpp pc.cpp ifid.cpp memwb.cpp gpr.cpp exmem.cpp branch_addr_calc.cpp idex.cpp branch_predictor.cpp pipeline_reset.cpp 
+con_ex.cpp alu.cpp con_branch_cont.cpp branch_eval.cpp branch_manager.cpp pc.cpp ifid.cpp memwb.cpp gpr.cpp exmem.cpp branch_addr_calc.cpp idex.cpp branch_predictor.cpp pipeline_reset.cpp 
 )
 nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
-  TOP_MODULES Con_EX Con_Branch_Cont Alu Branch_Eval PC IFID MEMWB GPR EXMEM Branch_Addr_Calc IDEX Branch_Predictor Pipeline_Reset 
+  TOP_MODULES Con_EX Con_Branch_Cont Alu Branch_Eval Branch_Manager PC IFID MEMWB GPR EXMEM Branch_Addr_Calc IDEX Branch_Predictor Pipeline_Reset 
   ARGS COVERAGE
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain nyu::covrecorder)

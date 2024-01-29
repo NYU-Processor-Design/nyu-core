@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-TEST_CASE("Value Passthrough Con"){
+TEST_CASE("Value Passthrough Con con_branch_cont"){
     VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
@@ -48,7 +48,7 @@ TEST_CASE("Value Passthrough Con"){
     }
 }
 
-TEST_CASE("Branch Prediction Correct"){
+TEST_CASE("Branch Prediction Correct con_branch_cont"){
     VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
@@ -91,7 +91,7 @@ TEST_CASE("Branch Prediction Correct"){
     
 }
 
-TEST_CASE("Branch Prediction Incorrect"){
+TEST_CASE("Branch Prediction Incorrect con_branch_cont"){
     VCon_Branching_Control model;
     bool rstn_h;
     bool pred_taken;
