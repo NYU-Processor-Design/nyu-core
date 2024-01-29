@@ -12,7 +12,7 @@ TEST_CASE("Flush") {
     model.rstn = 1;
     model.clk = 0;
     model.eval();
-    model.rstn_h = 0;
+    model.rstn = 0;
     model.eval();
 
     //Move out of starting conditions
@@ -58,7 +58,7 @@ TEST_CASE("Incorrect Prediction") {
     model.rstn = 1;
     model.clk = 0;
     model.eval();
-    model.rstn_h = 0;
+    model.rstn = 0;
     model.eval();
 
     //Move out of starting conditions
@@ -82,6 +82,7 @@ TEST_CASE("Incorrect Prediction") {
         pred_addr = rand() % (int) (pow(2, 32));
         
         model.clk = 0;
+        model.rstn = 1;
         model.eval();
 
         model.clk = 1;
@@ -93,7 +94,7 @@ TEST_CASE("Incorrect Prediction") {
         model.pred_addr = pred_addr;
         model.eval();
 
-        if (act_taken) npc = pred_pc;
+        if (act_taken) npc = pred_addr;
         else npc = pred_pc + 4;
 
         REQUIRE((uint32_t) model.npc == (uint32_t) (npc));
@@ -108,7 +109,7 @@ TEST_CASE("Correct Prediction") {
     model.rstn = 1;
     model.clk = 0;
     model.eval();
-    model.rstn_h = 0;
+    model.rstn = 0;
     model.eval();
 
     //Move out of starting conditions
@@ -132,6 +133,7 @@ TEST_CASE("Correct Prediction") {
         pred_addr = rand() % (int) (pow(2, 32));
         
         model.clk = 0;
+        model.rstn = 1;
         model.eval();
 
         model.clk = 1;
@@ -143,7 +145,7 @@ TEST_CASE("Correct Prediction") {
         model.pred_addr = pred_addr;
         model.eval();
 
-        if (pred_taken) npc = pred_pc;
+        if (pred_taken) npc = pred_addr;
         else npc = pred_pc + 4;
 
         REQUIRE((uint32_t) model.npc == (uint32_t) (npc));
