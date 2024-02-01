@@ -7,7 +7,7 @@ The NYU ProcDesign Core will be a RISCV-32I compatible core with a 5 stage pipel
 
 The repo contains the modules and test for components that make up the core design.
 
-Our progress tracker for individual components can be found [here](https://github.com/orgs/NYU-Processor-Design/projects/7/views/1)
+Our progress tracker for individual components can be found [here](https://github.com/orgs/NYU-Processor-Design/projects/7/views/1).
 
 ## Core Components
 
