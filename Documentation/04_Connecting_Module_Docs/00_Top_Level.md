@@ -1,7 +1,6 @@
 # THIS CONNECTION MODULE IS NOT YET OUTLINED #
 
-# Module Name #
-(Any Notes would go here)
+# Top Level Module #
 
 ## Contents
 * [Inputs](#inputs)
