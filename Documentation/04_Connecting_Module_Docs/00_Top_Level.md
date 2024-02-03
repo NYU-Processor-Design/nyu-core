@@ -1,5 +1,3 @@
-# THIS CONNECTION MODULE IS NOT YET OUTLINED #
-
 # Top Level Module #
 
 ## Contents
