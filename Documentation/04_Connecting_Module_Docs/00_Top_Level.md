@@ -6,9 +6,12 @@
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Module 1](#module1)
-  * [Module 2](#module2)
-  * [Module N](#moduleN)
+  * [General Cpntrol Module](#general_control_module)
+  * [IF Connection Module](#if_connection_module)
+  * [ID Connection Module](#id_connection_module)
+  * [EX Connection Module](#ex_connection_module)
+  * [MEM Connection Module](#mem_connection_module)
+  * [Branching Control Module](#branching_control_module)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
@@ -25,7 +28,7 @@
 
 ## Modules
 
-### Module 1
+### General Control Module
 
 #### External IO
 
@@ -55,7 +58,7 @@
 |```name```|#-bit|
 |```name```|#-bit|
 
-### Module 2
+### IF Connection Module
 
 #### External IO
 
@@ -85,7 +88,97 @@
 |```name```|#-bit|
 |```name```|#-bit|
 
-### Module N
+### ID Connection Module
+
+#### External IO
+
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+### EX Connection Module
+
+#### External IO
+
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+### MEM Connection Module
+
+#### External IO
+
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```name```|#-bit|
+|```name```|#-bit|
+
+### Branching Control Module
 
 #### External IO
 
