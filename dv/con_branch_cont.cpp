@@ -38,7 +38,7 @@ TEST_CASE("Value Passthrough Con con_branch_cont"){
         model.rstn_h=rstn_h;
         model.pred_taken=pred_taken;
         model.branch_occr=branch_occr;
-        model.branch_con=branch_con;
+        model.branch_cond=branch_cond;
         model.pred_pc=pred_pc;
         model.pred_addr=pred_addr;
         model.alu_out=alu_out;
@@ -81,7 +81,7 @@ TEST_CASE("Branch Prediction Correct con_branch_cont"){
         model.rstn_h=rstn_h;
         model.pred_taken=pred_taken;
         model.branch_occr=branch_occr;
-        model.branch_con=branch_con;
+        model.branch_cond=branch_cond;
         model.pred_pc=pred_pc;
         model.pred_addr=pred_addr;
         model.alu_out=alu_out;
@@ -92,7 +92,7 @@ TEST_CASE("Branch Prediction Correct con_branch_cont"){
 }
 
 TEST_CASE("Branch Prediction Incorrect con_branch_cont"){
-    VCon_Branching_Control model;
+    VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
