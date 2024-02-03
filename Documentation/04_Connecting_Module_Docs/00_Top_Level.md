@@ -4,7 +4,7 @@
 
 ## Contents
 * [Inputs](#inputs)
-* [Outputs](#outputs)
+* [Parameters](#parameters)
 * [Modules](#modules)
   * [General Cpntrol Module](#general_control_module)
   * [IF Connection Module](#if_connection_module)
@@ -17,14 +17,14 @@
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```cache_clk```|1-bit|
+|```rstn_h```|1-bit|
 
-## Outputs
-|Name|Bits wide|
-|:---|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+## Parameters 
+|Name|Bits wide|Logic|
+|:---|:---:|:---:|
+|```rstn```|1-bit|If ```rstn_h``` == 0, ```rstn``` = 0|
 
 ## Modules
 
@@ -35,28 +35,32 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```ins```|32-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc_en```|1-bit|
+|```immode```|3-bits|
+|```wbe```|1-bit|
+|```addr_mode```|1-bit|
+|```branch_occr```|2-bits|
+|```a_sel```|2-bit|
+|```b_sel```|2-bit|
+|```alu_mode```|6-bits|
+|```branch_cond```|2-bits|
+|```data_mode```|2-bits|
+|```dcache_rw```|1-bit|
+|```dcache_en```|1-bit|
+|```wbs```|3-bits|
 
 ### IF Connection Module
 
@@ -65,28 +69,23 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```cache_clk```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```pc_en```|1-bit|
+|```npc```|32-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```pc```|32-bit|
+|```ina```|32-bit|
 
 ### ID Connection Module
 
@@ -95,28 +94,34 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```cache_clk```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```immode```|3-bit|
+|```ins```|32-bit|
+|```pc_in```|32-bit|
+|```wbe```|1-bit|
+|```addr_mode```|1-bit|
+|```branch_taken```|1-bit|
+|```rdd```|32-bit|
+|```rdn_in```|5-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```imm```|32-bit|
+|```pc```|32-bit|
+|```rdn```|5-bit|
+|```rs1d```|32-bit|
+|```rs2d```|32-bit|
+|```npc```|32-bit|
+|```branch_addr```|32-bit|
 
 ### EX Connection Module
 
@@ -125,28 +130,34 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```a_sel```|2-bit|
+|```b_sel```|2-bit|
+|```branch_taken_in```|1-bit|
+|```imm```|32-bit|
+|```pc_in```|32-bit|
+|```rdn_in```|5-bit|
+|```rs1d```|32-bit|
+|```rs2d_in```|32-bit|
+|```branch_addr_in```|32-bit|
+|```alu_mode```|8-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```branch_taken```|1-bit|
+|```pc```|32-bit|
+|```branch_addr```|32-bit|
+|```rdn```|5-bit|
+|```rs2d```|32-bit|
+|```alu_out```|32-bit|
 
 ### MEM Connection Module
 
@@ -155,28 +166,28 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```cache_clk```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```rdn_in```|5-bits|
+|```alu_out_in```|32-bits|
+|```rs2d```|32-bits|
+|```dcache_en```|1-bit|
+|```dcache_rw```|1-bit|
+|```data_mode```|2-bits|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rdn```|5-bits|
+|```alu_out```|32-bits|
+|```mrd```|32-bits|
 
 ### Branching Control Module
 
@@ -185,28 +196,29 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn_h```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```rstn```|1-bit|
+|```branch_occr```|2-bit|
+|```branch_cond```|2-bit|
+|```pred_taken```|1-bit|
+|```pred_pc```|32-bit|
+|```pred_addr```|32-bit|
+|```alu_out```|32-bit|
+|```npc_in```|32-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```npc```|32-bit|
+|```rstn_out```|1-bit Tri-State|
+|```branch_taken```|1-bit|
 
 ## Internal Connections
 
