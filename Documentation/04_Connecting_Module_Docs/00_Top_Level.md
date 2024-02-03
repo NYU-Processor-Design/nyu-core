@@ -11,6 +11,7 @@
   * [ID Connection Module](#id_connection_module)
   * [EX Connection Module](#ex_connection_module)
   * [MEM Connection Module](#mem_connection_module)
+  * [MEM/WB Latch Module](#mem_wb_latch_module)
   * [Branching Control Module](#branching_control_module)
 * [Internal Connections](#internal_connections)
 
@@ -85,7 +86,7 @@
 |Name|Bits wide|
 |:---:|:---:|
 |```pc```|32-bit|
-|```ina```|32-bit|
+|```ins```|32-bit|
 
 ### ID Connection Module
 
@@ -189,6 +190,32 @@
 |```alu_out```|32-bits|
 |```mrd```|32-bits|
 
+### MEM/WB Latch Module
+
+#### External IO
+
+##### External Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```clk```|1-bit|
+
+#### Internal IO
+
+##### Internal Inputs
+|Name|Bits wide|
+|:---:|:---:|
+|```rstn```|1-bit|
+|```wbs```|3-bits|
+|```rdn_in```|5-bits|
+|```alu_out```|32-bits|
+|```mrd```|32-bits|
+
+##### Internal Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```rdn```|5-bits|
+|```rdd```|32-bits|
+
 ### Branching Control Module
 
 #### External IO
@@ -222,10 +249,20 @@
 
 ## Internal Connections
 
-|Module 1|Module 2|Module N|
-|:---:|:---:|:---:|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
+|General Control Module|IF|ID|EX|MEM|MEM/WB|Branching Control|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|```ins```|```ins```|```ins```|``````|``````|``````|``````|
+|```pc_en```|```pc_en```|``````|``````|``````|``````|``````|
+|```immode```|``````|```immode```|``````|``````|``````|``````|
+|```wbe```|``````|```wbe```|``````|``````|``````|``````|
+|```addr_mode```|``````|```addr_mode```|``````|``````|``````|``````|
+|```branch_occr```|``````|``````|``````|``````|``````|```branch_occr```|
+|```a_sel```|``````|``````|```a_sel```|``````|``````|``````|
+|```b_sel```|``````|``````|```b_sel```|``````|``````|``````|
+|```alu_mode```|``````|``````|```alu_mode```|``````|``````|``````|
+|```branch_cond```|``````|``````|``````|``````|``````|```branch_cond```|
+|```data_mode```|``````|``````|``````|```data_mode```|``````|``````|
+|```dcache_rw```|``````|``````|``````|```dcache_rw```|``````|``````|
+|```dcache_en```|``````|``````|``````|```dcache_en```|``````|``````|
+|```wbs```|``````|``````|``````|``````|```wbs```|``````|
 
