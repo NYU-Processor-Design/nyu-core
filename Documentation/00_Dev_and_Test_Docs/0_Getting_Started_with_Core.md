@@ -18,15 +18,21 @@ At the top of the repo, the second tab should house the "Issues" tab. This is wh
 It is recommended that you look through the documentation of each issue to familiarize yourself with what needs to be considered before implementation.
 
 To begin on an issue, reach out to Michael Lipp to be assigned to the issue in question to ensure no one ends up working on the same thing unintentionally.
+
+## Choosing an Issue
+If an issue has an outlined doc, then you can refer to the [Dev and Test Process Doc](https://github.com/NYU-Processor-Design/nyu-core/blob/95ad3a6738f45e143dfd6e57852e4181e009e14d/Documentation/00_Dev_and_Test_Docs/dev-test-process.md) to begin implementing a module. The document will walk you through the development and testing processes needed to implement a module, which can be similarly applied to implementing a complex module, interface, or connecting module.
+
+If an issue if **NOT** outlined, then you can also choose to create the outline for this module. To do this, find the corresponding Markdown document (ending in .md) and create an outline that includes the needed inputs, outputs, functionality, connectors, and anything else that is needed for this module to function.
+
+## Incorporating your Work to the Repo
+### Naming
+Make sure that the header of your development test files and rtl module files match the name of the module being implemented, or at least is fully understandable which module is being implemented. Through this team's convention, dv file headers should be all lowercase while rtl files will utilize capitalization. 
+
+For interfaces and connection modules, a prefix is added to destingush them from base level modules. **Int** for interfaces and **Con** for connection modules. ex: Con_EX.sv or int_mem.cpp.
+
 ### Pull Requests
 The pull requests tab located third from the left in the toolbar works almost the same as a pull request for your design notebook. However, please make sure that your files are located in the correct folders before PR!
 
-If you are still unfamiliar with how to PR, kindly refer to the ["Your First Pull Request"](https://github.com/NYU-Processor-Design/nyu-processor-design.github.io/blob/af340fc7c9433157a88d9df93e2ec2b381032d2d/src/getting_started/notebooks/04_first_pr.md).
+If you are still unfamiliar with how to PR, kindly refer to the [Your First Pull Request](https://github.com/NYU-Processor-Design/nyu-processor-design.github.io/blob/af340fc7c9433157a88d9df93e2ec2b381032d2d/src/getting_started/notebooks/04_first_pr.md) document.
 
-## Choosing an Issue
-### Outlined and Not Outlined
-## Incorporating your Work to the Repo
-### Naming
-For interfaces and connection modules, a prefix is added to destingush them from base level modules. Int for interfaces and Con for connection modules.
-
-### DV vs RTL
+Enjoy NYU Core and happy developing!
