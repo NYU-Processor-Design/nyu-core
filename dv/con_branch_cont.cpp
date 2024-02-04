@@ -9,7 +9,7 @@ TEST_CASE("Value Passthrough Con con_branch_cont"){
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
-    uint8_t branch_con;
+    uint8_t branch_cond;
     uint32_t pred_pc;
     uint32_t pred_addr;
     uint32_t alu_out;
@@ -19,7 +19,7 @@ TEST_CASE("Value Passthrough Con con_branch_cont"){
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
         branch_occr=rand() % (int) (pow(2, 2));
-        branch_con=rand() % (int) (pow(2, 2));
+        branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
         alu_out=rand() % (int) (pow(2, 32));
@@ -53,7 +53,7 @@ TEST_CASE("Branch Prediction Correct con_branch_cont"){
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
-    uint8_t branch_con;
+    uint8_t branch_cond;
     uint32_t pred_pc;
     uint32_t pred_addr;
     uint32_t alu_out;
@@ -62,7 +62,7 @@ TEST_CASE("Branch Prediction Correct con_branch_cont"){
         rstn_h=1;
         pred_taken=1;
         branch_occr=1;
-        branch_con=rand() % (int) (pow(2, 2));
+        branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
         alu_out=rand() % (int) (pow(2, 32));
@@ -96,7 +96,7 @@ TEST_CASE("Branch Prediction Incorrect con_branch_cont"){
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
-    uint8_t branch_con;
+    uint8_t branch_cond;
     uint32_t pred_pc;
     uint32_t pred_addr;
     uint32_t alu_out;
@@ -105,7 +105,7 @@ TEST_CASE("Branch Prediction Incorrect con_branch_cont"){
         rstn_h=1;
         pred_taken=0;
         branch_occr=1;
-        branch_con=rand() % (int) (pow(2, 2));
+        branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
         alu_out=rand() % (int) (pow(2, 32));
@@ -124,7 +124,7 @@ TEST_CASE("Branch Prediction Incorrect con_branch_cont"){
         model.rstn_h=rstn_h;
         model.pred_taken=pred_taken;
         model.branch_occr=branch_occr;
-        model.branch_con=branch_con;
+        model.branch_cond=branch_cond;
         model.pred_pc=pred_pc;
         model.pred_addr=pred_addr;
         model.alu_out=alu_out;
