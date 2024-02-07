@@ -204,7 +204,7 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Predicti
         pred_taken = rand()%(int)(pow(2,1));
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 2));
+        branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
