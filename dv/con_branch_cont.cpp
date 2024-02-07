@@ -40,7 +40,7 @@ TEST_CASE("Con_Branch_Cont Non Prediction Instruction") {
     for(int i =0;i<1000;i++){
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 2));
+        branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
@@ -91,7 +91,7 @@ TEST_CASE("Con_Branch_Cont Prediction Instruction") {
     for(int i =0;i<1000;i++){
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=2+rand() % (int) (pow(2, 2));
+        branch_occr=2+rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
@@ -154,7 +154,7 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
     for(int i =0;i<1000;i++){
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 2));
+        branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
@@ -262,7 +262,7 @@ TEST_CASE("Con_Branch_Cont flush "){
         pred_taken = rand()%(int)(pow(2,1));
         rstn_h=rand() % (int) (pow(2, 1));
         pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 2));
+        branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
         pred_pc=rand() % (int) (pow(2, 32));
         pred_addr=rand() % (int) (pow(2, 32));
