@@ -3,7 +3,9 @@ find_package(nyu-util REQUIRED CONFIG)
 
 add_executable(tests)
 target_sources(tests PRIVATE
+
 con_ex.cpp alu.cpp con_branch_cont.cpp branch_eval.cpp pc.cpp ifid.cpp memwb.cpp gpr.cpp exmem.cpp branch_addr_calc.cpp idex.cpp branch_predictor.cpp pipeline_reset.cpp branch_manager.cpp 
+
 )
 nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
