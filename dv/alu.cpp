@@ -19,7 +19,7 @@ static void eval(std::uint8_t op, std::uint32_t opA, std::uint32_t opB,
 }
 
 static void test(std::uint8_t op,
-    std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
+  std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
   for(std::uint32_t opA {0}; opA < 8; ++opA)
     for(std::uint32_t opB {0}; opB < 8; ++opB)
       eval(op, opA, opB, f);
