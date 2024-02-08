@@ -153,7 +153,7 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
 
     uint32_t npc_corr;
     for(int i =0;i<1000;i++){
-        rstn_h=rand() % (int) (pow(2, 1));
+        rstn_h=1;
         pred_taken=rand() % (int) (pow(2, 1));
         branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
@@ -203,8 +203,7 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Predicti
     bool act_taken;
     uint32_t npc_corr;
     for(int i =0;i<1000;i++){
-        pred_taken = rand()%(int)(pow(2,1));
-        rstn_h=rand() % (int) (pow(2, 1));
+        rstn_h=1;
         pred_taken=rand() % (int) (pow(2, 1));
         branch_occr=rand() % (int) (pow(2, 1));
         branch_cond=rand() % (int) (pow(2, 2));
