@@ -137,7 +137,7 @@ TEST_CASE("Con_Branch_Cont Prediction Instruction") {
     }
 }
 
-TEST_CASE("Con_Branch_Cont flush == 0") { 
+TEST_CASE("Con_Branch_Cont flush == 0 & Correct Prediction") { 
     VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
@@ -169,6 +169,7 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
         model.rstn = 0;
         model.eval();
         if(pred_taken==act_taken){
+            
         //Test Passthrough
         model.clk = 1;
         model.rstn = 1;
@@ -188,7 +189,7 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
     }
 }
 
-TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Prediction") { 
+TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction ") { 
     VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
@@ -237,62 +238,9 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Predicti
         model.alu_out=alu_out;
         model.npc_in=npc_in;
         model.eval();
-        
+        REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
         REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
         }
     }
 }
-/*
-TEST_CASE("Con_Branch_Cont flush "){
-    VCon_Branch_Cont model;
-    bool rstn_h;
-    bool pred_taken;
-    uint8_t branch_occr;
-    uint8_t branch_cond;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    uint32_t alu_out;
-    uint32_t npc_in;
-    uint8_t rstn_out;
-    bool branch_taken;
-    bool act_taken;
-    uint32_t npc_corr;
-    for(int i =0;i<1000;i++){
-        pred_taken = rand()%(int)(pow(2,1));
-        rstn_h=rand() % (int) (pow(2, 1));
-        pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 1));
-        branch_cond=rand() % (int) (pow(2, 2));
-        pred_pc=rand() % (int) (pow(2, 32));
-        pred_addr=rand() % (int) (pow(2, 32));
-        alu_out=rand() % (int) (pow(2, 32));
-        npc_in=rand() % (int) (pow(2, 32));
-        act_taken=eval_act( alu_out,  branch_cond);
-        
-
-        
-         //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.rstn_h=rstn_h;
-        model.pred_taken=pred_taken;
-        model.branch_occr=branch_occr;
-        model.branch_cond=branch_cond;
-        model.pred_pc=pred_pc;
-        model.pred_addr=pred_addr;
-        model.alu_out=alu_out;
-        model.npc_in=npc_in;
-        model.eval();
-        
-        REQUIRE((bool) model.flush == (bool) (pred_taken ^ act_taken));
-    }
-}
-*/
