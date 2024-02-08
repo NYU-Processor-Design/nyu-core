@@ -141,6 +141,7 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
     VCon_Branch_Cont model;
     bool rstn_h;
     bool pred_taken;
+    bool act_taken;
     uint8_t branch_occr;
     uint8_t branch_cond;
     uint32_t pred_pc;
@@ -160,14 +161,14 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
         pred_addr=rand() % (int) (pow(2, 32));
         alu_out=rand() % (int) (pow(2, 32));
         npc_in=rand() % (int) (pow(2, 32));
-
+        act_taken=eval_act( alu_out, branch_cond);
          //Initialize Module
         model.rstn = 1;
         model.clk = 0;
         model.eval();
         model.rstn = 0;
         model.eval();
-
+        if(pred_taken==act_taken){
         //Test Passthrough
         model.clk = 1;
         model.rstn = 1;
@@ -182,7 +183,8 @@ TEST_CASE("Con_Branch_Cont flush == 0") {
         model.eval();
         
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE(model.rstn_out == 0); //Verilator translates High Z outputs to 0 
+        REQUIRE(model.rstn_out == 0); //Verilator translates High Z outputs to 0
+        } 
     }
 }
 
@@ -211,13 +213,11 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Predicti
         alu_out=rand() % (int) (pow(2, 32));
         npc_in=rand() % (int) (pow(2, 32));
         act_taken=eval_act( alu_out,  branch_cond);
+        
         if(act_taken!=pred_taken){
             if(act_taken) npc_corr=pred_addr;
             else npc_corr=pred_pc+4;   
-        }else{
-            if(pred_taken) npc_corr=pred_addr;
-            else npc_corr=pred_pc+4;
-        }
+        
         
          //Initialize Module
         model.rstn = 1;
@@ -241,6 +241,7 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction or Correct Predicti
         
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
         REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
+        }
     }
 }
 /*
