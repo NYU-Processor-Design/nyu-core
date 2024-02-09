@@ -3,7 +3,7 @@
 #include <cstdint>
 #include <stdlib.h>
 #include <math.h>
-#include <iostream.h>
+#include <iostream>
 bool eval_act(uint32_t alu_out, uint8_t cond) {
     bool act;
     switch(cond){
