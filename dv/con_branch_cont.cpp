@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <stdlib.h>
 #include <math.h>
+#include <iostream.h>
 bool eval_act(uint32_t alu_out, uint8_t cond) {
     bool act;
     switch(cond){
@@ -238,8 +239,14 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction ") {
         model.alu_out=alu_out;
         model.npc_in=npc_in;
         model.eval();
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        //REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
+        std::cout<<"npc_in:"<<npc_in<<std::endl;
+        std::cout<<"npc:"<<model.npc<<std::endl;
+        std::cout<<"npc_corr:"<<npc_corr<<std::endl;
+        std::cout<<"pred_pc+4:"<<pred_pc+4<<std::endl;
+        std::cout<<"pred_addr:"<<pred_addr<<std::endl;
+
+        //REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
+        REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
         REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
         }
     }
