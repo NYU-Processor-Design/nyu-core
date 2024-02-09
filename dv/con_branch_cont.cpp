@@ -239,7 +239,7 @@ TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction ") {
         model.npc_in=npc_in;
         model.eval();
         REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
+        //REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
         REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
         }
     }

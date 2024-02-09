@@ -18,8 +18,8 @@ module Branch_Manager #(
       restart <= 1;
       flush <= 0;
       npc = 0;
-    end
-    else begin
+    end else begin
+      restart<=0;
       if ((pred_taken != act_taken) && !restart) begin
         flush <= 1;
         case(act_taken)
