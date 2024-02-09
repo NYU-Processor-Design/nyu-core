@@ -27,6 +27,19 @@ bool eval_act(uint32_t alu_out, uint8_t cond) {
 
 TEST_CASE("Con_Branch_Cont Non Prediction Instruction") { 
     VCon_Branch_Cont model;
+    //Initialize Module
+    model.rstn = 1;
+    model.clk = 0;
+    model.eval();
+    model.rstn = 0;
+    model.eval();
+
+    //Move out of starting conditions
+    model.clk = 0;
+    model.eval();
+    model.clk = 1;
+    model.rstn = 1;
+    model.eval();
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
@@ -74,6 +87,20 @@ TEST_CASE("Con_Branch_Cont Non Prediction Instruction") {
 
 TEST_CASE("Con_Branch_Cont Prediction Instruction") { 
     VCon_Branch_Cont model;
+    //Initialize Module
+    model.rstn = 1;
+    model.clk = 0;
+    model.eval();
+    model.rstn = 0;
+    model.eval();
+
+    //Move out of starting conditions
+    model.clk = 0;
+    model.eval();
+    model.clk = 1;
+    model.rstn = 1;
+    model.eval();
+
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
@@ -140,6 +167,20 @@ TEST_CASE("Con_Branch_Cont Prediction Instruction") {
 
 TEST_CASE("Con_Branch_Cont flush == 0 & Correct Prediction") { 
     VCon_Branch_Cont model;
+    //Initialize Module
+    model.rstn = 1;
+    model.clk = 0;
+    model.eval();
+    model.rstn = 0;
+    model.eval();
+
+    //Move out of starting conditions
+    model.clk = 0;
+    model.eval();
+    model.clk = 1;
+    model.rstn = 1;
+    model.eval();
+
     bool rstn_h;
     bool pred_taken;
     bool act_taken;
@@ -192,6 +233,20 @@ TEST_CASE("Con_Branch_Cont flush == 0 & Correct Prediction") {
 
 TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction ") { 
     VCon_Branch_Cont model;
+    //Initialize Module
+    model.rstn = 1;
+    model.clk = 0;
+    model.eval();
+    model.rstn = 0;
+    model.eval();
+
+    //Move out of starting conditions
+    model.clk = 0;
+    model.eval();
+    model.clk = 1;
+    model.rstn = 1;
+    model.eval();
+
     bool rstn_h;
     bool pred_taken;
     uint8_t branch_occr;
