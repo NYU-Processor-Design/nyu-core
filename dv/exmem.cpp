@@ -17,7 +17,7 @@ std::uint32_t rs2d, bool reset) {
 
   nyu::eval(exmem);
   exmem.rstn = 0;
-    nyu::eval(exmem);
+  nyu::eval(exmem);
 
   // Test
   exmem.clk = 1;
