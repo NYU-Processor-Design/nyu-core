@@ -1,51 +1,67 @@
-#include <catch2/catch_test_macros.hpp>
 #include <cstdint>
-#include <math.h>
-#include <stdlib.h>
+
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
+
 #include <VGPR.h>
 
-TEST_CASE("REGS") {
-  VGPR model;
-  uint8_t regsrc1, regsrc2;
-  uint32_t dstdata;
-  uint32_t regvals[32] = {0};
+static void write(auto& gpr, std::uint8_t rdn, std::uint32_t rdd, bool wbe) {
+  gpr.clk = 0;
+  gpr.rstn = 1;
+  nyu::eval(gpr);
 
-  for(int i = 0; i < 1000; i++) {
-    // initialize
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
+  //Write data rdd to register rdn if wbe is enabled
+  gpr.clk = 1;
+  gpr.rstn = 1;
+  gpr.wbe = wbe;
+  gpr.rdn = rdn;
+  gpr.rdd = rdd;
+  nyu::eval(gpr);
+}
 
-    for(int regdst = 1; regdst < 32; regdst++) {
-      dstdata = rand() % (int) (pow(2, 32));
-      regvals[regdst] = dstdata;
+static (std::uint32_t, std::uint32_t) read(auto& gpr, std::uint8_t rs1n, std::uint8_t rs2n) {
+  gpr.clk = 0;
+  gpr.rstn = 1;
+  nyu::eval(gpr);
 
-      model.clk = 0;
-      model.eval();
+  //Read data from registers rs1n and rs2n
+  gpr.clk = 1;
+  gpr.rstn = 1;
+  gpr.wbe = 0;
+  gpr.rs1n = rs1n;
+  gpr.rs2n = rs2n;
+  nyu::eval(gpr);
+  return (gpr.rs1d, gpr.rs2d);
+}
 
-      // write to all registers
-      model.clk = 1;
-      model.rstn = 1;
-      model.wbe = 1;
-      model.rdn = regdst;
-      model.rdd = dstdata;
-      model.eval();
-    }
+static void eval_rstn() {
+  auto& gpr {nyu::getDUT<VGPR>()};
+  for(std::uint8_t rdn {0}; rdn < 32; ++rdn)
+    write(gpr, rdn, 0xFF, 1);
 
-    // read two random registers
-    regsrc1 = rand() % (int) 32;
-    regsrc2 = rand() % (int) 32;
-    model.wbe = 0;
-    model.clk = 0;
-    model.eval();
+  gpr.clk = 0;
+  gpr.rstn = 1;
+  nyu::eval(gpr);
 
-    model.clk = 1;
-    model.rs1n = regsrc1;
-    model.rs2n = regsrc2;
-    model.eval();
-    REQUIRE(model.rs1d == regvals[regsrc1]);
-    REQUIRE(model.rs2d == regvals[regsrc2]);
-  }
+  gpr.clk = 0;
+  gpr.rstn = 0;
+  nyu::eval(gpr);
+
+  for(std::uint8_t rs1n {0}; rs1n < 32; ++rs1n)
+    REQUIRE(read(gpr, rs1n, 0)[0] == 0);
+}
+
+static void eval() {
+  auto& gpr {nyu::getDUT<VGPR>()};
+
+  
+
+}
+
+TEST_CASE("GPR, Reset") {
+
+}
+
+TEST_CASE("GPR, ") {
+
 }
