@@ -47,7 +47,7 @@ static void eval_rstn() {
   gpr.rstn = 0;
   nyu::eval(gpr);
 
-  for(std::uint8_t rs1n {0}; (std::string) rs1n < 32; ++rs1n) {
+  for(std::uint8_t rs1n {0}; rs1n < 32; ++rs1n) {
     INFO("Testing Register " << (int) rs1n);
     REQUIRE(read(gpr, rs1n, 0).first == 0);
   }
@@ -68,9 +68,9 @@ static void eval(std::uint32_t reg_vals[32], bool test_wbe) {
   for(std::uint8_t rs1n {0}; rs1n < 32; ++rs1n)
     for(std::uint8_t rs2n {0}; rs2n < 32; ++rs2n) {
       read_vals = read(gpr, rs1n, rs2n);
-      INFO("Testing rs1n = " << rs1n << ", rs2n = " << rs2n);
+      INFO("Testing rs1n = " << (int) rs1n << ", rs2n = " << (int) rs2n);
       REQUIRE(read_vals.first == reg_vals[rs1n] * (bool) rs1n);
-      REQUIRE(read_vals.second == reg_vals[rs2n] * (bool) rs1n);
+      REQUIRE(read_vals.second == reg_vals[rs2n] * (bool) rs2n);
     }
 }
 
