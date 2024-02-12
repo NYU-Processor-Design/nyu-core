@@ -19,7 +19,7 @@ static void write(auto& gpr, std::uint8_t rdn, std::uint32_t rdd, bool wbe) {
   nyu::eval(gpr);
 }
 
-static (std::uint32_t, std::uint32_t) read(auto& gpr, std::uint8_t rs1n, std::uint8_t rs2n) {
+static std::pair<std::uint32_t, std::uint32_t> read(auto& gpr, std::uint8_t rs1n, std::uint8_t rs2n) {
   gpr.clk = 0;
   gpr.rstn = 1;
   nyu::eval(gpr);
@@ -31,7 +31,7 @@ static (std::uint32_t, std::uint32_t) read(auto& gpr, std::uint8_t rs1n, std::ui
   gpr.rs1n = rs1n;
   gpr.rs2n = rs2n;
   nyu::eval(gpr);
-  return (gpr.rs1d, gpr.rs2d);
+  return std::make_pair(gpr.rs1d, gpr.rs2d);
 }
 
 static void eval_rstn() {
@@ -47,19 +47,18 @@ static void eval_rstn() {
   gpr.rstn = 0;
   nyu::eval(gpr);
 
-  for(std::uint8_t rs1n {0}; rs1n < 32; ++rs1n)
-    INFO("Testing Register " << rs1n);
-    REQUIRE(read(gpr, rs1n, 0)[0] == 0);
+  for(std::uint8_t rs1n {0}; (std::string) rs1n < 32; ++rs1n) {
+    INFO("Testing Register " << (int) rs1n);
+    REQUIRE(read(gpr, rs1n, 0).first == 0);
+  }
 }
 
-static void eval(std::uint32_t[32] reg_vals, bool test_wbe) {
+static void eval(std::uint32_t reg_vals[32], bool test_wbe) {
   auto& gpr {nyu::getDUT<VGPR>()};
-  (std::uint32_t, std::uint32_t) read_vals;
+  std::pair <std::uint32_t, std::uint32_t> read_vals;
   
   for(std::uint8_t rdn {0}; rdn < 32; ++rdn)
     write(gpr, rdn, reg_vals[rdn], 1);
-
-  reg_vals[0] = 0;
 
   if(test_wbe) {
     for(std::uint8_t rdn {0}; rdn < 32; ++rdn)
@@ -70,8 +69,8 @@ static void eval(std::uint32_t[32] reg_vals, bool test_wbe) {
     for(std::uint8_t rs2n {0}; rs2n < 32; ++rs2n) {
       read_vals = read(gpr, rs1n, rs2n);
       INFO("Testing rs1n = " << rs1n << ", rs2n = " << rs2n);
-      REQUIRE(read_vals[0] == reg_vals[rs1n]);
-      REQUIRE(read_vals[1] == reg_vals[rs2n]);
+      REQUIRE(read_vals.first == reg_vals[rs1n] * (bool) rs1n);
+      REQUIRE(read_vals.second == reg_vals[rs2n] * (bool) rs1n);
     }
 }
 
@@ -80,11 +79,37 @@ TEST_CASE("GPR, Reset") {
 }
 
 TEST_CASE("GPR, Write and Read") {
-  
+  std::uint32_t reg_vals[32] = {0};
+  std::uint32_t zero_val;
+ 
+  // Create inital set of register values
+  for(int i {0}; i < 32; ++i)
+    reg_vals[i] = 1 << i;
 
+  // Test each bit of each register
+  for(int i {0}; i < 32; ++i) {
+    eval(reg_vals, 0);
+    zero_val = reg_vals[0];
+    for(int i {1}; i < 32; ++i) 
+      reg_vals[i - 1] = reg_vals[i];
+    reg_vals[31] = zero_val;
+  }
 }
 
 TEST_CASE("GPR, Disable Writing") {
+  std::uint32_t reg_vals[32] = {0};
+  std::uint32_t zero_val;
 
+  // Create inital set of register values
+  for(int i {0}; i < 32; ++i)
+    reg_vals[i] = 1 << i;
 
+  // Test each bit of each register
+  for(int i {0}; i < 32; ++i) {
+    eval(reg_vals, 1);
+    zero_val = reg_vals[0];
+    for(int i {1}; i < 32; ++i) 
+      reg_vals[i - 1] = reg_vals[i];
+    reg_vals[31] = zero_val;
+  }
 }
