@@ -32,7 +32,7 @@ std::uint32_t rs2d, bool reset) {
     nyu::eval(exmem);
   }
 
-  INFO("Testing rdn_in = " << rdn_in << ", alu_out_in = " << alu_out_in << ", and rs2d = " << rs2d);
+  INFO("Testing rdn_in = " << rdn_in << ", alu_out_in = " << alu_out_in << ", and rs2d = " << (int) rs2d);
 
   if (reset) {
   REQUIRE(exmem.rdn == 0);

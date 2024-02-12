@@ -31,7 +31,7 @@ static void eval_p(std::uint8_t wbs, std::uint8_t rdn_in,
         memwb.mrd = mrd;
         memwb.alu_out = alu_out;
         nyu::eval(memwb);
-        INFO("Testing wbs + " << wbs << ", rdn_in = " << rdn_in << ", alu_out = " << alu_out << ", and mrd = " << mrd);
+        INFO("Testing wbs + " << wbs << ", rdn_in = " << (int) rdn_in << ", alu_out = " << alu_out << ", and mrd = " << mrd);
         REQUIRE((uint8_t) memwb.rdn == (uint8_t) rdn_in);
     }
 
