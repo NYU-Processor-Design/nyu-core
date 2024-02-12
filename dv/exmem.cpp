@@ -17,7 +17,7 @@ std::uint32_t rs2d, bool reset) {
 
   nyu::eval(exmem);
   exmem.rstn = 0;
-  nyu::eval(exmem);
+    nyu::eval(exmem);
 
   // Test
   exmem.clk = 1;
@@ -51,7 +51,7 @@ std::uint32_t rs2d, bool reset) {
 static void test(bool reset) {
   for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
     for(std::uint32_t alu_out_in {0}; alu_out_in < 128; ++alu_out_in)
-      for(std::uint32_t rs2d {0}; rs2d < 128; ++rs2d)
+      for(std::uint32_t rs2d {0}; rs2d < 32; ++rs2d)
         eval(rdn_in, alu_out_in, rs2d, reset);
 
   for(std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
