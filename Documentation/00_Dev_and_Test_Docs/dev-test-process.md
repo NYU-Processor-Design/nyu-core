@@ -22,15 +22,29 @@ There are two main parts/files you need to add when implementing a component.
 
 ### Step 2.1: Test the module
 To link your module and test, you need to *call* the module within your test program. In order to properly call the module, use these [guidelines](https://nyu-processor-design.github.io/getting_started/onboarding/05_verification2.html#adapting-the-test-cases) from Onboarding Lab 4.
+
+Ensure that these statements are included at the top of your cpp file:
+```cpp
+#include <cstdint>
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
+```
+Grab reference to a device with `nyu::getDUT<VDevice>()`, like so:
+```cpp
+static void some_test_function() {
+   auto& device {nyu::getDUT<VDevice>()};
+   // ...
+}
+```
+Create test cases for the functions your module should be able to handle:
 ```cpp
 TEST_CASE("Module Test") {
-  // replace exampleModule with the name of your module
-  VexampleModule model;
+  VexampleModule model; // replace exampleModule with the name of your module
   
   //setup module inputs
   model.input1 = 1;
   model.input2 = 2;
-  model.eval();
+  model.eval(); // OR use nyu::eval(device, [num iterations])
   
   //calculate expected value
   int expected;
@@ -54,26 +68,11 @@ It's time to check your module functionality and design verification. Create a p
 ## Good Development & Testing Practices
 + Test as many inputs as possible. Testing a single input won't fully check the functionality of your module.
 
-  + When in doubt, create a loop with MANY iterations and use random number generation for your inputs.
+  + Each bit of the input space should be tested in isolation so that the coverage is always reported consistently! This can be done similarly to the following:
   ```cpp
-  TEST_CASE("Module Test Loop") {
-    VexampleModule2 model;
-    
-    // large for loop
-    for (int i = 0; i < 1000; i++) {
-    
-      //random number generation
-      uint32_t input = rand() % (int) (pow(2, 32)); // mod your random number by the largest possible value of the input  + 1
-      // the input here is 32 bits, so we mod by pow(2, 32)
-      
-      model.input1 = input;
-      model.eval();
-  
-      int expected;
-  
-      REQUIRE(model.out == expected);
-    }
-  }
+    for(std::uint32_t opA {1}; opA; opA <<= 1)
+      for(std::uint32_t opB {1}; opB; opB <<= 1)
+        run_a_test(opA, opB)
   ```
   
 + Use good variable and data object names! This will make it easier for you when testing your modules and others when using your modules.
