@@ -1,50 +1,58 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VBranch_Eval.h>
 #include <cstdint>
-#include <stdlib.h>  
-#include <math.h>
 
-bool test(uint32_t alu_out, uint8_t cond) {
-    VBranch_Eval model;
-    model.alu_out = alu_out;
-    model.branch_cond = cond;
-    model.eval();
-    return model.act_taken;
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
+
+#include <VBranch_Eval.h>
+
+static void eval(uint8_t cond, std::uint32_t alu_out) {
+    auto& beval {nyu::getDUT<VBranch_Eval>()};
+    beval.alu_out = alu_out;
+    beval.branch_cond = cond;
+    nyu::eval(beval);
+
+    INFO("Testing alu_out = " << alu_out);
+
+    switch(cond) {
+        case 0:
+            REQUIRE((bool) beval.act_taken == 0);
+            break;
+        case 1:
+            REQUIRE((bool) beval.act_taken == (bool) alu_out);
+            break;
+        case 2:
+            REQUIRE((bool) beval.act_taken != (bool) alu_out);
+            break;
+        case 3:
+            REQUIRE((bool) beval.act_taken == 1);
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+static void test(std::uint8_t cond) {
+    for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
+        eval(cond, alu_out);
+    
+    for(std::uint32_t alu_out {1}; alu_out; alu_out <<= 1)
+        eval(cond, alu_out);
 }
 
 TEST_CASE("Never Branch") {  //Case when non branching instruction
- for (int i = 0; i < 1000; i++) {
-        uint32_t alu_out = rand() % (int) (pow(2, 32));
-        uint8_t cond = 0;
-        bool result = test(alu_out, cond);
-        REQUIRE(result == 0);
-    }
+    test(0);
 }
 
 TEST_CASE("Branch if ALU_OUT is Non-Zero") { //Case when branch condition is < or !=
-    for (int i = 0; i < 1000; i++) {
-        uint32_t alu_out = rand() % (int) (pow(2, 32));
-        uint8_t cond = 1;
-        bool result = test(alu_out, cond);
-        REQUIRE(result == (bool) alu_out);
-    }
+    test(1);
 }
 
-
 TEST_CASE("Branch if ALU_OUT is Zero") { //Case when branch condition is >= or =
-    for (int i = 0; i < 1000; i++) {
-        uint32_t alu_out = rand() % (int) (pow(2, 32));
-        uint8_t cond = 2;
-        bool result = test(alu_out, cond);
-        REQUIRE(result != (bool) alu_out);
-    }
+    test(2);
 }
 
 TEST_CASE("Always Branch") { //Case when jump instruction
-    for (int i = 0; i < 1000; i++) {
-        uint32_t alu_out = rand() % (int) (pow(2, 32));
-        uint8_t cond = 3;
-        bool result = test(alu_out, cond);
-        REQUIRE(result == 1);
-    }
+   test(3);
 }
