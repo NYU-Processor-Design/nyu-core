@@ -67,6 +67,7 @@ TEST_CASE("Module Test") {
 
 ## Step 3: Edit CML files
 In order to allow the repo's Verilator to properly verify your module with your test, you must edit the CMakeLists files in the `dv` and `rtl` folders.
+**Modules containing other sub modules must come *before* the sub modules in question.**
 
 In the [dv CML](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/dv/CMakeLists.txt), find the `target_sources()` command. This command will likely have tests already. Add the name of your .cpp file to the list of tests. Next, locate the `nyu_target_verilate()` command, which will also already have modules. Add the name of your module (without the .sv suffix) to the list of top modules.
 
