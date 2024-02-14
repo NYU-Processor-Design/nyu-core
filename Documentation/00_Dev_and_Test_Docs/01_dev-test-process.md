@@ -13,12 +13,12 @@ If a module has already been outlined, and needs to be implemented, find the out
 There are two main parts/files you need to add when implementing a component.
 + Module: this will be a System Verilog file with the module itself, based on the component outline.
 
-  + The module file should be stored in the [**rtl**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl) folder.
+  + The module file should be stored in the [**rtl folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl).
       
       + For interfaces and connection modules, a prefix is added to destingush them from base level modules. Int for interfaces and Con for connection modules.
 + Test: this is a C++ file with a design verification test that ensures your module works properly.
 
-  + The test file belongs in the [**dv**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv) folder.
+  + The test file belongs in the [**dv folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv).
 
 ### Step 2.1: Test the module
 To link your module and test, you need to *call* the module within your test program. In order to properly call the module, use these [guidelines](https://nyu-processor-design.github.io/getting_started/onboarding/05_verification2.html#adapting-the-test-cases) from Onboarding Lab 4.
@@ -68,9 +68,9 @@ TEST_CASE("Module Test") {
 ## Step 3: Edit CML files
 In order to allow the repo's Verilator to properly verify your module with your test, you must edit the CMakeLists files in the `dv` and `rtl` folders.
 
-In the [`dv` CML](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/dv/CMakeLists.txt), find the `target_sources()` command. This command will likely have tests already. Add the name of your .cpp file to the list of tests. Next, locate the `nyu_target_verilate()` command, which will also already have modules. Add the name of your module (without the .sv suffix) to the list of top modules.
+In the [dv CML](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/dv/CMakeLists.txt), find the `target_sources()` command. This command will likely have tests already. Add the name of your .cpp file to the list of tests. Next, locate the `nyu_target_verilate()` command, which will also already have modules. Add the name of your module (without the .sv suffix) to the list of top modules.
 
-In the [`rtl` CML](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/rtl/CMakeLists.txt), add your module file name (with the .sv suffix) to the list within `nyu_add_sv()` command.
+In the [rtl CML](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/rtl/CMakeLists.txt), add your module file name (with the .sv suffix) to the list within `nyu_add_sv()` command.
 
 For a refresher on enabling testing and the commands mentioned above, check out Onboarding Lab 4 from the [Subdirectories section](https://nyu-processor-design.github.io/getting_started/onboarding/05_verification2.html#subdirectories-and-nyu_-commands)
 
