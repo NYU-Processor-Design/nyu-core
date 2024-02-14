@@ -23,7 +23,7 @@ It is recommended that you look through the documentation (if applicable) of eac
 - **Outline/Implementation in Progress**: Modules are **currently assigned to someone** but you can always ask that person if they would like help.
 - **Needs To Be Connected**: Implemented and **only available** to be worked on as part of a **higher level module that contains them**. This means that if you're working on a connecting module or interface that involves a module with this tag, it is **already implemented and ready for use**.
 
-To begin on an issue, reach out to **Michael Lipp** (ShinyMiraidon) to be assigned to the issue in question to ensure no one ends up working on the same thing unintentionally.
+To begin on an issue, reach out to the **Core Czar** to be assigned to the issue in question to ensure no one ends up working on the same thing unintentionally.
 
 ## Choosing an Issue
 If an issue has an outlined doc, then you can refer to the [Dev and Test Process Doc](https://github.com/NYU-Processor-Design/nyu-core/blob/95ad3a6738f45e143dfd6e57852e4181e009e14d/Documentation/00_Dev_and_Test_Docs/dev-test-process.md) to begin implementing a module. The document will walk you through the development and testing processes needed to implement a module, which can be similarly applied to implementing a complex module, interface, or connecting module.
