@@ -17,7 +17,7 @@ static void eval_reset (std::uint32_t npc) {
 
     pc.clk = 1;
     pc.npc = npc;
-    pc.eval();
+    nyu::eval(pc);
 
     // then setting rstn to 0
     pc.rstn = 0;
