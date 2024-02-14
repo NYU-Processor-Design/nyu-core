@@ -1,17 +1,17 @@
 # Welcome to NYU Core!
 Since you've decided to take part in the core development of Processor Design Team, here is all you need to know to navigate and contribute to the repo!
 ## Navigating through the Repo
-You will notice that there is a specific organization going on in this repo that may seem slightly daunting, but fear not! All will be explained so that you know exactly where to find and pull request to. Generally, you will find yourself utilizing the Documentation folders and Issues for guides in implementation, and the dv and rtl folders for contributions.
+You will notice that there is a specific organization going on in this repo that may seem slightly daunting, but fear not! All will be explained so that you know exactly where to find and pull request to. Generally, you will find yourself utilizing the [Documentation](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation) folders and Issues for guides in implementation, and the [dv](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv) and [rtl](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl) folders for contributions.
 
-### Documentation
+### [Documentation](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation)
 This folder is where all the outlines and guides live. These helpful outlines ensure that what is implemented in the core is exactly what is needed.
 
-- **Module Docs** include the inputs, outputs, function/overall behavior of the modules. 
-- **Complex Module Docs** are modules that contain more logic and implementation that the aforementioned modules. It, too, includes input/outputs and functionality, but additionally contains logic that will need to be considered in the design for the functionality to be correct.
-- **Interface Docs** include the modules involved and desired connections amongst inputs/outputs.
-- **Connection Module Docs** include input/outputs, modules involved, internal/external input/outputs, and internal connections needed.
-- **DV** stands for design verification test. The dv folder thus holds all of our testing files written in C++. 
-- **RTL** holds files for the main module code and are written in system verilog.
+- [**Module Docs**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation/01_Module_Docs) include the inputs, outputs, function/overall behavior of the modules. 
+- [**Complex Module Docs**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation/02_Complex_Module_Functions) are modules that contain more logic and implementation that the aforementioned modules. It, too, includes input/outputs and functionality, but additionally contains logic that will need to be considered in the design for the functionality to be correct.
+- [**Interface Docs**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation/03_Interface_Docs) include the modules involved and desired connections amongst inputs/outputs.
+- [**Connection Module Docs**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/Documentation/04_Connecting_Module_Docs) include input/outputs, modules involved, internal/external input/outputs, and internal connections needed.
+- [**DV**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv) stands for design verification test. The dv folder thus holds all of our testing files written in C++. 
+- [**RTL**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl) holds files for the main module code and are written in system verilog.
 ### Issues
 At the top of the repo, the second tab should house the "Issues" tab. This is where you will find what remains to be implemented and where you can find a task to get started on. 
 
