@@ -1,11 +1,19 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VBranch_Predictor.h>
 #include <cstdint>
-#include <stdlib.h>  
-#include <math.h>
 
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-TEST_CASE("Non Prediction Instruction") {
+#include <VBranch_Predictor.h>
+
+static void eval(auto& bpred, std::uint8_t branch_occr, std::uint8_t branch_cond, bool act_taken, bool pred_taken) {
+
+}
+
+static void init(auto& bpred) {
+     
+}
+
+TEST_CASE("Non Prediction Instruction") { //branch_occr = 0 or 1
 
     VBranch_Predictor model;
 
@@ -44,7 +52,7 @@ TEST_CASE("Non Prediction Instruction") {
     }
 }
 
-TEST_CASE("Prediction Instruction") {
+TEST_CASE("Prediction Instruction") { //branch_occr = 2 or 3
 
     VBranch_Predictor model;
 
