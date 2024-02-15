@@ -7,7 +7,7 @@ The nyu-core repository will have open issues with modules that are yet to be ou
 
 If a module needs to be outlined, edit the corresponding Markdown file in the [Module Documentation folder](https://github.com/NYU-Processor-Design/nyu-core/tree/main/Documentation/01_Module_Docs) with a description of the module, including the inputs, outputs, and functions.
 
-If a module has already been outlined, and needs to be implemented, find the outline document for that module on the [ReadMe](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/ReadMe.md) to assist you as you implement.
+If a module has already been outlined, and needs to be implemented, find the outline document for that module on the [ReadMe](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/ReadMe.md) or [Core Design and Implementation Project](https://github.com/orgs/NYU-Processor-Design/projects/4/views/1) to assist you as you implement.
 
 ## Step 2: Implement the module
 There are two main parts/files you need to add when implementing a component.
@@ -15,7 +15,7 @@ There are two main parts/files you need to add when implementing a component.
 
   + The module file should be stored in the [**rtl folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl).
       
-      + For interfaces and connection modules, a prefix is added to destingush them from base level modules. Int for interfaces and Con for connection modules.
+      + For interfaces and connection modules, a prefix is added to distinguish them from base-level modules. Int for interfaces and Con for connection modules.
 + Test: this is a C++ file with a design verification test that ensures your module works properly.
 
   + The test file belongs in the [**dv folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv).
@@ -39,7 +39,7 @@ static void some_test(uint32_t input1, uint32_t input2) {
    device.input2 = input2;
    nyu::eval(device);
 
-   // INFO statements help give visiblity to what is being tested
+   // INFO statements help give visibility to what is being tested
    INFO("Testing an input1 = " << input1 << ", input2 = " << input2);
 
    // REQUIRE statements are needed to ensure requirements of the module exist before continuing with testing
@@ -78,13 +78,15 @@ For a refresher on enabling testing and the commands mentioned above, check out 
 ## Step 4: PR & Verilator test
 It's time to check your module functionality and design verification. Create a pull request from your fork to the main nyu-core repo. After doing so, the Verilator will automatically run through all of the available modules and tests specified in the CML files and tell you if your test cases passed.
 
+You can also run the tests locally using the process described in the onboarding labs. It is generally best practice to first run tests locally to ensure no simple-to-fix issues like syntax errors are present.
+
 ## Good Development & Testing Practices
 + Test as many inputs as possible. Testing a single input won't fully check the functionality of your module.
 
   + Each bit of the input space should be tested in isolation so that the coverage is always reported consistently! This can be done similarly to the following:
   ```cpp
-    for(std::uint32_t input1 {0}; input1 < 128; ++input1)
-        for(std::uint32_t input2 {0}; input2 < 128; ++input2)
+    for(std::uint32_t input1 {1}; input1; input1 <<= 1)
+        for(std::uint32_t input2 {1}; input2; input2 <<= 1)
           some_test(input1, input2);
   ```
   

@@ -9,6 +9,8 @@ The repo contains the modules and test for components that make up the core desi
 
 The progress tracker for individual components can be found [here](https://github.com/orgs/NYU-Processor-Design/projects/7/views/1).
 
+You can find our getting started document [here](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/00_Getting_Started_with_Core.md).
+
 ## Core Components
 
 The core modules include:
@@ -62,6 +64,6 @@ Cache Modules:
 
 ## Further Reading
 
-[Development and Testing Guidelines](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/dev-test-process.md)
+[Development and Testing Guidelines](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/01_dev-test-process.md)
 
 [Offical RISCV Unprivileged Instruction Set Documentation](https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf)
