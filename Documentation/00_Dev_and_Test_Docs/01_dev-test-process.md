@@ -7,7 +7,7 @@ The nyu-core repository will have open issues with modules that are yet to be ou
 
 If a module needs to be outlined, edit the corresponding Markdown file in the [Module Documentation folder](https://github.com/NYU-Processor-Design/nyu-core/tree/main/Documentation/01_Module_Docs) with a description of the module, including the inputs, outputs, and functions.
 
-If a module has already been outlined, and needs to be implemented, find the outline document for that module on the [ReadMe](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/ReadMe.md) to assist you as you implement.
+If a module has already been outlined, and needs to be implemented, find the outline document for that module on the [ReadMe](https://github.com/NYU-Processor-Design/nyu-core/blob/889d6077905a8af8b316b49c64898d4c2cb00006/ReadMe.md) or [Core Design and Implementation Project](https://github.com/orgs/NYU-Processor-Design/projects/4/views/1) to assist you as you implement.
 
 ## Step 2: Implement the module
 There are two main parts/files you need to add when implementing a component.
