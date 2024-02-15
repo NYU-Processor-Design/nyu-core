@@ -1,153 +1,76 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VBranch_Manager.h>
 #include <cstdint>
-#include <stdlib.h>  
-#include <math.h>
 
-TEST_CASE("Flush") {
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-    VBranch_Manager model;
-   
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
+#include <VBranch_Manager.h>
 
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
 
-    bool pred_taken;
-    bool act_taken;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
+static void eval(auto& bman, bool pred_taken, bool act_taken, std::uint32_t pred_pc, std::uint32_t pred_addr) {
+    bool npc;
+    bman.clk = 0;
+    bman.rstn = 1;
+    nyu::eval(bman);
+
+    bman.clk = 1;
+    bman.rstn = 1;
+
+    bman.pred_taken = pred_taken;
+    bman.act_taken = act_taken;
+    bman.pred_pc = pred_pc;
+    bman.pred_addr = pred_addr;
+    nyu::eval(bman);
     
-    //Test Module
-    for (int i = 0; i < 1000; i++) {
-        pred_taken = rand() % (int) (pow(2, 1));
-        act_taken = rand() % (int) (pow(2, 1));
-        pred_pc = rand() % (int) (pow(2, 32));
-        pred_addr = rand() % (int) (pow(2, 32));
-        
-        model.clk = 0;
-        model.eval();
+    INFO("Testing flush with pred_taken = " << pred_taken << " and act_taken = " << act_taken);
+    REQUIRE((bool) bman.flush == (bool) (pred_taken ^ act_taken));
 
-        model.clk = 1;
-        model.rstn = 1;
-
-        model.pred_taken = pred_taken;
-        model.act_taken = act_taken;
-        model.pred_pc = pred_pc;
-        model.pred_addr = pred_addr;
-        model.eval();
-
-        REQUIRE((bool) model.flush == (bool) (pred_taken ^ act_taken));
-    }
-}
-
-TEST_CASE("Incorrect Prediction") {
-
-    VBranch_Manager model;
-   
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
-
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
-
-    bool pred_taken;
-    bool act_taken;
-    uint32_t npc;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    
-    //Test Module
-    for (int i = 0; i < 1000; i++) {
-        pred_taken = rand() % (int) (pow(2, 1));
-        act_taken = ~pred_taken;
-        pred_pc = rand() % (int) (pow(2, 32));
-        pred_addr = rand() % (int) (pow(2, 32));
-        
-        model.clk = 0;
-        model.rstn = 1;
-        model.eval();
-
-        model.clk = 1;
-        model.rstn = 1;
-
-        model.pred_taken = pred_taken;
-        model.act_taken = act_taken;
-        model.pred_pc = pred_pc;
-        model.pred_addr = pred_addr;
-        model.eval();
-
-        if (act_taken) npc = pred_addr;
-        else npc = pred_pc + 4;
-
-        REQUIRE((uint32_t) model.npc == (uint32_t) (npc));
-    }
-}
-
-TEST_CASE("Correct Prediction") {
-
-    VBranch_Manager model;
-   
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
-
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
-
-    bool pred_taken;
-    bool act_taken;
-    uint32_t npc;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    
-    //Test Module
-    for (int i = 0; i < 1000; i++) {
-        pred_taken = rand() % (int) (pow(2, 1));
-        act_taken = pred_taken;
-        pred_pc = rand() % (int) (pow(2, 32));
-        pred_addr = rand() % (int) (pow(2, 32));
-        
-        model.clk = 0;
-        model.rstn = 1;
-        model.eval();
-
-        model.clk = 1;
-        model.rstn = 1;
-
-        model.pred_taken = pred_taken;
-        model.act_taken = act_taken;
-        model.pred_pc = pred_pc;
-        model.pred_addr = pred_addr;
-        model.eval();
-
+    if (act_taken == pred_taken) {
+        INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
         if (pred_taken) npc = pred_addr;
         else npc = pred_pc + 4;
-
-        REQUIRE((uint32_t) model.npc == (uint32_t) (npc));
     }
+    else {
+        INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
+        if (act_taken) npc = pred_addr;
+        else npc = pred_pc + 4;
+    }
+    REQUIRE((uint32_t) bman.npc == (uint32_t) (npc));    
+}   
+
+static void init(auto& bman) {
+     //Initialize Module
+    bman.rstn = 1;
+    bman.clk = 0;
+    nyu::eval(bman);
+    bman.rstn = 0;
+    nyu::eval(bman);
+
+    //Move out of starting conditions
+    bman.clk = 0;
+    nyu::eval(bman);
+    bman.clk = 1;
+    bman.rstn = 1;
+    nyu::eval(bman);
+}
+
+static void test() {
+    auto& bman {nyu::getDUT<VBranch_Manager>()};
+    
+    init(bman);
+    for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
+        for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
+            for(int pred_taken {0}; pred_taken; ++pred_taken)
+                for(int act_taken {0}; act_taken < 2; ++act_taken)
+                    eval(bman, pred_taken, act_taken, pred_pc, pred_addr);
+    
+    init(bman);
+    for(std::uint32_t pred_pc {1}; pred_pc; pred_pc <<= 1)
+        for(std::uint32_t pred_addr {1}; pred_addr; pred_addr <<=1)
+            for(int pred_taken {0}; pred_taken; ++pred_taken)
+                for(int act_taken {0}; act_taken < 2; ++act_taken)
+                    eval(bman, pred_taken, act_taken, pred_pc, pred_addr);
+}
+
+TEST_CASE("Branch Manager, Flushing and Predictions") {
+    test();
 }
