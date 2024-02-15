@@ -15,9 +15,9 @@ This folder is where all the outlines and guides live. These helpful outlines en
 ### Issues
 At the top of the repo, the second tab should house the "Issues" tab. This is where you will find what remains to be implemented and where you can find a task to get started on. 
 
-It is recommended that you look through the documentation (if applicable) of each issue to familiarize yourself with what needs to be considered before implementation.
+It is recommended that you look through the documentation (if applicable) of each issue to familiarize yourself with what needs to be considered before implementation. The status of issues pertaining to hardware design and implementation is best viewed through our [Core Design and Implementation](https://github.com/orgs/NYU-Processor-Design/projects/4/views/1) project page.
 
-**Issue Tags**:
+**Notable Issue Categories**:
 - **To Outline**: Modules that are **NOT yet outlined** and available to outline
 - **Outline Complete**: Modules that are already outlined and **ready to be implemented**. 
 - **Outline/Implementation in Progress**: Modules are **currently assigned to someone** but you can always ask that person if they would like help.
