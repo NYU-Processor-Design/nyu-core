@@ -9,7 +9,7 @@ The repo contains the modules and test for components that make up the core desi
 
 The progress tracker for individual components can be found [here](https://github.com/orgs/NYU-Processor-Design/projects/7/views/1).
 
-You can find our getting started document here(https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/00_Getting_Started_with_Core.md).
+You can find our getting started document [here](https://github.com/NYU-Processor-Design/nyu-core/blob/main/Documentation/00_Dev_and_Test_Docs/00_Getting_Started_with_Core.md).
 
 ## Core Components
 
