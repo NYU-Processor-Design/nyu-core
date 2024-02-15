@@ -15,7 +15,7 @@ There are two main parts/files you need to add when implementing a component.
 
   + The module file should be stored in the [**rtl folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/rtl).
       
-      + For interfaces and connection modules, a prefix is added to destingush them from base level modules. Int for interfaces and Con for connection modules.
+      + For interfaces and connection modules, a prefix is added to distinguish them from base-level modules. Int for interfaces and Con for connection modules.
 + Test: this is a C++ file with a design verification test that ensures your module works properly.
 
   + The test file belongs in the [**dv folder**](https://github.com/NYU-Processor-Design/nyu-core/tree/889d6077905a8af8b316b49c64898d4c2cb00006/dv).
@@ -39,7 +39,7 @@ static void some_test(uint32_t input1, uint32_t input2) {
    device.input2 = input2;
    nyu::eval(device);
 
-   // INFO statements help give visiblity to what is being tested
+   // INFO statements help give visibility to what is being tested
    INFO("Testing an input1 = " << input1 << ", input2 = " << input2);
 
    // REQUIRE statements are needed to ensure requirements of the module exist before continuing with testing
