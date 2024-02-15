@@ -85,8 +85,8 @@ You can also run the tests locally using the process described in the onboarding
 
   + Each bit of the input space should be tested in isolation so that the coverage is always reported consistently! This can be done similarly to the following:
   ```cpp
-    for(std::uint32_t input1 {0}; input1 < 128; ++input1)
-        for(std::uint32_t input2 {0}; input2 < 128; ++input2)
+    for(std::uint32_t input1 {1}; input1; input1 <<= 1)
+        for(std::uint32_t input2 {1}; input2; input2 <<= 1)
           some_test(input1, input2);
   ```
   
