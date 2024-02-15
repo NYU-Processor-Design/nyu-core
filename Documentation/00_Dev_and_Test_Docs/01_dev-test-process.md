@@ -78,6 +78,8 @@ For a refresher on enabling testing and the commands mentioned above, check out 
 ## Step 4: PR & Verilator test
 It's time to check your module functionality and design verification. Create a pull request from your fork to the main nyu-core repo. After doing so, the Verilator will automatically run through all of the available modules and tests specified in the CML files and tell you if your test cases passed.
 
+You can also run the tests locally using the process described in the onboarding labs. It is generally best practice to first run tests locally to ensure no simple-to-fix issues like syntax errors are present.
+
 ## Good Development & Testing Practices
 + Test as many inputs as possible. Testing a single input won't fully check the functionality of your module.
 
