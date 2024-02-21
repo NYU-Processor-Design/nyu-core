@@ -35,7 +35,7 @@ static void eval_p(std::uint8_t wbs, std::uint8_t rdn_in,
         REQUIRE((uint8_t) memwb.rdn == (uint8_t) rdn_in);
     }
 
-TEST_CASE("rdn Passthrough") {
+TEST_CASE("MEMWB, rdn Passthrough") {
 
     for(std::uint8_t wbs {0}; wbs <= 5; ++wbs)
             for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
@@ -77,7 +77,7 @@ static void eval_0(std::uint8_t rdn_in,
 
 
 
-TEST_CASE("Write Back State 0") {
+TEST_CASE("MEMWB, Write Back State 0") {
     
     for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
         for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
@@ -114,7 +114,7 @@ static void eval_1(std::uint8_t rdn_in,
         REQUIRE((uint32_t) memwb.rdd == sign_extend(mrd, 16)); 
     }
 
-TEST_CASE("Write Back State 1") {
+TEST_CASE("MEMWB, Write Back State 1") {
  
     for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
         for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
@@ -153,7 +153,7 @@ static void eval_2(std::uint8_t rdn_in,
     }
 
 
-TEST_CASE("Write Back State 2") {
+TEST_CASE("MEMWB, Write Back State 2") {
 
 
 
@@ -194,7 +194,7 @@ TEST_CASE("Write Back State 2") {
         }
 
 
-TEST_CASE("Write Back State 3") {
+TEST_CASE("MEMWB, Write Back State 3") {
         
   
         for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
@@ -233,7 +233,7 @@ static void eval_4(std::uint8_t rdn_in,
             REQUIRE((uint32_t) memwb.rdd == (uint32_t) (mrd & ((int) (pow(2, 8) - 1))));
         }
 
-TEST_CASE("Write Back State 4") {
+TEST_CASE("MEMWB, Write Back State 4") {
 
     
 
@@ -274,7 +274,7 @@ TEST_CASE("Write Back State 4") {
         }
 
 
-TEST_CASE("Write Back State 5") {
+TEST_CASE("MEMWB, Write Back State 5") {
 
     
 

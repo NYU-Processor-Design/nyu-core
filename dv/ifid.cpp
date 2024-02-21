@@ -77,26 +77,26 @@ static void test(std::uint8_t immode) {
 
 }
 
-TEST_CASE("Imm Mode 0") {
+TEST_CASE("IFID, Imm Mode 0") {
     test(0);
 }
 
-TEST_CASE("Imm Mode 1") {
+TEST_CASE("IFID, Imm Mode 1") {
     test(1);
 }
 
-TEST_CASE("Imm Mode 2") {
+TEST_CASE("IFID, Imm Mode 2") {
     test(2);
 }
 
-TEST_CASE("Imm Mode 3") {
+TEST_CASE("IFID, Imm Mode 3") {
     test(3);
 }
 
-TEST_CASE("Imm Mode 4") {
+TEST_CASE("IFID, Imm Mode 4") {
     test(4);
 }
 
-TEST_CASE("Imm Mode 5") {
+TEST_CASE("IFID, Imm Mode 5") {
     test(5);
 }

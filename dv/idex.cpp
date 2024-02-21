@@ -122,30 +122,30 @@ static void b_test(std::uint8_t b_sel) {
                                     eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, imm, rs1d, rs2d_in, branch_addr_in);
 }
 
-TEST_CASE("a_sel = 0") {
+TEST_CASE("IDEX, a_sel = 0") {
     a_test(0);
 }   
 
-TEST_CASE("a_sel = 1") {
+TEST_CASE("IDEX, a_sel = 1") {
     a_test(1);
 }   
 
-TEST_CASE("a_sel = 3") {
+TEST_CASE("IDEX, a_sel = 3") {
     a_test(3);
 }   
 
-TEST_CASE("b_sel = 0") {
+TEST_CASE("IDEX, b_sel = 0") {
     b_test(0);
 }   
 
-TEST_CASE("b_sel = 1") {
+TEST_CASE("IDEX, b_sel = 1") {
     b_test(1);
 }    
 
-TEST_CASE("b_sel = 2") {
+TEST_CASE("IDEX, b_sel = 2") {
     b_test(2);
 }
 
-TEST_CASE("b_sel = 3") {
+TEST_CASE("IDEX, b_sel = 3") {
     b_test(3);
 }
