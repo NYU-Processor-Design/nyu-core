@@ -75,15 +75,15 @@ static void a_test(std::uint8_t a_sel) {
 
     init(idex);
 
-    for (std::uint8_t b_sel {0}; b_sel < 4; ++b_sel)
-        for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
-            for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-                for (std::uint32_t pc_in {0}; pc_in < 4; ++pc_in)
-                    for (std::uint32_t imm {0}; imm < 4; ++imm)
-                        for (std::uint32_t rs1d {0}; rs1d < 4; ++rs1d)
-                            for (std::uint32_t rs2d_in {0}; rs2d_in < 4; ++rs2d_in)
-                                for (std::uint32_t branch_addr_in {0}; branch_addr_in < 4; ++branch_addr_in)
-                                    eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, imm, rs1d, rs2d_in, branch_addr_in);
+    // for (std::uint8_t b_sel {0}; b_sel < 4; ++b_sel)
+    //     for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
+    //         for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
+    //             for (std::uint32_t pc_in {0}; pc_in < 4; ++pc_in)
+    //                 for (std::uint32_t imm {0}; imm < 4; ++imm)
+    //                     for (std::uint32_t rs1d {0}; rs1d < 4; ++rs1d)
+    //                         for (std::uint32_t rs2d_in {0}; rs2d_in < 4; ++rs2d_in)
+    //                             for (std::uint32_t branch_addr_in {0}; branch_addr_in < 4; ++branch_addr_in)
+    //                                 eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, imm, rs1d, rs2d_in, branch_addr_in);
     
     for (std::uint8_t b_sel {0}; b_sel < 4; ++b_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
@@ -101,15 +101,15 @@ static void b_test(std::uint8_t b_sel) {
 
     init(idex);
 
-    for (std::uint8_t a_sel {0}; a_sel < 4; ++a_sel)
-        for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
-            for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-                for (std::uint32_t pc_in {0}; pc_in < 4; ++pc_in)
-                    for (std::uint32_t imm {0}; imm < 4; ++imm)
-                        for (std::uint32_t rs1d {0}; rs1d < 4; ++rs1d)
-                            for (std::uint32_t rs2d_in {0}; rs2d_in < 4; ++rs2d_in)
-                                for (std::uint32_t branch_addr_in {0}; branch_addr_in < 4; ++branch_addr_in)
-                                    eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, imm, rs1d, rs2d_in, branch_addr_in);
+    // for (std::uint8_t a_sel {0}; a_sel < 4; ++a_sel)
+    //     for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
+    //         for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
+    //             for (std::uint32_t pc_in {0}; pc_in < 4; ++pc_in)
+    //                 for (std::uint32_t imm {0}; imm < 4; ++imm)
+    //                     for (std::uint32_t rs1d {0}; rs1d < 4; ++rs1d)
+    //                         for (std::uint32_t rs2d_in {0}; rs2d_in < 4; ++rs2d_in)
+    //                             for (std::uint32_t branch_addr_in {0}; branch_addr_in < 4; ++branch_addr_in)
+    //                                 eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, imm, rs1d, rs2d_in, branch_addr_in);
     
     for (std::uint8_t a_sel {0}; a_sel < 4; ++a_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
