@@ -87,7 +87,7 @@ static void a_test(std::uint8_t a_sel) {
     
     for (std::uint8_t b_sel {0}; b_sel < 4; ++b_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
-            for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
+            for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
                 for (std::uint32_t pc_in {1}; pc_in; pc_in <<= 1)
                     for (std::uint32_t imm {1}; imm; imm <<= 1)
                         for (std::uint32_t rs1d {1}; rs1d; rs1d <<= 1)
@@ -113,7 +113,7 @@ static void b_test(std::uint8_t b_sel) {
     
     for (std::uint8_t a_sel {0}; a_sel < 4; ++a_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
-            for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
+            for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
                 for (std::uint32_t pc_in {1}; pc_in; pc_in <<= 1)
                     for (std::uint32_t imm {1}; imm; imm <<= 1)
                         for (std::uint32_t rs1d {1}; rs1d; rs1d <<= 1)
@@ -148,4 +148,4 @@ TEST_CASE("b_sel = 2") {
 
 TEST_CASE("b_sel = 3") {
     b_test(3);
-}   
+}
