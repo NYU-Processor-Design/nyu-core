@@ -55,8 +55,6 @@ Cache Modules:
 - [L1 Instruction Cache](/Documentation/01_Module_Docs/14_L1_Instruction_Cache.md)
 - [Data Cache Manager](/Documentation/01_Module_Docs/07_Data_Cache_Manager.md)
 - [L1 Data Cache](/Documentation/01_Module_Docs/10_L1_Data_Cache.md)
-- [L2 Data Cache](/Documentation/01_Module_Docs/11_L2_Data_Cache.md)
-- [L3 Data Cache](/Documentation/01_Module_Docs/12_L3_Data_Cache.md)
 
 ## Current Draft of CPU Diagram
 
