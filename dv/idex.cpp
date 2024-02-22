@@ -75,13 +75,13 @@ static void a_test(std::uint8_t a_sel) {
 
     init(idex);
     
-    for (std::uint8_t b_sel {1}; b_sel < 4; b_sel <<= 1)
+    for (std::uint8_t b_sel {1}; b_sel < 4; ++b_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
             for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
                 for (std::uint32_t pc_in {1}; pc_in; pc_in <<= 1)
-                        for (std::uint32_t rs1d {1}; rs1d; rs1d <<= 1)
-                                for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
-                                    eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, 0, rs1d, 0, branch_addr_in);
+                    for (std::uint32_t rs1d {1}; rs1d; rs1d <<= 1)
+                        for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
+                                eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, 0, rs1d, 0, branch_addr_in);
 }
 
 static void b_test(std::uint8_t b_sel) {
@@ -89,13 +89,13 @@ static void b_test(std::uint8_t b_sel) {
 
     init(idex);
 
-    for (std::uint8_t a_sel {1}; a_sel < 4; a_sel <<= 1)
+    for (std::uint8_t a_sel {1}; a_sel < 4; ++a_sel)
         for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
             for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
-                    for (std::uint32_t imm {1}; imm; imm <<= 1)
-                            for (std::uint32_t rs2d_in {1}; rs2d_in; rs2d_in <<= 1)
-                                for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
-                                    eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, 0, imm, 0, rs2d_in, branch_addr_in);
+                for (std::uint32_t imm {1}; imm; imm <<= 1)
+                    for (std::uint32_t rs2d_in {1}; rs2d_in; rs2d_in <<= 1)
+                        for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
+                            eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, 0, imm, 0, rs2d_in, branch_addr_in);
 }
 
 TEST_CASE("IDEX, a_sel = 0") {
