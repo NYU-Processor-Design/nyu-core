@@ -51,12 +51,12 @@ module L1_Data_Cache(
     output reg [1:0] c_state,
     
     // To LOWER MEMORY
-    output reg l2_request,
-    output reg l2_write_enable,
-    output reg [31:0] l2_address, 
-    output reg [31:0] l2_write_data,
-    input wire [31:0] l2_response_data,
-    input wire l2_ready
+    output reg mem_request,
+    output reg mem_write_enable,
+    output reg [31:0] mem_address, 
+    output reg [31:0] mem_write_data,
+    input wire [31:0] mem_response_data,
+    input wire mem_ready
 );
     // Hardcoded parameters for the data cache
     localparam CACHE_SIZE    = 4 * 1024;   // Cache size: 4 KB
@@ -189,14 +189,14 @@ module L1_Data_Cache(
         end
     endtask
     
-    task set_l2_request;
+    task set_mem_request;
         input [31:0] address, data;
         input write_enable;
         begin
-            l2_address <= address;
-            l2_write_enable <= write_enable;
-            l2_request <= 1;
-            l2_write_data <= data;
+            mem_address <= address;
+            mem_write_enable <= write_enable;
+            mem_request <= 1;
+            mem_write_data <= data;
         end
     endtask
     
@@ -276,10 +276,10 @@ module L1_Data_Cache(
                 set_sram_read_request(current_addr.index, lru_way);
                 sram_read_req <= 1;
             end else begin 
-                set_l2_request(writeback_address, sram_read_data, 1);
-                if (l2_ready) begin
-                    l2_write_enable <= 0;
-                    l2_request <= 0;
+                set_mem_request(writeback_address, sram_read_data, 1);
+                if (mem_ready) begin
+                    mem_write_enable <= 0;
+                    mem_request <= 0;
                     sram_read_req <= 0;
                     state <= FILL; 
                 end 
@@ -289,15 +289,15 @@ module L1_Data_Cache(
     
     task fill_logic;
         begin  
-            if (!l2_request) begin
-                set_l2_request(current_addr.address, 0, 0);
-            end else if (l2_ready) begin
-                set_sram_write_request(current_addr.index, lru_way, l2_response_data);
+            if (!mem_request) begin
+                set_mem_request(current_addr.address, 0, 0);
+            end else if (mem_ready) begin
+                set_sram_write_request(current_addr.index, lru_way, mem_response_data);
                 cache_tags[current_addr.index][lru_way] <= current_addr.tag;
                 valid[current_addr.index][lru_way] <= 1;
                 dirty[current_addr.index][lru_way] <= 0; 
                 update_lru_counters(current_addr.index, lru_way);
-                l2_request <= 0; 
+                mem_request <= 0; 
                 state <= CHECK_TAG; 
             end
         end
