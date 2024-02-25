@@ -1,33 +1,32 @@
 # L1_Data_Cache Module Detailed Documentation
 
 ## Overview
-The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back policy and LRU (Least Recently Used) replacement strategy. It's designed to interface with an L2 cache in a memory hierarchy.
-
+The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back policy and LRU (Least Recently Used) replacement strategy. It's designed to interface with RAM.
 ## Module Structure
 
 ### Inputs and Outputs
 
 #### Inputs
 | Input             | Description                           | Bit Width |
-|-------------------|---------------------------------------|-----------|
-| `clk`             | Clock signal                          | 1         |
-| `reset`           | Reset signal                          | 1         |
-| `write_enable`    | Enable signal for write operations    | 1         |
-| `read_enable`     | Enable signal for read operations     | 1         |
-| `request_address` | Address for read/write request        | 32        |
-| `write_data`      | Data to write into cache              | 32        |
-| `l2_response_data`| Data received from L2 cache           | 32        |
-| `l2_ready`        | Signal indicating L2 cache readiness  | 1         |
+|--------------------|----------------------------------------|-----------|
+| `clk`              | Clock signal                           | 1         |
+| `reset`            | Reset signal                           | 1         |
+| `write_enable`     | Enable signal for write operations     | 1         |
+| `read_enable`      | Enable signal for read operations      | 1         |
+| `request_address`  | Address for read/write request         | 32        |
+| `write_data`       | Data to write into cache               | 32        |
+| `mem_response_data`| Data received from RAM                 | 32        |
+| `mem_ready`        | Signal indicating RAM cache readiness  | 1         |
 
 #### Outputs
 | Output            | Description                           | Bit Width |
 |-------------------|---------------------------------------|-----------|
 | `response_data`   | Data output for read operations       | 32        |
 | `c_state`         | Current state of cache (debugging)    | 2         |
-| `l2_request`      | Request signal for L2 cache           | 1         |
-| `l2_write_enable` | Write enable for L2 cache             | 1         |
-| `l2_address`      | Address for L2 cache operations       | 32        |
-| `l2_write_data`   | Data to write to L2 cache             | 32        |
+| `mem_request`     | Request signal for RAM                | 1         |
+| `mem_write_enable`| Write enable for RAM                  | 1         |
+| `mem_address`     | Address for RAM operations            | 32        |
+| `mem_write_data`  | Data to write to RAM                  | 32        |
 
 ### Parameters and Constants
 
@@ -59,13 +58,13 @@ The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back
 The cache operates through a state machine with distinct states for handling various operations:
 - **IDLE**: Awaiting read or write requests.
 - **CHECK_TAG**: Checking if the requested address is in the cache (cache hit) or not (cache miss).
-- **WRITEBACK**: Writing back data to the L2 cache for dirty cache lines on a miss.
-- **FILL**: Fetching data from the L2 cache to fill the cache line on a miss.
+- **WRITEBACK**: Writing back data to the RAM  for dirty cache lines on a miss.
+- **FILL**: Fetching data from the RAM to fill the cache line on a miss.
 
 ### Cache Operations
 - **Read/Write**: Handles read and write operations, checking for cache hits or misses.
-- **Write-Back**: Writes back dirty data to L2 cache on misses.
-- **Cache Fill**: Loads data from L2 cache on misses.
+- **Write-Back**: Writes back dirty data to RAM cache on misses.
+- **Cache Fill**: Loads data from RAM cache on misses.
 
 ### LRU Algorithm
 - Implements an LRU algorithm for cache line replacement.
