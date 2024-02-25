@@ -1,7 +1,7 @@
 # L1_Data_Cache Module
 
 ## Overview
-`L1_Data_Cache` is a Verilog module designed to simulate an L1 data cache with a write-back policy and a least recently used (LRU) replacement algorithm. This module is a part of a larger memory hierarchy system and interacts with lower memory levels (like L2 cache).
+`L1_Data_Cache` is a Verilog module designed to simulate an L1 data cache with a write-back policy and a least recently used (LRU) replacement algorithm.
 
 ## Module Interface
 
