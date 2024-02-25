@@ -18,10 +18,10 @@
 ### Outputs
 - **response_data**: Data returned in response to a read operation.
 - **c_state**: Current state of the cache (for debugging/monitoring).
-- **l2_request**: Signal to request data from L2 cache.
-- **l2_write_enable**: Enable signal for writing data to L2 cache.
-- **l2_address**: Address for L2 cache operations.
-- **l2_write_data**: Data to be written to the L2 cache.
+- **mem_request**: Signal to request data from RAM.
+- **mem_write_enable**: Enable signal for writing data to RAM.
+- **mem_address**: Address for RAM operations.
+- **mem_write_data**: Data to be written to the RAM.
 
 ## Key Parameters and Constants
 - **CACHE_SIZE**: Total size of the L1 cache (4 KB).
