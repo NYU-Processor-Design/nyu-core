@@ -14,6 +14,7 @@
 - **write_data**: Data to be written into the cache.
 - **mem_response_data**: Data received from the RAM.
 - **mem_ready**: Signal indicating readiness of the RAM.
+- **data_mode**: Signal indicating size of data to be stored
 
 ### Outputs
 - **response_data**: Data returned in response to a read operation.
