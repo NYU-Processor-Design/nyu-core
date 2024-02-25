@@ -17,6 +17,7 @@ The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back
 | `write_data`       | Data to write into cache               | 32        |
 | `mem_response_data`| Data received from RAM                 | 32        |
 | `mem_ready`        | Signal indicating RAM cache readiness  | 1         |
+| `data_mode`        | 0 for Byte, 1 for Half, 2 for Word     | 2         |
 
 #### Outputs
 | Output            | Description                           | Bit Width |
