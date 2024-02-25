@@ -12,8 +12,8 @@
 - **read_enable**: Enable signal for read operations.
 - **request_address**: Address for the current read/write request.
 - **write_data**: Data to be written into the cache.
-- **l2_response_data**: Data received from the L2 cache.
-- **l2_ready**: Signal indicating readiness of the L2 cache.
+- **mem_response_data**: Data received from the RAM.
+- **mem_ready**: Signal indicating readiness of the RAM.
 
 ### Outputs
 - **response_data**: Data returned in response to a read operation.
