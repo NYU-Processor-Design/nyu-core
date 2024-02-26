@@ -82,30 +82,30 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
     REQUIRE ((bool) con_branch_cont.branch_taken == (bool) curr_pred);
 
  
-    bool flush == (bool) (pred_taken ^ act_taken);
-
+    bool flush = (bool) (pred_taken ^ act_taken);
+    std::uint32_t npc_corr
     if (act_taken == pred_taken) {
         INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (pred_taken) npc = pred_addr;
-        else npc = pred_pc + 4;
+        if (pred_taken) npc_corr = pred_addr;
+        else npc_corr = pred_pc + 4;
     }
     else {
         INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (act_taken) npc = pred_addr;
-        else npc = pred_pc + 4;
+        if (act_taken) npc_corr = pred_addr;
+        else npc_corr = pred_pc + 4;
     }
-    std::uint32_t npc_corr == (uint32_t) (npc); 
+    //std::uint32_t npc_corr == (uint32_t) (npc); 
 
     INFO("Testing npc_in = " << npc_in << "and npc_corr = " << npc_corr);
     
     if(!flush) {
         REQUIRE((uint32_t) con_branch_cont.npc == (uint32_t) npc_in);   
-        REQUIRE(pipe.rstn_out == 0); //Verilator translates High Z outputs to 0 
+        REQUIRE(con_branch_cont.rstn_out == 0); //Verilator translates High Z outputs to 0 
     }
 
     else {
         REQUIRE((uint32_t) con_branch_cont.npc == (uint32_t) npc_corr);
-        REQUIRE(pipe.rstn_out == 0); //Expect actual 0 output here, not High Z
+        REQUIRE(con_branch_cont.rstn_out == 0); //Expect actual 0 output here, not High Z
     }
 }
 
@@ -122,6 +122,8 @@ static void init(auto& con_branch_cont){
 static void test_branch_occr(std::uint8_t branch_occr){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     init(con_branch_cont);
+    bool curr_pred = 0;
+    bool incorrect_pred = 0;
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
             for(int pred_taken{0};pred_taken<2;++pred_taken)
@@ -129,8 +131,8 @@ static void test_branch_occr(std::uint8_t branch_occr){
                     for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
                         for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
                             for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
-                                for(int curr_pred{0};curr_pred<2;++curr_pred)
-                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                //for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
                                         eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
@@ -142,8 +144,8 @@ static void test_branch_occr(std::uint8_t branch_occr){
                     for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
                         for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
                             for(std::uint32_t npc_in {0}; npc_in ; npc_in)
-                                for(int curr_pred{0};curr_pred<2;++curr_pred)
-                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                //for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
                                         eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
@@ -182,14 +184,16 @@ static void test_branch_cond(std::uint8_t branch_cond){
 static void test_pred_taken(int pred_taken){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     init(con_branch_cont);
+    bool curr_pred = 0;
+    bool incorrect_pred = 0;
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
                 for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
                     for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
                         for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
                             for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
-                                for(int curr_pred{0};curr_pred<2;++curr_pred)
-                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                //for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
                                         if(pred_taken){
                                             for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
                                                 eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
@@ -208,8 +212,8 @@ static void test_pred_taken(int pred_taken){
                     for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
                         for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
                             for(std::uint32_t npc_in {0}; npc_in ; npc_in)
-                                for(int curr_pred{0};curr_pred<2;++curr_pred)
-                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                //for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
                                         if(pred_taken){
                                             for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
                                                 eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
