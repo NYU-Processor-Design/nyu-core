@@ -1,402 +1,127 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VIDEX.h>
 #include <cstdint>
-#include <stdlib.h>
-#include <math.h>
 
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-TEST_CASE("Value Passthroughs") {
+#include <VIDEX.h>
+
+static void eval(auto& idex, std::uint8_t a_sel, std::uint8_t b_sel,  bool branch_taken_in, std::uint8_t rdn_in,
+    std::uint32_t pc_in, std::uint32_t imm, std::uint32_t rs1d, std::uint32_t rs2d_in, std::uint32_t branch_addr_in) {
+    idex.clk = 0;
+    idex.rstn = 1;
+    nyu::eval(idex);
+
+    idex.clk = 1;
+    idex.rstn = 1;
+    idex.branch_taken_in = branch_taken_in;
+    idex.a_sel = a_sel;
+    idex.b_sel = b_sel;
+    idex.rdn_in = rdn_in;
+    idex.pc_in = pc_in;
+    idex.imm = imm;
+    idex.rs1d = rs1d;
+    idex.rs2d_in = rs2d_in;
+    idex.branch_addr_in = branch_addr_in;
+    nyu::eval(idex);
+
+    INFO("Testing a_sel = " << (int) a_sel << ", b_sel = " << (int) b_sel << ", branch_taken_in = " << branch_taken_in << ", rdn_in = " << (int) rdn_in << ", pc_in = " << pc_in << ", imm = " << imm << ", rs1d = " << rs1d << ", rs2d_in = " << rs2d_in << ", and branch_addr_in = " << branch_addr_in);
     
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
+    // Test passthrough
+    REQUIRE((std::uint32_t) idex.pc == (std::uint32_t) pc_in);
+    REQUIRE((std::uint8_t) idex.rdn == (std::uint8_t) rdn_in);
+    REQUIRE((bool) idex.branch_taken == (bool) branch_taken_in);
+    REQUIRE((std::uint32_t) idex.branch_addr == (std::uint32_t) branch_addr_in);
+    REQUIRE((std::uint32_t) idex.rs2d == (std::uint32_t) rs2d_in);
 
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.pc == (uint32_t) pc_in);
-        REQUIRE((uint8_t) model.rdn == (uint8_t) rdn_in);
-        REQUIRE((bool) model.branch_taken == (bool) branch_taken_in);
-        REQUIRE((uint32_t) model.branch_addr == (uint32_t) branch_addr_in);
-        REQUIRE((uint32_t) model.rs2d == (uint32_t) rs2d_in);
+    switch(a_sel) {
+       case 0:
+            REQUIRE((std::uint32_t) idex.a == (std::uint32_t) rs1d);
+            break;
+        case 1:
+            REQUIRE((std::uint32_t) idex.a == (std::uint32_t) pc_in);
+            break;
+        default:
+            REQUIRE((std::uint32_t) idex.a == 0);
+            break;
     }
+
+    switch(b_sel) {
+        case 0:
+            REQUIRE((std::uint32_t) idex.b == (std::uint32_t) rs2d_in);
+            break;
+        case 1:
+            REQUIRE((std::uint32_t) idex.b == (std::uint32_t) imm);
+            break;
+        case 2:
+            REQUIRE((std::uint32_t) idex.b == 4);
+            break;
+        case 3:
+            REQUIRE((std::uint32_t) idex.b == (std::uint32_t) imm << 12);
+            break;
+    }
+}
+
+static void init(auto& idex) {
+    //Initialize Module
+    idex.rstn = 1;
+    idex.clk = 0;
+    nyu::eval(idex);
+    idex.rstn = 0;
+    nyu::eval(idex);
+} 
+
+static void a_test(std::uint8_t a_sel) {
+    auto& idex {nyu::getDUT<VIDEX>()};
+
+    init(idex);
+    
+    for (std::uint8_t b_sel {1}; b_sel < 4; ++b_sel)
+        for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
+            for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
+                for (std::uint32_t pc_in {1}; pc_in; pc_in <<= 1)
+                    for (std::uint32_t rs1d {1}; rs1d; rs1d <<= 1)
+                        for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
+                                eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, pc_in, 0, rs1d, 0, branch_addr_in);
+}
+
+static void b_test(std::uint8_t b_sel) {
+    auto& idex {nyu::getDUT<VIDEX>()};
+
+    init(idex);
+
+    for (std::uint8_t a_sel {1}; a_sel < 4; ++a_sel)
+        for (int branch_taken_in {0}; branch_taken_in < 2; ++branch_taken_in)
+            for (std::uint8_t rdn_in {1}; rdn_in < 32; rdn_in <<= 1)
+                for (std::uint32_t imm {1}; imm; imm <<= 1)
+                    for (std::uint32_t rs2d_in {1}; rs2d_in; rs2d_in <<= 1)
+                        for (std::uint32_t branch_addr_in {1}; branch_addr_in; branch_addr_in <<= 1)
+                            eval(idex, a_sel, b_sel, branch_taken_in, rdn_in, 0, imm, 0, rs2d_in, branch_addr_in);
+}
+
+TEST_CASE("IDEX, a_sel = 0") {
+    a_test(0);
 }   
 
-TEST_CASE("a_sel = 0") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = 0;
-        b_sel = rand() % (int) (pow(2, 2));
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test a = rs1d
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.a == (uint32_t) rs1d);
-    }
+TEST_CASE("IDEX, a_sel = 1") {
+    a_test(1);
 }   
 
-TEST_CASE("a_sel = 1") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = 1;
-        b_sel = rand() % (int) (pow(2, 2));
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test a = pc_in
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.a == (uint32_t) pc_in);
-    }
+TEST_CASE("IDEX, a_sel = 3") {
+    a_test(3);
 }   
 
-TEST_CASE("a_sel = 3") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = 3;
-        b_sel = rand() % (int) (pow(2, 2));
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test a = 0
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.a == (uint32_t) 0);
-    }
+TEST_CASE("IDEX, b_sel = 0") {
+    b_test(0);
 }   
 
-TEST_CASE("b_sel = 0") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = 0;
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test b = rs2d_in
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.b == (uint32_t) rs2d_in);
-    }
-}   
-
-TEST_CASE("b_sel = 1") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = 1;
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test b = imm
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.b == (uint32_t) imm);
-    }
+TEST_CASE("IDEX, b_sel = 1") {
+    b_test(1);
 }    
 
-TEST_CASE("b_sel = 2") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
+TEST_CASE("IDEX, b_sel = 2") {
+    b_test(2);
+}
 
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = 2;
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test b = 4
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.b == (uint32_t) 4);
-    }
-}   
-
-TEST_CASE("b_sel = 3") {
-    
-    VIDEX model;
-    bool branch_taken_in;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    uint8_t rdn_in;
-    uint32_t pc_in;
-    uint32_t imm;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-
-    for (int i = 0; i < 1000; i++) {
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = 3;
-        rdn_in = rand() % (int) (pow(2, 5));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test b = imm << 12
-        model.clk = 1;
-        model.rstn = 1;
-        model.branch_taken_in = branch_taken_in;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.rdn_in = rdn_in;
-        model.pc_in = pc_in;
-        model.imm = imm;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.eval();
-        REQUIRE((uint32_t) model.b == (uint32_t) imm << 12);
-    }
-}   
+TEST_CASE("IDEX, b_sel = 3") {
+    b_test(3);
+}

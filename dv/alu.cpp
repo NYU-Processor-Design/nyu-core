@@ -6,24 +6,32 @@
 #include <VAlu.h>
 
 static void eval(std::uint8_t op, std::uint32_t opA, std::uint32_t opB,
-    std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
+  std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
+  
   auto& alu {nyu::getDUT<VAlu>()};
   alu.alu_mode = op;
   alu.a = opA;
   alu.b = opB;
   nyu::eval(alu);
 
-  std::uint32_t result {f(opA, opB)};
   INFO("Testing " << opA << " and " << opB);
+
+  //Set result equal to the return value of the function we passed in
+  std::uint32_t result {f(opA, opB)};
+
+  //Require that the alu's output match the expected result we calculated
   REQUIRE(result == alu.alu_out);
 }
 
 static void test(std::uint8_t op,
-    std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
+  std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
+  
+  //Testing various values for opA and opB
   for(std::uint32_t opA {0}; opA < 8; ++opA)
     for(std::uint32_t opB {0}; opB < 8; ++opB)
       eval(op, opA, opB, f);
 
+  //Testing each bit of opA and opB in isolation
   for(std::uint32_t opA {1}; opA; opA <<= 1)
     for(std::uint32_t opB {1}; opB; opB <<= 1)
       eval(op, opA, opB, f);

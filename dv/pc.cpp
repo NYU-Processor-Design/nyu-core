@@ -1,67 +1,76 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VPC.h>
 #include <cstdint>
-#include <stdlib.h>
 
-TEST_CASE("PC Reset") {
-  VPC model;
-  uint32_t npc_input;
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-  for (int i = 0; i < 5000; i++) {
-    npc_input = rand() % 4294967295;
+#include <VPC.h>
 
+static void eval_reset (std::uint32_t npc) {
+   auto& pc {nyu::getDUT<VPC>()};
+   
     // testing PC reset
-    // by setting the PC to a random input...
-    
-    model.rstn = 1;
-    model.clk = 0;
-    model.pc_en = 1;
-    model.eval();
+    // by setting the PC to a value...
+    pc.rstn = 1;
+    pc.clk = 0;
+    pc.pc_en = 1;
+    nyu::eval(pc);
 
-    model.clk = 1;
-    model.npc = npc_input;
-    model.eval();
+    pc.clk = 1;
+    pc.npc = npc;
+    nyu::eval(pc);
 
     // then setting rstn to 0
-    //model.clk = 0;
-    //model.eval();
-    //model.clk = 1;
-    model.rstn = 0;
-    model.eval();
-    REQUIRE(model.pc == 0);
-  }
+    pc.rstn = 0;
+    nyu::eval(pc);
+    REQUIRE(pc.pc == 0);
+  
+}
+
+TEST_CASE("PC Reset") {
+  
+  for(std::uint32_t npc {0}; npc < 512; ++npc)
+    eval_reset(npc);
+  
+  for(std::uint32_t npc {1}; npc; npc <<= 1)
+    eval_reset(npc);
+ 
+}
+
+static void eval_en (std::uint32_t npc) {
+   auto& pc {nyu::getDUT<VPC>()};
+   
+   // reset PC
+    pc.rstn = 1;
+    pc.clk = 0;
+    nyu::eval(pc);
+    pc.rstn = 0;
+    nyu::eval(pc);
+
+    // enable PC input and set to  value
+    pc.rstn = 1;
+    pc.clk = 1;
+    pc.npc = npc;
+    pc.pc_en = 1;
+    nyu::eval(pc);
+    REQUIRE(pc.pc == npc);
+
+    // disable PC input and try to set PC to another value
+    // output should equal old/previous input
+    pc.clk = 0;
+    nyu::eval(pc);
+    pc.clk = 1;
+    pc.pc_en = 0;
+    pc.npc = npc + npc + 1;
+    nyu::eval(pc);
+    REQUIRE(pc.pc == npc);
+  
 }
 
 TEST_CASE("PC Enable Disable") {
-  VPC model;
-  uint32_t npc_input;
+  for(std::uint32_t npc {0}; npc < 512; ++npc)
+    eval_en(npc);
+  
+  for(std::uint32_t npc {1}; npc; npc <<= 1)
+    eval_en(npc);
 
-  for (int i = 0; i < 5000; i++) {
-    npc_input = rand() % 4294967295;
-
-    // reset PC
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
-
-    // enable PC input and set to random value
-    model.rstn = 1;
-    model.clk = 1;
-    model.npc = npc_input;
-    model.pc_en = 1;
-    model.eval();
-    REQUIRE(model.pc == npc_input);
-
-    // disable PC input and try to set PC to another random value
-    // output should equal old/previous input
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.pc_en = 0;
-    model.npc = rand() % 4294967295;
-    model.eval();
-    REQUIRE(model.pc == npc_input);
-  }
 }
