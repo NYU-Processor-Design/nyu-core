@@ -3,8 +3,9 @@
 #include <cstdint>
 #include <stdlib.h>
 #include <math.h>
-#include <iostream>
-bool eval_act(uint32_t alu_out, uint8_t cond) {
+#include <NyuTestUtil.hpp>
+
+bool act_taken_result(uint32_t alu_out, uint8_t cond) {
     bool act;
     switch(cond){
         case 0:
@@ -25,284 +26,219 @@ bool eval_act(uint32_t alu_out, uint8_t cond) {
     
 }
 
-TEST_CASE("Con_Branch_Cont Non Prediction Instruction") { 
-    VCon_Branch_Cont model;
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
+static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, std::uint8_t branch_cond,bool pred_taken,std::uint32_t pred_pc, std::uint32_t pred_addr,std::uint32_t alu_out,std::uint32_t npc_in,bool &curr_pred, bool &incorrect_pred){
+    bool act_taken=act_taken_result(alu_out,  branch_cond);
 
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
-    bool rstn_h;
-    bool pred_taken;
-    uint8_t branch_occr;
-    uint8_t branch_cond;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    uint32_t alu_out;
-    uint32_t npc_in;
-    uint8_t rstn_out;
-    bool branch_taken;
-    bool act_taken;
-    for(int i =0;i<1000;i++){
-        rstn_h=rand() % (int) (pow(2, 1));
-        pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 1));
-        branch_cond=rand() % (int) (pow(2, 2));
-        pred_pc=rand() % (int) (pow(2, 32));
-        pred_addr=rand() % (int) (pow(2, 32));
-        alu_out=rand() % (int) (pow(2, 32));
-        npc_in=rand() % (int) (pow(2, 32));
-        act_taken=eval_act( alu_out,  branch_cond);
-         //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+    con_branch_cont.clk=0;
+    con_branch_cont.rstn=1;
+    nyu::eval(con_branch_cont);
 
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.rstn_h=rstn_h;
-        model.pred_taken=pred_taken;
-        model.branch_occr=branch_occr;
-        model.branch_cond=branch_cond;
-        model.pred_pc=pred_pc;
-        model.pred_addr=pred_addr;
-        model.alu_out=alu_out;
-        model.npc_in=npc_in;
-        model.eval();
-        
-        REQUIRE ((bool) model.branch_taken == (bool) branch_occr); 
-    }
-}
+    con_branch_cont.clk=1;
+    con_branch_cont.rstn=1;
+    con_branch_cont.rstn_h=rstn_h;
+    con_branch_cont.branch_occr=branch_occr;
+    con_branch_cont.branch_cond=branch_cond;
+    con_branch_cont.pred_taken=pred_taken;
+    con_branch_cont.pred_pc=pred_pc;
+    con_branch_cont.pred_addr=pred_addr;
+    con_branch_cont.alu_out=alu_out;
+    con_branch_cont.npc_in=npc_in;
+    nyu::eval(con_branch_cont);
 
-TEST_CASE("Con_Branch_Cont Prediction Instruction") { 
-    VCon_Branch_Cont model;
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
+    //check passthrough values
+    //REQUIRE((uint32_t con_branch_cont.npc=npc_in));
 
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
-
-    bool rstn_h;
-    bool pred_taken;
-    uint8_t branch_occr;
-    uint8_t branch_cond;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    uint32_t alu_out;
-    uint32_t npc_in;
-    uint8_t rstn_out;
-    bool branch_taken;
-    bool act_taken;
-        //Initialize Register Tracker Variables
-    bool curr_pred = 0;
-    bool incorrect_pred = 0;
-
-    for(int i =0;i<1000;i++){
-        rstn_h=rand() % (int) (pow(2, 1));
-        pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=2+rand() % (int) (pow(2, 1));
-        branch_cond=rand() % (int) (pow(2, 2));
-        pred_pc=rand() % (int) (pow(2, 32));
-        pred_addr=rand() % (int) (pow(2, 32));
-        alu_out=rand() % (int) (pow(2, 32));
-        npc_in=rand() % (int) (pow(2, 32));
-        act_taken=eval_act( alu_out, branch_cond);
-         //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.rstn_h=rstn_h;
-        model.pred_taken=pred_taken;
-        model.branch_occr=branch_occr;
-        model.branch_cond=branch_cond;
-        model.pred_pc=pred_pc;
-        model.pred_addr=pred_addr;
-        model.alu_out=alu_out;
-        model.npc_in=npc_in;
-
-        if (__builtin_parity(branch_cond) == 0) {
+        switch(branch_cond) {
+        case 0:
+            REQUIRE((bool) con_branch_cont.act_taken == 0);
             break;
-        }
-        else if ((act_taken ^ pred_taken) == 0) {
-            incorrect_pred = 0;
-        }
-        else if (incorrect_pred == 1) {
-            curr_pred = ~curr_pred;
-            incorrect_pred = 1;
-        }
-        else {
-            incorrect_pred = 1;
-        }
+        case 1:
+            REQUIRE((bool) con_branch_cont.act_taken == (bool) alu_out);
+            break;
+        case 2:
+            REQUIRE((bool) con_branch_cont.act_taken != (bool) alu_out);
+            break;
+        case 3:
+            REQUIRE((bool) con_branch_cont.act_taken == 1);
+            break;
+        default:
+            break;
+    }
+    
 
-        model.eval();
-        
-        REQUIRE ((bool) model.branch_taken == (bool) curr_pred);
+    INFO("Testing branch_occr = " << (int) branch_occr << ", branch_cond = " << (int) branch_cond << ", act_taken = " << act_taken << ", and pred_taken = " << pred_taken);
+    if (!(branch_occr & 2)) {
+        REQUIRE ((bool) con_branch_cont.branch_taken == (bool) branch_occr);
+        return;
+    }
+
+    INFO("Before: curr_pred = " << curr_pred << " and incorrect_pred = " << incorrect_pred);
+    if (__builtin_parity(branch_cond) == 0) {}
+    else if ((act_taken ^ pred_taken) == 0) incorrect_pred = 0;
+    else if (incorrect_pred) curr_pred = !curr_pred;
+    else incorrect_pred = 1;
+
+    INFO("After: curr_pred = " << curr_pred << " and incorrect_pred = " << incorrect_pred);
+    REQUIRE ((bool) con_branch_cont.branch_taken == (bool) curr_pred);
+
+ 
+    bool flush == (bool) (pred_taken ^ act_taken);
+
+    if (act_taken == pred_taken) {
+        INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
+        if (pred_taken) npc = pred_addr;
+        else npc = pred_pc + 4;
+    }
+    else {
+        INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
+        if (act_taken) npc = pred_addr;
+        else npc = pred_pc + 4;
+    }
+    std::uint32_t npc_corr == (uint32_t) (npc); 
+
+    INFO("Testing npc_in = " << npc_in << "and npc_corr = " << npc_corr);
+    
+    if(!flush) {
+        REQUIRE((uint32_t) con_branch_cont.npc == (uint32_t) npc_in);   
+        REQUIRE(pipe.rstn_out == 0); //Verilator translates High Z outputs to 0 
+    }
+
+    else {
+        REQUIRE((uint32_t) con_branch_cont.npc == (uint32_t) npc_corr);
+        REQUIRE(pipe.rstn_out == 0); //Expect actual 0 output here, not High Z
     }
 }
 
-TEST_CASE("Con_Branch_Cont flush == 0 & Correct Prediction") { 
-    VCon_Branch_Cont model;
+static void init(auto& con_branch_cont){
     //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
-
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
-
-    bool rstn_h;
-    bool pred_taken;
-    bool act_taken;
-    uint8_t branch_occr;
-    uint8_t branch_cond;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    uint32_t alu_out;
-    uint32_t npc_in;
-    uint8_t rstn_out;
-    bool branch_taken;
-
-    uint32_t npc_corr;
-    for(int i =0;i<1000;i++){
-        rstn_h=1;
-        pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 1));
-        branch_cond=rand() % (int) (pow(2, 2));
-        pred_pc=rand() % (int) (pow(2, 32));
-        pred_addr=rand() % (int) (pow(2, 32));
-        alu_out=rand() % (int) (pow(2, 32));
-        npc_in=rand() % (int) (pow(2, 32));
-        act_taken=eval_act( alu_out, branch_cond);
-         //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-        if(pred_taken==act_taken){
-            
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.rstn_h=rstn_h;
-        model.pred_taken=pred_taken;
-        model.branch_occr=branch_occr;
-        model.branch_cond=branch_cond;
-        model.pred_pc=pred_pc;
-        model.pred_addr=pred_addr;
-        model.alu_out=alu_out;
-        model.npc_in=npc_in;
-        model.eval();
-        
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE(model.rstn_out == 0); //Verilator translates High Z outputs to 0
-        } 
-    }
+    con_branch_cont.rstn=1;
+    con_branch_cont.clk=1;
+    nyu::eval(con_branch_cont);
+    con_branch_cont.rstn=0;
+    con_branch_cont.clk=0;
+    nyu::eval(con_branch_cont);
 }
 
-TEST_CASE("Con_Branch_Cont flush == 1 & Incorrect Prediction ") { 
-    VCon_Branch_Cont model;
-    //Initialize Module
-    model.rstn = 1;
-    model.clk = 0;
-    model.eval();
-    model.rstn = 0;
-    model.eval();
+static void test_branch_occr(std::uint8_t branch_occr){
+    auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
+    init(con_branch_cont);
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
+            for(int pred_taken{0};pred_taken<2;++pred_taken)
+                for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
+                    for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
+                        for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
+                            for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
 
-    //Move out of starting conditions
-    model.clk = 0;
-    model.eval();
-    model.clk = 1;
-    model.rstn = 1;
-    model.eval();
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_cond{0};branch_cond; branch_cond<=1)
+            for(int pred_taken{0};pred_taken<2;++pred_taken)
+                for(std::uint32_t pred_pc {0}; pred_pc ; pred_pc<=1)
+                    for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
+                        for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
+                            for(std::uint32_t npc_in {0}; npc_in ; npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+}   
+/*
+static void test_branch_cond(std::uint8_t branch_cond){
+    auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
+    init(con_branch_cont);
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_occr{0};branch_occr <4; ++branch_occr)
+            for(int pred_taken{0};pred_taken<2;++pred_taken)
+                for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
+                    for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
+                        for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
+                            for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
 
-    bool rstn_h;
-    bool pred_taken;
-    uint8_t branch_occr;
-    uint8_t branch_cond;
-    uint32_t pred_pc;
-    uint32_t pred_addr;
-    uint32_t alu_out;
-    uint32_t npc_in;
-    uint8_t rstn_out;
-    bool branch_taken;
-    bool act_taken;
-    uint32_t npc_corr;
-    for(int i =0;i<1000;i++){
-        rstn_h=1;
-        pred_taken=rand() % (int) (pow(2, 1));
-        branch_occr=rand() % (int) (pow(2, 1));
-        branch_cond=rand() % (int) (pow(2, 2));
-        pred_pc=rand() % (int) (pow(2, 32));
-        pred_addr=rand() % (int) (pow(2, 32));
-        alu_out=rand() % (int) (pow(2, 32));
-        npc_in=rand() % (int) (pow(2, 32));
-        act_taken=eval_act( alu_out,  branch_cond);
-        
-        if(act_taken!=pred_taken){
-            if(act_taken) npc_corr=pred_addr;
-            else npc_corr=pred_pc+4;   
-        
-        
-         //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_occr{0};branch_occr; branch_occr<=1)
+            for(int pred_taken{0};pred_taken<2;++pred_taken)
+                for(std::uint32_t pred_pc {0}; pred_pc ; pred_pc<=1)
+                    for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
+                        for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
+                            for(std::uint32_t npc_in {0}; npc_in ; npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+}
+*/
+static void test_pred_taken(int pred_taken){
+    auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
+    init(con_branch_cont);
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
+                for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
+                    for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
+                        for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
+                            for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        if(pred_taken){
+                                            for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }else{
+                                            for(std::uint8_t branch_occr{0};branch_occr <2; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }
 
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.rstn_h=rstn_h;
-        model.pred_taken=pred_taken;
-        model.branch_occr=branch_occr;
-        model.branch_cond=branch_cond;
-        model.pred_pc=pred_pc;
-        model.pred_addr=pred_addr;
-        model.alu_out=alu_out;
-        model.npc_in=npc_in;
-        model.eval();
-        std::cout<<"npc_in:"<<npc_in<<std::endl;
-        std::cout<<"npc:"<<model.npc<<std::endl;
-        std::cout<<"npc_corr:"<<npc_corr<<std::endl;
-        std::cout<<"pred_pc+4:"<<pred_pc+4<<std::endl;
-        std::cout<<"pred_addr:"<<pred_addr<<std::endl;
+    for(int rstn_h{0};rstn_h<2;++rstn_h)
+        for(std::uint8_t branch_cond{0};branch_cond; branch_cond<=1)
+                for(std::uint32_t pred_pc {0}; pred_pc ; pred_pc<=1)
+                    for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
+                        for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
+                            for(std::uint32_t npc_in {0}; npc_in ; npc_in)
+                                for(int curr_pred{0};curr_pred<2;++curr_pred)
+                                    for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                        if(pred_taken){
+                                            for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }else{
+                                            for(std::uint8_t branch_occr{0};branch_occr <2; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }
+}
 
-        //REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
-        REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
-        }
-    }
+TEST_CASE("Con_Branch_Cont, branch_occr 0"){
+    test_branch_occr(0);
+}
+TEST_CASE("Con_Branch_Cont, branch_occr 1"){
+    test_branch_occr(1);
+}
+TEST_CASE("Con_Branch_Cont, branch_occr 2"){
+    test_branch_occr(2);
+}
+TEST_CASE("Con_Branch_Cont, branch_occr 3"){
+    test_branch_occr(3);
+}
+TEST_CASE("Con_Branch_Cont, pred_taken 0"){
+    test_pred_taken(0);
+}
+
+TEST_CASE("Con_Branch_Cont, pred_taken 1"){
+    test_pred_taken(1);
 }
