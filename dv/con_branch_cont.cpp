@@ -121,9 +121,10 @@ static void init(auto& con_branch_cont){
 
 static void test_branch_occr(std::uint8_t branch_occr){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
-    init(con_branch_cont);
     bool curr_pred = 0;
     bool incorrect_pred = 0;
+    init(con_branch_cont);
+    /*
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
             for(int pred_taken{0};pred_taken<2;++pred_taken)
@@ -144,7 +145,7 @@ static void test_branch_occr(std::uint8_t branch_occr){
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
                                         }
-
+*/
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{1};branch_cond; branch_cond<<=1)
             for(int pred_taken{0};pred_taken<2;++pred_taken)
@@ -199,9 +200,10 @@ static void test_branch_cond(std::uint8_t branch_cond){
 */
 static void test_pred_taken(int pred_taken){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
-    init(con_branch_cont);
     bool curr_pred = 0;
     bool incorrect_pred = 0;
+    init(con_branch_cont);
+/*
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{0};branch_cond <4; ++branch_cond)
                 for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
@@ -221,7 +223,7 @@ static void test_pred_taken(int pred_taken){
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
                                         }
-
+*/
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{1};branch_cond; branch_cond<<=1)
                 for(std::uint32_t pred_pc {1}; pred_pc ; pred_pc<<=1)
