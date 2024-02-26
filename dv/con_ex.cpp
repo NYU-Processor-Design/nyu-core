@@ -1,673 +1,110 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VCon_EX.h>
 #include <cstdint>
-#include <stdlib.h>
-#include <math.h>
 
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-TEST_CASE("Value Passthrough Con") {
-    
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
+#include <VCon_EX.h>
 
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = rand() % (int) (pow(2, 8));
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((bool) model.branch_taken == (bool) branch_taken_in);
-        REQUIRE((uint32_t) model.pc == (uint32_t) pc_in);
-        REQUIRE((uint32_t) model.branch_addr == (uint32_t) branch_addr_in);
-        REQUIRE((uint8_t) model.rdn == (uint8_t) rdn_in);
-        REQUIRE((uint32_t) model.rs2d == (uint32_t) rs2d_in);
-    }
-}   
-
-uint32_t calc_a (uint8_t a_sel, uint32_t rs1d, uint32_t pc_in) {
+std::uint32_t calc_a (std::uint8_t a_sel, std::uint32_t rs1d, std::uint32_t pc_in) {
     if (a_sel == 0) return rs1d;
     else if (a_sel == 1) return pc_in;
     else return 0;
 }
 
-uint32_t calc_b (uint8_t b_sel, uint32_t rs2d, uint32_t imm) {
+std::uint32_t calc_b (std::uint8_t b_sel, std::uint32_t rs2d, std::uint32_t imm) {
     if (b_sel == 0) return rs2d;
     else if (b_sel == 1) return imm;
     else if (b_sel == 2) return 4;
     else return imm << 12;
 }
 
+static void eval(auto& con_ex, std::uint8_t a_sel, std::uint8_t b_sel, bool branch_taken_in,  std::uint32_t imm,
+    std::uint32_t pc_in, std::uint8_t rdn_in, std::uint32_t rs1d, std::uint32_t rs2d_in, std::uint32_t branch_addr_in,
+    std::uint8_t alu_mode, std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
 
-TEST_CASE("ADD Con") {
+    uint32_t opA = calc_a(a_sel, rs1d, pc_in);
+    uint32_t opB = calc_b(b_sel, rs2d_in, imm);
 
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
+    INFO("Testing " << opA << " and " << opB);
 
-    uint32_t a;
-    uint32_t b;
+    con_ex.clk = 0;
+    con_ex.rstn = 1;
+    nyu::eval(con_ex);
 
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x0;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
+    con_ex.clk = 1;
+    con_ex.rstn = 1;
+    con_ex.a_sel = a_sel;
+    con_ex.b_sel = b_sel;
+    con_ex.branch_taken_in = branch_taken_in;
+    con_ex.imm = imm;
+    con_ex.pc_in = pc_in;
+    con_ex.rdn_in = rdn_in;
+    con_ex.rs1d = rs1d;
+    con_ex.rs2d_in = rs2d_in;
+    con_ex.branch_addr_in = branch_addr_in;
+    con_ex.alu_mode = alu_mode;
+    nyu::eval(con_ex);
+    
+    //Check Passthrough Values
+    REQUIRE((bool) con_ex.branch_taken == (bool) branch_taken_in);
+    REQUIRE((std::uint32_t) con_ex.pc == (std::uint32_t) pc_in);
+    REQUIRE((std::uint32_t) con_ex.branch_addr == (std::uint32_t) branch_addr_in);
+    REQUIRE((std::uint8_t) con_ex.rdn == (std::uint8_t) rdn_in);
+    REQUIRE((std::uint32_t) con_ex.rs2d == (std::uint32_t) rs2d_in);
 
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+    std::uint32_t result {f(opA, opB)};
 
-        
-        //Test ADD
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE( (uint32_t) model.alu_out == (uint32_t) (a + b));
-    }   
+    REQUIRE(result == con_ex.alu_out);
+} 
+
+static void test(std::uint8_t alu_mode,
+  std::uint32_t (*f)(std::uint32_t, std::uint32_t)) {
 }
 
-TEST_CASE("SUB Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x20;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test SUB
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a + (~b + 1)));
-    }  
+TEST_CASE("Con_EX, ADD") {
+  test(0x00, [](std::uint32_t opA, std::uint32_t opB) { return opA + opB; });
 }
 
-TEST_CASE("XOR Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x04;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test XOR
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a ^ b));
-    }  
+TEST_CASE("Con_EX, SUB") {
+  test(0x20, [](std::uint32_t opA, std::uint32_t opB) { return opA - opB; });
 }
 
-TEST_CASE("OR Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x06;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test OR
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE( (uint32_t) model.alu_out == (uint32_t) (a | b));
-    }  
+TEST_CASE("Con_EX, XOR") {
+  test(0x04, [](std::uint32_t opA, std::uint32_t opB) { return opA ^ opB; });
 }
 
-TEST_CASE("AND Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x07;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test AND
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a & b));
-    }  
+TEST_CASE("Con_EX, OR") {
+  test(0x06, [](std::uint32_t opA, std::uint32_t opB) { return opA | opB; });
 }
 
-TEST_CASE("LLS Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x01;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test LLS
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a << (b & 31)));
-    }  
+TEST_CASE("Con_EX, AND") {
+  test(0x07, [](std::uint32_t opA, std::uint32_t opB) { return opA & opB; });
 }
 
-TEST_CASE("LRS Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x05;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test LRS
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a >> (b & 31)));
-
-    }
-
+TEST_CASE("Con_EX, LLS") {
+  test(0x01,
+      [](std::uint32_t opA, std::uint32_t opB) { return opA << (opB & 0x1F); });
 }
 
-TEST_CASE("ARS Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-    uint32_t expected;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x25;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        if (a >> 31) {
-            expected = (a >> (b & 31));
-            for (int i = 32 - (b & 31); i < 32; i++) {
-                expected += 1 << i;
-            }
-        }
-        else {
-        expected = (a >> (b & 31));
-        }
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test ARS
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == expected);
-    }
-
+TEST_CASE("Con_EX, LRS") {
+  test(0x05,
+      [](std::uint32_t opA, std::uint32_t opB) { return opA >> (opB & 0x1F); });
 }
 
-TEST_CASE("SSLT Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x02;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test SSLT
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (((a & (1 << 31)) & ~(b & (1 << 31)))? 1 : (~(a & (1 << 31)) & (b & (1 << 31))) ? 0 : a < b));
-
-    }
-
+TEST_CASE("Con_EX, ARS") {
+  test(0x25, [](std::uint32_t opA, std::uint32_t opB) {
+    return (std::uint32_t)(((std::int32_t) opA) >> (opB & 0x1F));
+  });
 }
 
-TEST_CASE("USLT Con") {
-
-    VCon_EX model;
-    uint8_t a_sel;
-    uint8_t b_sel;
-    bool branch_taken_in;
-    uint32_t imm;
-    uint32_t pc_in;
-    uint8_t rdn_in;
-    uint32_t rs1d;
-    uint32_t rs2d_in;
-    uint32_t branch_addr_in;
-    uint8_t alu_mode;
-
-    uint32_t a;
-    uint32_t b;
-
-    for (int i = 0; i < 1000; i++) {
-        a_sel = rand() % (int) (pow(2, 2));
-        b_sel = rand() % (int) (pow(2, 2));
-        branch_taken_in  = rand() % (int) (pow(2, 1));
-        imm = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        rdn_in = rand() % (int) (pow(2, 5));
-        rs1d = rand() % (int) (pow(2, 32));
-        rs2d_in = rand() % (int) (pow(2, 32));
-        branch_addr_in = rand() % (int) (pow(2, 32));
-        alu_mode = 0x03;
-        
-        a = calc_a(a_sel, rs1d, pc_in);
-        b = calc_b(b_sel, rs2d_in, imm);
-
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        
-        //Test LRS
-        model.clk = 1;
-        model.rstn = 1;
-        model.a_sel = a_sel;
-        model.b_sel = b_sel;
-        model.branch_taken_in = branch_taken_in;
-        model.imm = imm;
-        model.pc_in = pc_in;
-        model.rdn_in = rdn_in;
-        model.rs1d = rs1d;
-        model.rs2d_in = rs2d_in;
-        model.branch_addr_in = branch_addr_in;
-        model.alu_mode = alu_mode;
-        model.eval();
-        REQUIRE((uint32_t) model.alu_out == (uint32_t) (a < b));
-    }
+TEST_CASE("Con_EX, SSLT") {
+  test(0x02, [](std::uint32_t opA, std::uint32_t opB) {
+    return (std::uint32_t)(((std::int32_t) opA) < ((std::int32_t) opB));
+  });
 }
 
+TEST_CASE("Con_EX, USLT") {
+  test(0x03, [](std::uint32_t opA, std::uint32_t opB) {
+    return (std::uint32_t)(opA < opB);
+  });
+}

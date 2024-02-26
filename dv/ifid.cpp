@@ -1,270 +1,102 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VIFID.h>
 #include <cstdint>
-#include <stdlib.h>
-#include <math.h>
 
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
 
-TEST_CASE("PC Passthrough") {
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
+#include <VIFID.h>
 
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        immode = rand() % (int) (8);
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+static void eval(auto& ifid, std::uint8_t immode, std::uint32_t pc_in, std::int32_t ins_in) {
+    ifid.clk = 0;
+    ifid.rstn = 1;
+    nyu::eval(ifid);
 
-        
-        //Test PC Passthrough
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.pc == (uint32_t) pc_in);
-    }
-}   
+    ifid.clk = 1;
+    ifid.rstn = 1;
+    ifid.immode = immode;
+    ifid.pc_in = pc_in;
+    ifid.ins = ins_in;
+    nyu::eval(ifid);
 
-TEST_CASE("Decipher Register Numbers") {
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
+    INFO("Testing immode = " << (std::uint32_t) immode << ", pc_in = " << (std::uint32_t) pc_in << ", and ins_in = " << (std::uint32_t) ins_in);
 
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32));
-        immode = rand() % (int) (8);
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+    // Test pc passthrough
+    REQUIRE((std::uint32_t) ifid.pc == (std::uint32_t) pc_in);
 
-        
-        //Test Deciphering of Register Numbers
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint8_t) model.rdn == (uint8_t) ((ins_in & (31 << 7)) >> 7));
-        REQUIRE((uint8_t) model.rs1n == (uint8_t) ((ins_in & (31 << 15)) >> 15));
-        REQUIRE((uint8_t) model.rs2n == (uint8_t) ((ins_in & (31 << 20)) >> 20));
-    }
-}
+    //Test Deciphering of Register Numbers
+    REQUIRE((std::uint8_t) ifid.rdn == (std::uint8_t) ((ins_in & (31 << 7)) >> 7));
+    REQUIRE((std::uint8_t) ifid.rs1n == (std::uint8_t) ((ins_in & (31 << 15)) >> 15));
+    REQUIRE((std::uint8_t) ifid.rs2n == (std::uint8_t) ((ins_in & (31 << 20)) >> 20));
 
-TEST_CASE("Imm Mode 0") {
-
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
-
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) );
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 0;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test IMM Mode 0
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-
-        REQUIRE((uint32_t) model.imm == (uint32_t) 0);
+    switch(immode) {
+        /* Note that the exact implementation of >> depends on the compiler. As such, this code is written with that in mind and as such the values 
+        being checked against are calculated in such a way to ensure that >> can be treated logically or arithmetically and the result will be the same. */ 
+        case 0:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) 0);
+            break;
+        case 1:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + ((ins_in & ((std::uint32_t)  (pow(2, 12) - 1) << 20)) >> 20)));
+            break;
+        case 2:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + (((ins_in & ((std::uint32_t) (pow(2, 7) - 1) << 25)) >> 25 ) << 5 )+ ((ins_in & ((std::uint32_t) (pow(2, 5) - 1) << 7)) >> 7)));
+            break;
+        case 3:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + (((ins_in & (1  << 7)) >> 7) << 11) + (((ins_in & ((std::uint32_t) (pow(2, 6) - 1) << 25)) >> 25) << 5) + (((ins_in & ((std::uint32_t) (pow(2, 4) - 1) << 8)) >> 8) << 1)));
+            break;
+        case 4:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) (ins_in & 0xFFFFF000));
+            break;
+        case 5:
+            REQUIRE((std::uint32_t) ifid.imm == (std::uint32_t) ((((ins_in & (1 << 31)) >> 11) + ((ins_in & ((std::uint32_t)  (pow(2, 8) - 1) << 12)))  +  ((ins_in & (1 << 20)) >> 9) + (((ins_in >> 20) & 0x7FE)) & 0x1FFFFF)));
+            break;
+        default:
+            break;
     }
 
 }
 
-TEST_CASE("Imm Mode 1") {
+static void init(auto& ifid) {
+    ifid.rstn = 1;
+    ifid.clk = 0;
+    nyu::eval(ifid);
+    ifid.rstn = 0;
+    nyu::eval(ifid);
+}
 
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
+static void test(std::uint8_t immode) {
+    auto& ifid {nyu::getDUT<VIFID>()};
 
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) );
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 1;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
+    init(ifid);
 
-        //Test IMM Mode 1
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.imm == (uint32_t) ((((uint32_t)  (pow(2, 20) - 1) & ((ins_in & (1 << 31))>> 31)) << 31) + ((ins_in & ((uint32_t)  (pow(2, 12) - 1) << 20)) >> 20)));
-    }
+    for(std::uint32_t pc_in {0}; pc_in < 512; ++pc_in)
+        for(std::uint32_t ins_in {0}; ins_in < 512; ++ins_in)
+            eval(ifid, immode, pc_in, ins_in);
+
+    for(std::uint32_t pc_in {1}; pc_in; pc_in <<= 1)
+        for(std::uint32_t ins_in {1}; ins_in; ins_in <<= 1)
+            eval(ifid, immode, pc_in, ins_in);
 
 }
 
-TEST_CASE("Imm Mode 2") {
-
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
-
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) );
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 2;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test IMM Mode 2
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.imm == (uint32_t) ((((uint32_t) (pow(2, 20) - 1) & ((ins_in & (1 << 31))>> 31)) << 31) + (((ins_in & ((uint32_t) (pow(2, 7) - 1) << 25)) >> 25 ) << 5 )+ ((ins_in & ((uint32_t) (pow(2, 5) - 1) << 7)) >> 7)));
-    }
+TEST_CASE("IFID, Imm Mode 0") {
+    test(0);
 }
 
-TEST_CASE("Imm Mode 3") {
-
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
-
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32));
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 3;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test IMM Mode 3
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.imm == (uint32_t) ((((uint32_t) (pow(2, 19) - 1) & ((ins_in & (1 << 31))>> 31)) << 31) + (((ins_in & (1 << 31)) >> 31) << 12) + (((ins_in & (1  << 7)) >> 7) << 11) + (((ins_in & ((uint32_t) (pow(2, 6) - 1) << 25)) >> 25) << 5) + (((ins_in & ((uint32_t) (pow(2, 4) - 1) << 8)) >> 8) << 1)));
-    }
-
+TEST_CASE("IFID, Imm Mode 1") {
+    test(1);
 }
 
-TEST_CASE("Imm Mode 4") {
-
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
-
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) );
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 4;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test IMM Mode 4
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.imm == (uint32_t) ((((ins_in & ((uint32_t) (pow(2, 20) - 1) << 12)) >> 12) << 12)));
-    }
-
+TEST_CASE("IFID, Imm Mode 2") {
+    test(2);
 }
 
-TEST_CASE("Imm Mode 5") {
+TEST_CASE("IFID, Imm Mode 3") {
+    test(3);
+}
 
-    VIFID model;
-    bool clk;
-    bool rstn;
-    uint8_t immode;
-    uint32_t pc_in;
-    uint32_t ins_in;
+TEST_CASE("IFID, Imm Mode 4") {
+    test(4);
+}
 
-    for (int i = 0; i < 1000; i++) {
-        ins_in = rand() % (int) (pow(2, 32) );
-        pc_in = rand() % (int) (pow(2, 32) );
-        immode = 5;
-        
-        //Initialize Module
-        model.rstn = 1;
-        model.clk = 0;
-        model.eval();
-        model.rstn = 0;
-        model.eval();
-
-        //Test IMM Mode 5
-        model.clk = 1;
-        model.rstn = 1;
-        model.immode = immode;
-        model.pc_in = pc_in;
-        model.ins = ins_in;
-        model.eval();
-        REQUIRE((uint32_t) model.imm == (uint32_t) ((( (ins_in & (1 << 31)) >> 31) << 20) + ((ins_in & ((uint32_t)  (pow(2, 8) - 1) << 12)))  +  (((ins_in & (1 << 20)) >> 20) << 11) + (((ins_in & ((uint32_t)  (pow(2, 11) - 1) << 21)) >> 21) << 1)));
-    }
-
+TEST_CASE("IFID, Imm Mode 5") {
+    test(5);
 }

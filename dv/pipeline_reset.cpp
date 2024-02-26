@@ -1,55 +1,51 @@
-#include <catch2/catch_test_macros.hpp>
-#include <VPipeline_Reset.h>
 #include <cstdint>
-#include <stdlib.h>  
-#include <math.h>
+
+#include <catch2/catch_test_macros.hpp>
+#include <NyuTestUtil.hpp>
+#include <VPipeline_Reset.h>
+
 
 /*
 Note: 
 The tests do not currently distinguish between High Z and 0 due to limitations of Verilator. 
 The module could be modified to provide a test output that is 0 when rstn is 0 and 1 when rstn is High Z, 
-but given the simplicity of this module that doesn't seem warrented at this point.
+but given the simplicity of this module that doesn't seem warranted at this point.
  */
 
+static void eval(std::uint32_t npc_in, std::uint32_t npc_corr, bool flush) {
+    auto& pipe {nyu::getDUT<VPipeline_Reset>()};
+    pipe.npc_in = npc_in;
+    pipe.npc_corr = npc_corr;
+    pipe.flush = flush;
+    nyu::eval(pipe);
 
-TEST_CASE("flush == 0") { 
-    VPipeline_Reset model;
-
-    uint32_t npc_in;
-    uint32_t npc_corr;
+    INFO("Testing npc_in = " << npc_in << "and npc_corr = " << npc_corr);
     
-    for (int i = 0; i < 1000; i++) {
-        npc_in = rand() % (int) (pow(2, 32));
-        npc_corr = rand() % (int) (pow(2, 32));
+    if(!flush) {
+        REQUIRE((uint32_t) pipe.npc == (uint32_t) npc_in);   
+        REQUIRE(pipe.rstn_out == 0); //Verilator translates High Z outputs to 0 
+    }
 
-        model.flush = 0;
-        model.npc_in = npc_in;
-        model.npc_corr = npc_corr;
-        model.eval();
-
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_in);
-        REQUIRE(model.rstn_out == 0); //Verilator translates High Z outputs to 0 
-
+    else {
+        REQUIRE((uint32_t) pipe.npc == (uint32_t) npc_corr);
+        REQUIRE(pipe.rstn_out == 0); //Expect actual 0 output here, not High Z
     }
 }
 
-TEST_CASE("flush == 1") { 
-    VPipeline_Reset model;
+static void test(bool flush) {
+    for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
+    for(std::uint32_t npc_corr {0}; npc_corr < 512; ++npc_corr)
+      eval(npc_in, npc_corr, flush);
 
-    uint32_t npc_in;
-    uint32_t npc_corr;
-    
-    for (int i = 0; i < 1000; i++) {
-        npc_in = rand() % (int) (pow(2, 32));
-        npc_corr = rand() % (int) (pow(2, 32));
+  for(std::uint32_t npc_in {1}; npc_in; npc_in <<= 1)
+    for(std::uint32_t npc_corr {1}; npc_corr; npc_corr <<= 1)
+      eval(npc_in, npc_corr, flush);
+}
 
-        model.flush = 1;
-        model.npc_in = npc_in;
-        model.npc_corr = npc_corr;
-        model.eval();
+TEST_CASE("Pipeline Reset, flush == 0") { 
+    test(0);
+}
 
-        REQUIRE((uint32_t) model.npc == (uint32_t) npc_corr);
-        REQUIRE(model.rstn_out == 0); //Expect actual 0 output here, not High Z
-
-    }
+TEST_CASE("Pipeline Reset, flush == 1") { 
+    test(1);
 }
