@@ -50,16 +50,16 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
 
         switch(branch_cond) {
         case 0:
-            REQUIRE((bool) con_branch_cont.act_taken == 0);
+            REQUIRE((bool) act_taken == 0);
             break;
         case 1:
-            REQUIRE((bool) con_branch_cont.act_taken == (bool) alu_out);
+            REQUIRE((bool) act_taken == (bool) alu_out);
             break;
         case 2:
-            REQUIRE((bool) con_branch_cont.act_taken != (bool) alu_out);
+            REQUIRE((bool) act_taken != (bool) alu_out);
             break;
         case 3:
-            REQUIRE((bool) con_branch_cont.act_taken == 1);
+            REQUIRE((bool) act_taken == 1);
             break;
         default:
             break;
@@ -83,7 +83,7 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
 
  
     bool flush = (bool) (pred_taken ^ act_taken);
-    std::uint32_t npc_corr
+    std::uint32_t npc_corr;
     if (act_taken == pred_taken) {
         INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
         if (pred_taken) npc_corr = pred_addr;
