@@ -133,9 +133,17 @@ static void test_branch_occr(std::uint8_t branch_occr){
                             for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
                                 //for(int curr_pred{0};curr_pred<2;++curr_pred)
                                     //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
-                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                        if(pred_taken){
+                                            for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
+                                        }else{
+                                            for(std::uint8_t branch_occr{0};branch_occr <2; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }
 
     for(int rstn_h{0};rstn_h<2;++rstn_h)
         for(std::uint8_t branch_cond{0};branch_cond; branch_cond<=1)
@@ -143,12 +151,20 @@ static void test_branch_occr(std::uint8_t branch_occr){
                 for(std::uint32_t pred_pc {0}; pred_pc ; pred_pc<=1)
                     for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
                         for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
-                            for(std::uint32_t npc_in {0}; npc_in ; npc_in)
+                            for(std::uint32_t npc_in {0}; npc_in ; npc_in<=1)
                                 //for(int curr_pred{0};curr_pred<2;++curr_pred)
                                     //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
-                                        eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                        if(pred_taken){
+                                            for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
+                                        }else{
+                                            for(std::uint8_t branch_occr{0};branch_occr <2; ++branch_occr)
+                                                eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
+                                        }
 }   
 /*
 static void test_branch_cond(std::uint8_t branch_cond){
@@ -211,7 +227,7 @@ static void test_pred_taken(int pred_taken){
                 for(std::uint32_t pred_pc {0}; pred_pc ; pred_pc<=1)
                     for(std::uint32_t pred_addr {0}; pred_addr ; pred_addr<=1)
                         for(std::uint32_t alu_out {0}; alu_out ; alu_out<=1)
-                            for(std::uint32_t npc_in {0}; npc_in ; npc_in)
+                            for(std::uint32_t npc_in {0}; npc_in ; npc_in<=1)
                                 //for(int curr_pred{0};curr_pred<2;++curr_pred)
                                     //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
                                         if(pred_taken){
