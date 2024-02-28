@@ -14,11 +14,12 @@ module sram_module(
     input write_enable, read_enable,
     input [8:0] set_index, 
     input way_select, 
+    input [1:0] data_mode,
     input [31:0] write_data, 
     output logic [31:0] read_data  
 );
     // Constants for cache configuration
-    localparam BLOCK_SIZE    = 4;         //bytes
+    localparam BLOCK_SIZE    = 4;         // 4 bytes since our words are 32-bit
     localparam CACHE_SIZE    = 4 * 1024;  // 4 KB
     localparam ASSOCIATIVITY = 2;     
     
@@ -33,8 +34,17 @@ module sram_module(
     
     always @(posedge clk) begin
         if (write_enable) begin
-            if (actual_address < (NUM_SETS * ASSOCIATIVITY)) 
-                memory_array[actual_address] <= write_data;
+            if (actual_address < (NUM_SETS * ASSOCIATIVITY)) begin
+
+                //Enables updating of only least significant byte, least signficant half, or entire word
+                case(data_mode)
+                0: memory_array[actual_address] <= {memory_array[actual_address][31:8], write_data[7:0]};
+                1: memory_array[actual_address] <= {memory_array[actual_address][31:15], write_data[15:0]};
+                default: memory_array[actual_address] <= write_data;
+                endcase
+
+            end
+                
         end else if(read_enable)begin
             if (actual_address < (NUM_SETS * ASSOCIATIVITY))
                 read_data = memory_array[actual_address];
@@ -108,9 +118,10 @@ module L1_Data_Cache(
         logic write_enable;
         logic read_enable;
         logic way;
+        logic [1:0] data_mode,
         logic [8:0] index;
+
     }sram_data_t;
-    sram_data_t put_sram_data;
  
     sram_module cache_data_sram (
         .clk(clk),
@@ -119,6 +130,7 @@ module L1_Data_Cache(
         .set_index      (put_sram_data.index),
         .way_select     (put_sram_data.way),
         .write_data     (put_sram_data.write_data),
+        .data_mode      (put_sram_data.data_mode),
         .read_data      (sram_read_data)
     );
      
@@ -144,7 +156,7 @@ module L1_Data_Cache(
     task handle_cache_hit;
         begin
             if (write_enable) begin               
-                set_sram_write_request(current_addr.index, way, write_data);                              
+                set_sram_write_request(current_addr.index, way, write_data, data_mode);                              
                 dirty[current_addr.index][way] <= 1;
                 state <= IDLE;
             end else if (read_enable) begin
@@ -182,13 +194,14 @@ module L1_Data_Cache(
     endtask
     
     task set_sram_write_request;
-        input integer index, way, data;
+        input integer index, way, data, data_mode;
         begin
             put_sram_data.write_enable <= 1;
             put_sram_data.read_enable <= 0;
             put_sram_data.index <= index;
             put_sram_data.way <= way;
             put_sram_data.write_data <= data;
+            put_sram_data.data_mode <= data_mode;
         end
     endtask
     
