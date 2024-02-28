@@ -10,7 +10,7 @@ The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back
 | Input             | Description                           | Bit Width |
 |--------------------|----------------------------------------|-----------|
 | `clk`              | Clock signal                           | 1         |
-| `reset`            | Reset signal                           | 1         |
+| `rstn `            | Reset signal                           | 1         |
 | `write_enable`     | Enable signal for write operations     | 1         |
 | `read_enable`      | Enable signal for read operations      | 1         |
 | `request_address`  | Address for read/write request         | 32        |

@@ -4,16 +4,18 @@
 // LRU (Least Recently Used):  which means the least recently used cache line is selected for replacement.
 // small caches are low prone to the a very low temporal double-bit error rate.
 
-//  2 words per block., Non blocking cache to implement
+// 2 words per block., Non blocking cache to implement
 // to make synthesis easy we need to write the memory in SRAM style
+
 `timescale 1ns / 1ps
+
 module sram_module(
-    input wire clk,
-    input wire write_enable, read_enable,
-    input wire [8:0] set_index, 
-    input wire way_select, 
-    input wire [31:0] write_data, 
-    output reg [31:0] read_data  
+    input clk,
+    input write_enable, read_enable,
+    input [8:0] set_index, 
+    input way_select, 
+    input [31:0] write_data, 
+    output logic [31:0] read_data  
 );
     // Constants for cache configuration
     localparam BLOCK_SIZE    = 4;         //bytes
@@ -42,21 +44,22 @@ module sram_module(
 endmodule : sram_module
 
 module L1_Data_Cache(
-    input wire clk,
-    input wire reset,
-    input wire write_enable, read_enable,
-    input wire [31:0] request_address,
-    input wire [31:0] write_data,
-    output reg [31:0] response_data,
-    output reg [1:0] c_state,
+    input clk,
+    input rstn,
+    input write_enable, read_enable,
+    input [31:0] request_address,
+    input [31:0] write_data,
+    input [1:0] data_mode,
+    output logic [31:0] response_data,
+    output logic [1:0] c_state,
     
     // To LOWER MEMORY
-    output reg mem_request,
-    output reg mem_write_enable,
-    output reg [31:0] mem_address, 
-    output reg [31:0] mem_write_data,
-    input wire [31:0] mem_response_data,
-    input wire mem_ready
+    output logic mem_request,
+    output logic mem_write_enable,
+    output logic [31:0] mem_address, 
+    output logic [31:0] mem_write_data,
+    input [31:0] mem_response_data,
+    input mem_ready
 );
     // Hardcoded parameters for the data cache
     localparam CACHE_SIZE    = 4 * 1024;   // Cache size: 4 KB
@@ -75,7 +78,7 @@ module L1_Data_Cache(
   
     // Internal Variables
     
-//    reg [BLOCK_WIDTH- 1:0] cache_data [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
+    //reg [BLOCK_WIDTH- 1:0] cache_data [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     //need to add offset access
     
     reg [TAG_WIDTH - 1:0] cache_tags [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
@@ -93,9 +96,9 @@ module L1_Data_Cache(
 
     typedef struct packed{
         logic [31:0] address;
-        logic [TAG_WIDTH-1:0]      tag;
-        logic [INDEX_WIDTH-1:0]    index;
-        logic [OFFSET_WIDTH-1:0]   offset;
+        logic [TAG_WIDTH-1:0] tag;
+        logic [INDEX_WIDTH-1:0] index;
+        logic [OFFSET_WIDTH-1:0] offset;
     }current_address_t;
     current_address_t current_addr;
     
@@ -304,8 +307,8 @@ module L1_Data_Cache(
     endtask
 
     // Main Cache Operation 
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always @(posedge clk, negedge rstn) begin
+        if (rstn == 0) begin
             reset_cache();
         end else begin
             case (state)
