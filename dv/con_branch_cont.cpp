@@ -27,6 +27,7 @@ bool act_taken_result(uint32_t alu_out, uint8_t cond) {
 }
 
 static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, std::uint8_t branch_cond,bool pred_taken,std::uint32_t pred_pc, std::uint32_t pred_addr,std::uint32_t alu_out,std::uint32_t npc_in,bool &curr_pred, bool &incorrect_pred){
+    
     bool act_taken=act_taken_result(alu_out,  branch_cond);
 
     con_branch_cont.clk=0;
@@ -47,6 +48,7 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
 
     //check passthrough values
     //REQUIRE((uint32_t con_branch_cont.npc=npc_in));
+    /*
 
         switch(branch_cond) {
         case 0:
@@ -64,9 +66,10 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
         default:
             break;
     }
-    
+    */
 
     INFO("Testing branch_occr = " << (int) branch_occr << ", branch_cond = " << (int) branch_cond << ", act_taken = " << act_taken << ", and pred_taken = " << pred_taken);
+    
     if (!(branch_occr & 2)) {
         REQUIRE ((bool) con_branch_cont.branch_taken == (bool) branch_occr);
         return;
