@@ -48,7 +48,7 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
 
     //check passthrough values
     //REQUIRE((uint32_t con_branch_cont.npc=npc_in));
-    /*
+    
 
         switch(branch_cond) {
         case 0:
@@ -66,13 +66,12 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
         default:
             break;
     }
-    */
+    
 
     INFO("Testing branch_occr = " << (int) branch_occr << ", branch_cond = " << (int) branch_cond << ", act_taken = " << act_taken << ", and pred_taken = " << pred_taken);
     
     if (!(branch_occr & 2)) {
         REQUIRE ((bool) con_branch_cont.branch_taken == (bool) branch_occr);
-        return;
     }
 
     INFO("Before: curr_pred = " << curr_pred << " and incorrect_pred = " << incorrect_pred);
@@ -86,7 +85,9 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
 
  
     bool flush = (bool) (pred_taken ^ act_taken);
+
     std::uint32_t npc_corr;
+
     if (act_taken == pred_taken) {
         INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
         if (pred_taken) npc_corr = pred_addr;
