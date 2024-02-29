@@ -214,10 +214,8 @@ module tb_L1_Data_Cache;
     always @(posedge clk) begin
         if (mem_ready) begin
             if (mem_request) begin
-                    mem_data[mem_address] = mem_write_data;
-            end else begin
-                    mem_response_data = mem_data[mem_address];
-            end
+                if (mem_write_enable) mem_data[mem_address] = mem_write_data;
+                else if (mem_read_enable) mem_response_data = mem_data[mem_address];
             mem_ready = 1;
             #10 mem_ready = 0;
             end else begin
@@ -226,6 +224,8 @@ module tb_L1_Data_Cache;
                 #10 mem_ready = 0;
                 end
             end
+    end
+        
 endmodule
 
 
