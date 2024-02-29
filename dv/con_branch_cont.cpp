@@ -46,6 +46,18 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
     con_branch_cont.npc_in=npc_in;
     nyu::eval(con_branch_cont);
 
+    con_branch_cont.clk=0;
+    con_branch_cont.rstn=1;
+    con_branch_cont.rstn_h=rstn_h;
+    con_branch_cont.branch_occr=branch_occr;
+    con_branch_cont.branch_cond=branch_cond;
+    con_branch_cont.pred_taken=pred_taken;
+    con_branch_cont.pred_pc=pred_pc;
+    con_branch_cont.pred_addr=pred_addr;
+    con_branch_cont.alu_out=alu_out;
+    con_branch_cont.npc_in=npc_in;
+    nyu::eval(con_branch_cont);
+
     //check passthrough values
     //REQUIRE((uint32_t con_branch_cont.npc=npc_in));
     
