@@ -7,8 +7,6 @@
 // 2 words per block., Non blocking cache to implement
 // to make synthesis easy we need to write the memory in SRAM style
 
-`timescale 1ns / 1ps
-
 module sram_module(
     input clk,
     input write_enable, read_enable,
