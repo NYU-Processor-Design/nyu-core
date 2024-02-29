@@ -15,7 +15,7 @@ bool act_taken_result(uint32_t alu_out, uint8_t cond) {
         act=(bool)alu_out;
         break;
         case 2:
-        act=~(bool) alu_out;
+        act=!(bool) alu_out;
         break;
         case 3:
         act=1;
