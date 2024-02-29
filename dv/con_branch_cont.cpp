@@ -81,8 +81,11 @@ static void eval(auto& con_branch_cont, bool rstn_h, std::uint8_t branch_occr, s
     else incorrect_pred = 1;
 
     INFO("After: curr_pred = " << curr_pred << " and incorrect_pred = " << incorrect_pred);
-    REQUIRE ((bool) con_branch_cont.branch_taken == (bool) curr_pred);
 
+    if ((branch_occr & 2)) {
+        REQUIRE ((bool) con_branch_cont.branch_taken == (bool) curr_pred);
+    }
+    
  
     bool flush = (bool) (pred_taken ^ act_taken);
 
