@@ -162,6 +162,7 @@ static void test_branch_occr(std::uint8_t branch_occr){
                             for(std::uint32_t npc_in {1}; npc_in ; npc_in<<=1)
                                 //for(int curr_pred{0};curr_pred<2;++curr_pred)
                                     //for(int incorrect_pred{0};incorrect_pred<2;++incorrect_pred)
+                                    /*
                                         if(pred_taken){
                                             for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
                                                 eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
@@ -173,6 +174,10 @@ static void test_branch_occr(std::uint8_t branch_occr){
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
                                             incorrect_pred);
                                         }
+                                        */
+                                       eval(con_branch_cont, rstn_h, branch_occr, branch_cond, pred_taken,
+                                            pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
+                                            incorrect_pred);
 }   
 /*
 static void test_branch_cond(std::uint8_t branch_cond){
