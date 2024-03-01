@@ -21,7 +21,7 @@ module IDEX #(
     output logic [WordSize - 1:0] rs2d
 );
 
-  always @(posedge clk or negedge rstn) begin
+  always_ff @(posedge clk or negedge rstn) begin
     if (!rstn) begin
       rdn <= 0;
       a <= 0;

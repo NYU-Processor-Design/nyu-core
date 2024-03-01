@@ -13,7 +13,7 @@ module IFID #(
     output logic [WordSize - 1:0] pc
 );
 
-  always @(posedge clk or negedge rstn) begin
+  always_ff @(posedge clk or negedge rstn) begin
     if (!rstn) begin
       rdn  <= 0;
       rs1n <= 0;
