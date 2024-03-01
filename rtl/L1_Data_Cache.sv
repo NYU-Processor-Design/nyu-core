@@ -237,7 +237,7 @@ module L1_Data_Cache(
             for (i = 0; i < NUM_SETS; i = i+1) begin
                 for (j = 0; j < ASSOCIATIVITY; j = j+1) begin
                     
-                    set_sram_write_request(i, j, 0);
+                    set_sram_write_request(i, j, 0, 2);
                     cache_tags[i][j] <= 0;
                     valid[i][j] <= 0;
                     dirty[i][j] <= 0;
@@ -306,7 +306,7 @@ module L1_Data_Cache(
             if (!mem_request) begin
                 set_mem_request(current_addr.address, 0, 0);
             end else if (mem_ready) begin
-                set_sram_write_request(current_addr.index, lru_way, mem_response_data);
+                set_sram_write_request(current_addr.index, lru_way, mem_response_data, 2);
                 cache_tags[current_addr.index][lru_way] <= current_addr.tag;
                 valid[current_addr.index][lru_way] <= 1;
                 dirty[current_addr.index][lru_way] <= 0; 
