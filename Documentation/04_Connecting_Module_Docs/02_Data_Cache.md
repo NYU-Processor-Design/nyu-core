@@ -1,5 +1,3 @@
-THIS OUTLINE IS INCOMPLETE
-
 # Data Cache #
 (Verilog module known as Conn_Data_Cache)
 
@@ -23,11 +21,13 @@ THIS OUTLINE IS INCOMPLETE
 |```data_mode```|2-bit|
 |```addr```|32-bit|
 |```data```|32-bit|
+|```
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
 |```mrd```|32-bit|
+|```
 
 ## Modules
 
