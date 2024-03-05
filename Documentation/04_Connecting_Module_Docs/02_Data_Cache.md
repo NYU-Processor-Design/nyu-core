@@ -13,24 +13,24 @@
 |Name|Bits wide|
 |:---|:---:|
 |```cache_clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bit|
-|```dcache_waddr```|32-bit|
-|```dcache_wdata```|32-bit|
-|```mem_rdata```|32-bit|
+|```request_address```|32-bit|
+|```write_data```|32-bit|
+|```mem_response_data```|32-bit|
 |```mem_busy```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```mrd```|32-bit|
-|```mem_wEn```|1-bit|
-|```mem_rEn```|1-bit|
+|```response_data```|32-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
 |```isBurst```|1-bit|
-|```mem_addr```|32-bit|
-|```mem_wdata```|32-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 ## Modules
 
@@ -41,28 +41,31 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```dcache_en```|1-bit|
+|```dchache_rw```|1-bit|
+|```mem_busy```|1-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```mem_request```|1-bit|
+|```mem_write_enable```|1-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```write_enable```|1-bit|
+|```read_enable```|1-bit|
+|```mem_ready```|1-bit|
 
 ### L1 Data Cache
 
@@ -71,35 +74,42 @@
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```request_address```|32-bit|
+|```write_data```|32-bit|
+|```mem_response_data```|32-bit|
+|```data_mode```|2-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```response_data```|32-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```write_enable```|1-bit|
+|```read_enable```|1-bit|
+|```mem_ready```|1-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```mem_request```|1-bit|
+|```mem_write_enable```|1-bit|
 
 
 ## Internal Connections
 
 |Data Cache Manager|L1 Data Cache|M
 |:---:|:---:|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|
-|```name```|```name```|```name```|
+|```write_enable```|```write_enable```|
+|```read_enabke```|```read_enable```|
+|```mem_ready```|```mem_ready```|
+|```mem_request```|```mem_request```|
+|```mem_write_enable```|```mem_write_enable```|
