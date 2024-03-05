@@ -36,7 +36,6 @@ static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t b
     con_branch_cont.clk=1;
     con_branch_cont.rstn_h=1;
     con_branch_cont.rstn=1;
-    con_branch_cont.rstn_h=rstn_h;
     con_branch_cont.branch_occr=branch_occr;
     con_branch_cont.branch_cond=branch_cond;
     con_branch_cont.pred_taken=pred_taken;
@@ -48,7 +47,7 @@ static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t b
 
     con_branch_cont.clk=0;
     con_branch_cont.rstn=1;
-    con_branch_cont.rstn_h=rstn_h;
+    con_branch_cont.rstn_h=1;
     con_branch_cont.branch_occr=branch_occr;
     con_branch_cont.branch_cond=branch_cond;
     con_branch_cont.pred_taken=pred_taken;
@@ -130,7 +129,7 @@ static void init(auto& con_branch_cont){
     con_branch_cont.clk=1;
     nyu::eval(con_branch_cont);
     con_branch_cont.rstn=0;
-    on_branch_cont.rstn_h=0;
+    con_branch_cont.rstn_h=0;
     con_branch_cont.clk=0;
     nyu::eval(con_branch_cont);
 }
