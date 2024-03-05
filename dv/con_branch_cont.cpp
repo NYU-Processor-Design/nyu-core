@@ -109,7 +109,7 @@ static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t b
         else npc_corr = pred_pc + 4;
     }
 
-    INFO("Testing npc_in = " << npc_in << "and npc_corr = " << npc_corr);
+    INFO("Testing npc_in = " << npc_in << " and npc_corr = " << npc_corr " and pred_addr = " << pred_addr " and pred_pc = " << pred_pc );
     
     if(!flush) {
         REQUIRE((uint32_t) con_branch_cont.npc == (uint32_t) npc_in);   
