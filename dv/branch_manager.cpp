@@ -24,16 +24,9 @@ static void eval(auto& bman, bool pred_taken, bool act_taken, std::uint32_t pred
     INFO("Testing flush with pred_taken = " << pred_taken << " and act_taken = " << act_taken);
     REQUIRE((bool) bman.flush == (bool) (pred_taken ^ act_taken));
 
-    if (act_taken == pred_taken) {
-        INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (pred_taken) npc = pred_addr;
-        else npc = pred_pc + 4;
-    }
-    else {
-        INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (act_taken) npc = pred_addr;
-        else npc = pred_pc + 4;
-    }
+    if ((act_taken == pred_taken) && pred_taken) npc = pred_addr;
+    else if ((act_taken != pred_taken) && act_taken) npc = pred_addr;
+    else npc = pred_pc + 4;
     REQUIRE((uint32_t) bman.npc == (uint32_t) (npc));    
 }   
 
