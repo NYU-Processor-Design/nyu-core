@@ -5,10 +5,8 @@
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Data Cache Manager](#instruction_cache_manager)
-  * [L1 Data Cache](#l1_instruction_cache)
-  * [L2 Data Cache](#l1_instruction_cache)
-  * [L3 Data Cache](#l1_instruction_cache)
+  * [Data Cache Manager](#data_cache_manager)
+  * [L1 Data Cache](#l1_data_cache)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
@@ -96,71 +94,12 @@
 |```name```|#-bit|
 |```name```|#-bit|
 
-### L2 Data Cache
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-### L3 Data Cache
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
 
 ## Internal Connections
 
-|Module 1|Module 2|Module N|
-|:---:|:---:|:---:|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
+|Data Cache Manager|L1 Data Cache|M
+|:---:|:---:|
+|```name```|```name```|
+|```name```|```name```|
+|```name```|```name```|
 |```name```|```name```|```name```|
