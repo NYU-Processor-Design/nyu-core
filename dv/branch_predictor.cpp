@@ -60,8 +60,8 @@ static void test(bool pred) {
                         eval(bpred, branch_occr, branch_cond, act_taken, pred_taken, curr_pred, incorrect_pred);
                 } 
                 else {
-                    for(std::uint8_t branch_occr {0}; branch_occr < 2; ++branch_occr)
-                        eval(bpred, branch_occr, branch_cond, act_taken, pred_taken, curr_pred, incorrect_pred);
+                    for(std::uint8_t branch_occr_2 {0}; branch_occr_2 < 2; ++branch_occr_2)
+                        eval(bpred, branch_occr_2, branch_cond, act_taken, pred_taken, curr_pred, incorrect_pred);
                 }
             }
 }
