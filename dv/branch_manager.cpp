@@ -7,7 +7,7 @@
 
 
 static void eval(auto& bman, bool pred_taken, bool act_taken, std::uint32_t pred_pc, std::uint32_t pred_addr) {
-    bool npc;
+    std::uint32_t npc = 0;
     bman.clk = 0;
     bman.rstn = 1;
     nyu::eval(bman);
@@ -21,17 +21,18 @@ static void eval(auto& bman, bool pred_taken, bool act_taken, std::uint32_t pred
     bman.pred_addr = pred_addr;
     nyu::eval(bman);
     
-    INFO("Testing flush with pred_taken = " << pred_taken << " and act_taken = " << act_taken);
-    REQUIRE((bool) bman.flush == (bool) (pred_taken ^ act_taken));
+    INFO("Testing pred_taken = " << pred_taken << ", act_taken = " << act_taken << ", pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
 
     if ((act_taken == pred_taken) && pred_taken) npc = pred_addr;
     else if ((act_taken != pred_taken) && act_taken) npc = pred_addr;
     else npc = pred_pc + 4;
+
+    REQUIRE((bool) bman.flush == (bool) (pred_taken != act_taken));
     REQUIRE((uint32_t) bman.npc == (uint32_t) (npc));    
 }   
 
 static void init(auto& bman) {
-     //Initialize Module
+    //Initialize Module
     bman.rstn = 1;
     bman.clk = 0;
     nyu::eval(bman);
