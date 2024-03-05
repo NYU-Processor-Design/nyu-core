@@ -24,7 +24,7 @@ bool act_taken_result(uint32_t alu_out, uint8_t cond) {
     
 }
 
-static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t branch_cond,bool pred_taken,std::uint32_t pred_pc, std::uint32_t pred_addr,std::uint32_t alu_out,std::uint32_t npc_in,bool &curr_pred, bool &incorrect_pred){
+static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t branch_cond,bool pred_taken,std::uint32_t pred_pc, std::uint32_t pred_addr,std::uint32_t alu_out,std::uint32_t npc_in,bool &curr_pred, bool &incorrect_pred, bool &restart){
     
     bool act_taken=act_taken_result(alu_out,  branch_cond);
 
@@ -98,14 +98,14 @@ static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t b
 
     std::uint32_t npc_corr;
 
-    if (act_taken == pred_taken) {
-        INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (pred_taken) npc_corr = pred_addr;
+    if (act_taken != pred_taken && !restart) {
+        INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
+        if (act_taken) npc_corr = pred_addr;
         else npc_corr = pred_pc + 4;
     }
     else {
-        INFO("Testing npc output for incorrect prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
-        if (act_taken) npc_corr = pred_addr;
+        INFO("Testing npc output for correct prediction with pred_pc = " << pred_pc << ", and pred_addr = " << pred_addr);
+        if (pred_taken) npc_corr = pred_addr;
         else npc_corr = pred_pc + 4;
     }
 
@@ -138,6 +138,7 @@ static void test_branch_occr(std::uint8_t branch_occr){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     bool curr_pred = 0;
     bool incorrect_pred = 0;
+    bool restart =0 ;
     init(con_branch_cont);
    
         for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
@@ -149,13 +150,14 @@ static void test_branch_occr(std::uint8_t branch_occr){
                                    
                                        eval(con_branch_cont, branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
-                                            incorrect_pred);
+                                            incorrect_pred,restart);
 }   
 
 static void test_pred_taken(int pred_taken){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     bool curr_pred = 0;
     bool incorrect_pred = 0;
+    bool restart =0;
     init(con_branch_cont);
 
         for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
@@ -167,12 +169,12 @@ static void test_pred_taken(int pred_taken){
                                             for(std::uint8_t branch_occr{2};branch_occr <4; ++branch_occr)
                                                 eval(con_branch_cont,  branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
-                                            incorrect_pred);
+                                            incorrect_pred,restart);
                                         }else{
                                             for(std::uint8_t branch_occr{0};branch_occr <2; ++branch_occr)
                                                 eval(con_branch_cont,  branch_occr, branch_cond, pred_taken,
                                             pred_pc,  pred_addr,alu_out,npc_in,curr_pred, 
-                                            incorrect_pred);
+                                            incorrect_pred,restart);
                                         }
 }
 
