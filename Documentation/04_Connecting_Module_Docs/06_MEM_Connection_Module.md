@@ -15,6 +15,7 @@
 |:---|:---:|
 |```clk```|1-bit|
 |```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```cache_clk```|1-bit|
 |```rdn_in```|5-bits|
 |```alu_out_in```|32-bits|
@@ -22,13 +23,18 @@
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bits|
+|```mem_response_data```|32-bits|
+|```mem_busy```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
 |```rdn```|5-bits|
 |```alu_out```|32-bits|
-|```mrd```|32-bits|
+|```response_data```|32-bits|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 ## Modules
 
@@ -66,18 +72,29 @@
 |Name|Bits wide|
 |:---:|:---:|
 |```cache_clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bits|
+|```mem_response_data```|32-bit|
+|```mem_busy```|1-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```addr```|32-bits|
-|```data```|32-bits|
+|```request_address```|32-bits|
+|```write_data```|32-bits|
 
 #### External IO
 
@@ -90,5 +107,5 @@
 
 |EX/MEM|Data Cache|
 |:---:|:---:|
-|```alu_out```|```addr```|
-|```mem_data```|```data```|
+|```alu_out```|```request_addresss```|
+|```mem_data```|```write_data```|
