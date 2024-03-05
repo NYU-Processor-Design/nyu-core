@@ -15,14 +15,23 @@
 
 ## Inputs
 |Name|Bits wide|
-|:---|:---:|
+|:---:|:---:|
 |```clk```|1-bit|
 |```cache_clk```|1-bit|
 |```rstn_h```|1-bit|
+|```mem_response_data```|32-bit|
+|```mem_busy```|1-bit|
+
+## Output
+|Name|Bits wide|
+|:---:|:---:|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 ## Parameters 
 |Name|Bits wide|Logic|
-|:---|:---:|:---:|
+|:---:|:---:|:---:|
 |```rstn```|1-bit|If ```rstn_h``` == 0, ```rstn``` = 0|
 
 ## Modules
@@ -167,6 +176,16 @@
 |:---:|:---:|
 |```clk```|1-bit|
 |```cache_clk```|1-bit|
+|```rstn_h```|1-bit|
+|```mem_response_data```|32-bit|
+|```mem_busy```|1-bit|
+
+##### External Outputs
+|Name|Bits wide|
+|:---:|:---:|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 #### Internal IO
 
