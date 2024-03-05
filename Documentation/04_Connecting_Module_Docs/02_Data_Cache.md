@@ -1,5 +1,3 @@
-THIS OUTLINE IS INCOMPLETE
-
 # Data Cache #
 (Verilog module known as Conn_Data_Cache)
 
@@ -7,27 +5,32 @@ THIS OUTLINE IS INCOMPLETE
 * [Inputs](#inputs)
 * [Outputs](#outputs)
 * [Modules](#modules)
-  * [Data Cache Manager](#instruction_cache_manager)
-  * [L1 Data Cache](#l1_instruction_cache)
-  * [L2 Data Cache](#l1_instruction_cache)
-  * [L3 Data Cache](#l1_instruction_cache)
+  * [Data Cache Manager](#data_cache_manager)
+  * [L1 Data Cache](#l1_data_cache)
 * [Internal Connections](#internal_connections)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
 |```cache_clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bit|
-|```addr```|32-bit|
-|```data```|32-bit|
+|```request_address```|32-bit|
+|```write_data```|32-bit|
+|```mem_response_data```|32-bit|
+|```mem_busy```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```mrd```|32-bit|
+|```response_data```|32-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 ## Modules
 
@@ -38,28 +41,31 @@ THIS OUTLINE IS INCOMPLETE
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```dcache_en```|1-bit|
+|```dchache_rw```|1-bit|
+|```mem_busy```|1-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```mem_request```|1-bit|
+|```mem_write_enable```|1-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```write_enable```|1-bit|
+|```read_enable```|1-bit|
+|```mem_ready```|1-bit|
 
 ### L1 Data Cache
 
@@ -68,94 +74,42 @@ THIS OUTLINE IS INCOMPLETE
 ##### External Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```clk```|1-bit|
+|```rstn```|1-bit|
+|```request_address```|32-bit|
+|```write_data```|32-bit|
+|```mem_response_data```|32-bit|
+|```data_mode```|2-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```response_data```|32-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 #### Internal IO
 
 ##### Internal Inputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```write_enable```|1-bit|
+|```read_enable```|1-bit|
+|```mem_ready```|1-bit|
 
 ##### Internal Outputs
 |Name|Bits wide|
 |:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
+|```mem_request```|1-bit|
+|```mem_write_enable```|1-bit|
 
-### L2 Data Cache
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-### L3 Data Cache
-
-#### External IO
-
-##### External Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### External Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-#### Internal IO
-
-##### Internal Inputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
-
-##### Internal Outputs
-|Name|Bits wide|
-|:---:|:---:|
-|```name```|#-bit|
-|```name```|#-bit|
 
 ## Internal Connections
 
-|Module 1|Module 2|Module N|
-|:---:|:---:|:---:|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
-|```name```|```name```|```name```|
+|Data Cache Manager|L1 Data Cache|M
+|:---:|:---:|
+|```write_enable```|```write_enable```|
+|```read_enabke```|```read_enable```|
+|```mem_ready```|```mem_ready```|
+|```mem_request```|```mem_request```|
+|```mem_write_enable```|```mem_write_enable```|

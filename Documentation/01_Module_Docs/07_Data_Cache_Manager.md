@@ -1,39 +1,35 @@
-# THIS OUTLINE IS NOT YET COMPLETE #
-
 # Data Cache Manager #
-(Any Notes would go here)
 
 ## Contents
-* [Inputs](#inputs)
-* [Outputs](#outputs)
-* [Functionality](#functionality)
+- [Data Cache Manager](#data-cache-manager)
+  - [Contents](#contents)
+  - [Inputs](#inputs)
+  - [Outputs](#outputs)
+  - [Functionality](#functionality)
 
 ## Inputs
 |Name|Bits wide|
 |:---|:---:|
-|```cache_clk```|1-bit|
-|```rstn```|1-bit|
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
-|```data_mode```|2-bits|
-|```addr```|32-bits|
-|```data```|32-bits|
-
+|```mem_request```|1-bit|
+|```mem_write_enable```|1-bit|
+|```mem_busy```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
-|```name```|#-bits|
+|```write_enable```|1-bit|
+|```read_enable```|1-bit|
+|```mem_ready```|1-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
 
 ## Functionality
-### Registers
-  - #-bit ```name``` register
-  - #-bit ```name``` register
-### On posedge cache_clk
-  - ```somebranch = someval```
-  - Use a table when necessary if statements are used:
-  - ```name```
-    |Name|Bits wide|
-    |---|---|
-    |```name == 0```|```reg = val```|
-    |```name == 1```|```reg = val```|
+  - ```write_enable``` = ```dcache_en``` & ```dcache_rw```
+  - ```read_enable``` = ```dcache_en``` & ~```dcache_rw```
+  - ```isBurst``` = 0
+  - ```mem_ready``` = ~```mem_busy```
+  - ```wEn``` = ```mem_request``` & ```mem_write_enable```
+  - ```rEn``` = ```mem_request``` & ~```mem_write_enable```

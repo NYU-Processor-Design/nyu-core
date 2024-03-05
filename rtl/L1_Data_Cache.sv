@@ -4,19 +4,20 @@
 // LRU (Least Recently Used):  which means the least recently used cache line is selected for replacement.
 // small caches are low prone to the a very low temporal double-bit error rate.
 
-//  2 words per block., Non blocking cache to implement
+// 2 words per block., Non blocking cache to implement
 // to make synthesis easy we need to write the memory in SRAM style
-`timescale 1ns / 1ps
+
 module sram_module(
-    input wire clk,
-    input wire write_enable, read_enable,
-    input wire [8:0] set_index, 
-    input wire way_select, 
-    input wire [31:0] write_data, 
-    output reg [31:0] read_data  
+    input clk,
+    input write_enable, read_enable,
+    input [8:0] set_index, 
+    input way_select, 
+    input [1:0] data_mode,
+    input [31:0] write_data, 
+    output logic [31:0] read_data  
 );
     // Constants for cache configuration
-    localparam BLOCK_SIZE    = 4;         //bytes
+    localparam BLOCK_SIZE    = 4;         // 4 bytes since our words are 32-bit
     localparam CACHE_SIZE    = 4 * 1024;  // 4 KB
     localparam ASSOCIATIVITY = 2;     
     
@@ -31,8 +32,17 @@ module sram_module(
     
     always @(posedge clk) begin
         if (write_enable) begin
-            if (actual_address < (NUM_SETS * ASSOCIATIVITY)) 
-                memory_array[actual_address] <= write_data;
+            if (actual_address < (NUM_SETS * ASSOCIATIVITY)) begin
+
+                //Enables updating of only least significant byte, least signficant half, or entire word
+                case(data_mode)
+                0: memory_array[actual_address] <= {memory_array[actual_address][31:8], write_data[7:0]};
+                1: memory_array[actual_address] <= {memory_array[actual_address][31:15], write_data[15:0]};
+                default: memory_array[actual_address] <= write_data;
+                endcase
+
+            end
+                
         end else if(read_enable)begin
             if (actual_address < (NUM_SETS * ASSOCIATIVITY))
                 read_data = memory_array[actual_address];
@@ -42,21 +52,22 @@ module sram_module(
 endmodule : sram_module
 
 module L1_Data_Cache(
-    input wire clk,
-    input wire reset,
-    input wire write_enable, read_enable,
-    input wire [31:0] request_address,
-    input wire [31:0] write_data,
-    output reg [31:0] response_data,
-    output reg [1:0] c_state,
+    input clk,
+    input rstn,
+    input write_enable, read_enable,
+    input [31:0] request_address,
+    input [31:0] write_data,
+    input [1:0] data_mode,
+    output logic [31:0] response_data,
+    output logic [1:0] c_state,
     
     // To LOWER MEMORY
-    output reg mem_request,
-    output reg mem_write_enable,
-    output reg [31:0] mem_address, 
-    output reg [31:0] mem_write_data,
-    input wire [31:0] mem_response_data,
-    input wire mem_ready
+    output logic mem_request,
+    output logic mem_write_enable,
+    output logic [31:0] mem_address, 
+    output logic [31:0] mem_write_data,
+    input [31:0] mem_response_data,
+    input mem_ready
 );
     // Hardcoded parameters for the data cache
     localparam CACHE_SIZE    = 4 * 1024;   // Cache size: 4 KB
@@ -75,7 +86,7 @@ module L1_Data_Cache(
   
     // Internal Variables
     
-//    reg [BLOCK_WIDTH- 1:0] cache_data [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
+    //reg [BLOCK_WIDTH- 1:0] cache_data [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     //need to add offset access
     
     reg [TAG_WIDTH - 1:0] cache_tags [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
@@ -93,9 +104,9 @@ module L1_Data_Cache(
 
     typedef struct packed{
         logic [31:0] address;
-        logic [TAG_WIDTH-1:0]      tag;
-        logic [INDEX_WIDTH-1:0]    index;
-        logic [OFFSET_WIDTH-1:0]   offset;
+        logic [TAG_WIDTH-1:0] tag;
+        logic [INDEX_WIDTH-1:0] index;
+        logic [OFFSET_WIDTH-1:0] offset;
     }current_address_t;
     current_address_t current_addr;
     
@@ -105,9 +116,10 @@ module L1_Data_Cache(
         logic write_enable;
         logic read_enable;
         logic way;
+        logic [1:0] data_mode,
         logic [8:0] index;
+
     }sram_data_t;
-    sram_data_t put_sram_data;
  
     sram_module cache_data_sram (
         .clk(clk),
@@ -116,6 +128,7 @@ module L1_Data_Cache(
         .set_index      (put_sram_data.index),
         .way_select     (put_sram_data.way),
         .write_data     (put_sram_data.write_data),
+        .data_mode      (put_sram_data.data_mode),
         .read_data      (sram_read_data)
     );
      
@@ -141,7 +154,7 @@ module L1_Data_Cache(
     task handle_cache_hit;
         begin
             if (write_enable) begin               
-                set_sram_write_request(current_addr.index, way, write_data);                              
+                set_sram_write_request(current_addr.index, way, write_data, data_mode);                              
                 dirty[current_addr.index][way] <= 1;
                 state <= IDLE;
             end else if (read_enable) begin
@@ -179,13 +192,14 @@ module L1_Data_Cache(
     endtask
     
     task set_sram_write_request;
-        input integer index, way, data;
+        input integer index, way, data, data_mode;
         begin
             put_sram_data.write_enable <= 1;
             put_sram_data.read_enable <= 0;
             put_sram_data.index <= index;
             put_sram_data.way <= way;
             put_sram_data.write_data <= data;
+            put_sram_data.data_mode <= data_mode;
         end
     endtask
     
@@ -223,7 +237,7 @@ module L1_Data_Cache(
             for (i = 0; i < NUM_SETS; i = i+1) begin
                 for (j = 0; j < ASSOCIATIVITY; j = j+1) begin
                     
-                    set_sram_write_request(i, j, 0);
+                    set_sram_write_request(i, j, 0, 2);
                     cache_tags[i][j] <= 0;
                     valid[i][j] <= 0;
                     dirty[i][j] <= 0;
@@ -292,7 +306,7 @@ module L1_Data_Cache(
             if (!mem_request) begin
                 set_mem_request(current_addr.address, 0, 0);
             end else if (mem_ready) begin
-                set_sram_write_request(current_addr.index, lru_way, mem_response_data);
+                set_sram_write_request(current_addr.index, lru_way, mem_response_data, 2);
                 cache_tags[current_addr.index][lru_way] <= current_addr.tag;
                 valid[current_addr.index][lru_way] <= 1;
                 dirty[current_addr.index][lru_way] <= 0; 
@@ -304,8 +318,8 @@ module L1_Data_Cache(
     endtask
 
     // Main Cache Operation 
-    always @(posedge clk or posedge reset) begin
-        if (reset) begin
+    always @(posedge clk, negedge rstn) begin
+        if (rstn == 0) begin
             reset_cache();
         end else begin
             case (state)

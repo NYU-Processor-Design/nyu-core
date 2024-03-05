@@ -10,13 +10,13 @@ The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back
 | Input             | Description                           | Bit Width |
 |--------------------|----------------------------------------|-----------|
 | `clk`              | Clock signal                           | 1         |
-| `reset`            | Reset signal                           | 1         |
+| `rstn `            | Reset signal                           | 1         |
 | `write_enable`     | Enable signal for write operations     | 1         |
 | `read_enable`      | Enable signal for read operations      | 1         |
 | `request_address`  | Address for read/write request         | 32        |
 | `write_data`       | Data to write into cache               | 32        |
 | `mem_response_data`| Data received from RAM                 | 32        |
-| `mem_ready`        | Signal indicating RAM cache readiness  | 1         |
+| `mem_ready`        | Signal indicating RAM readiness        | 1         |
 | `data_mode`        | 0 for Byte, 1 for Half, 2 for Word     | 2         |
 
 #### Outputs
@@ -59,7 +59,7 @@ The `L1_Data_Cache` module in Verilog simulates an L1 data cache with write-back
 The cache operates through a state machine with distinct states for handling various operations:
 - **IDLE**: Awaiting read or write requests.
 - **CHECK_TAG**: Checking if the requested address is in the cache (cache hit) or not (cache miss).
-- **WRITEBACK**: Writing back data to the RAM  for dirty cache lines on a miss.
+- **WRITEBACK**: Writing back data to the RAM for dirty cache lines on a miss.
 - **FILL**: Fetching data from the RAM to fill the cache line on a miss.
 
 ### Cache Operations

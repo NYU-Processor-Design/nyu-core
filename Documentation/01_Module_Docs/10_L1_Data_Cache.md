@@ -7,7 +7,7 @@
 
 ### Inputs
 - **clk**: Clock signal.
-- **reset**: Reset signal.
+- **rstn**: Reset signal.
 - **write_enable**: Enable signal for write operations.
 - **read_enable**: Enable signal for read operations.
 - **request_address**: Address for the current read/write request.
