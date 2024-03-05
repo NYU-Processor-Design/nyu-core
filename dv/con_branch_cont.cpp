@@ -140,7 +140,7 @@ static void test_branch_occr(std::uint8_t branch_occr){
     bool incorrect_pred = 0;
     init(con_branch_cont);
    
-        for(std::uint8_t branch_cond{1};branch_cond; branch_cond<<=1)
+        for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
             for(int pred_taken{0};pred_taken<2;++pred_taken)
                 for(std::uint32_t pred_pc {1}; pred_pc ; pred_pc<<=1)
                     for(std::uint32_t pred_addr {1}; pred_addr ; pred_addr<<=1)
@@ -158,7 +158,7 @@ static void test_pred_taken(int pred_taken){
     bool incorrect_pred = 0;
     init(con_branch_cont);
 
-        for(std::uint8_t branch_cond{1};branch_cond; branch_cond<<=1)
+        for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
                 for(std::uint32_t pred_pc {1}; pred_pc ; pred_pc<<=1)
                     for(std::uint32_t pred_addr {1}; pred_addr ; pred_addr<<=1)
                         for(std::uint32_t alu_out {1}; alu_out ; alu_out<<=1)
