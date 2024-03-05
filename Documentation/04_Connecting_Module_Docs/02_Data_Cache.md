@@ -19,15 +19,20 @@
 |```dcache_en```|1-bit|
 |```dcache_rw```|1-bit|
 |```data_mode```|2-bit|
-|```addr```|32-bit|
-|```data```|32-bit|
-|```
+|```dcache_waddr```|32-bit|
+|```dcache_wdata```|32-bit|
+|```mem_rdata```|32-bit|
+|```mem_busy```|1-bit|
 
 ## Outputs
 |Name|Bits wide|
 |:---|:---:|
 |```mrd```|32-bit|
-|```
+|```mem_wEn```|1-bit|
+|```mem_rEn```|1-bit|
+|```isBurst```|1-bit|
+|```mem_addr```|32-bit|
+|```mem_wdata```|32-bit|
 
 ## Modules
 
