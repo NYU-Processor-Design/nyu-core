@@ -7,7 +7,9 @@
 
 
 static void eval(auto& bman, bool pred_taken, bool act_taken, std::uint32_t pred_pc, std::uint32_t pred_addr) {
+
     std::uint32_t npc = 0;
+
     bman.clk = 0;
     bman.rstn = 1;
     nyu::eval(bman);

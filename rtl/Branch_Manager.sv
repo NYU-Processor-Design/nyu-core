@@ -17,21 +17,22 @@ module Branch_Manager #(
     if (!rstn) begin
       restart <= 1;
       flush <= 0;
-      npc <= 0;
+      npc = 0;
     end else begin
-      restart <= 0;
-
+      restart<=0;
       if ((pred_taken != act_taken) && !restart) begin
         flush <= 1;
-        case (act_taken)
-          0: npc <= pred_pc + 4;
-          1: npc <= pred_addr;
+        case(act_taken)
+        0: npc = pred_pc + 4;
+        1: npc = pred_addr;
+
         endcase
       end else begin
         flush <= 0;
-        case (pred_taken)
-          0: npc <= pred_pc + 4;
-          1: npc <= pred_addr;
+        case(pred_taken)
+        0: npc = pred_pc + 4;
+        1: npc = pred_addr;
+
         endcase
       end
     end
