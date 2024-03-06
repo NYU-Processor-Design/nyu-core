@@ -138,7 +138,7 @@ static void test_branch_occr(std::uint8_t branch_occr){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     bool curr_pred = 0;
     bool incorrect_pred = 0;
-    bool restart =0 ;
+    bool restart =1 ;
     init(con_branch_cont);
    
         for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
@@ -157,7 +157,7 @@ static void test_pred_taken(int pred_taken){
     auto& con_branch_cont {nyu::getDUT<VCon_Branch_Cont>()};
     bool curr_pred = 0;
     bool incorrect_pred = 0;
-    bool restart =0;
+    bool restart =1;
     init(con_branch_cont);
 
         for(std::uint8_t branch_cond {0}; branch_cond < 4; ++branch_cond)
