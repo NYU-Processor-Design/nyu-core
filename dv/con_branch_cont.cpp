@@ -108,7 +108,9 @@ static void eval(auto& con_branch_cont, std::uint8_t branch_occr, std::uint8_t b
         if (pred_taken) npc_corr = pred_addr;
         else npc_corr = pred_pc + 4;
     }
-
+    if(restart){
+        restart=0;
+    }
     INFO("Testing npc_in = " << npc_in << " and npc_corr = " << npc_corr <<" and pred_addr = " << pred_addr <<" and pred_pc = " << pred_pc);
     
     if(!flush) {
