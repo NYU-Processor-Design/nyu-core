@@ -148,7 +148,7 @@ module tb_L1_Data_Cache;
             reset = 1;
             write_enable = 0;
             read_enable = 0;
-            mem_ready = 0;
+            mem_ready = 1;
             mem_request = 0;
             mem_write_enable = 0;
             write_data = 0;
@@ -215,14 +215,8 @@ module tb_L1_Data_Cache;
         if (mem_ready) begin
             if (mem_request) begin
                 if (mem_write_enable) mem_data[mem_address] = mem_write_data;
-                else if (mem_read_enable) mem_response_data = mem_data[mem_address];
-            mem_ready = 1;
-            #10 mem_ready = 0;
-            end else begin
-                mem_response_data = 32'hdeadbeef; 
-                mem_ready = 1;
-                #10 mem_ready = 0;
-                end
+                else mem_response_data = mem_data[mem_address];
+            end 
             end
     end
         
