@@ -68,7 +68,13 @@ struct cache {
 
     current_address_t current_addr(0, 0, 0, 0);
 
-    
+    std::uint32_t get_lru_way(std::uint32_t set_index) {
+        std::uint32_t max_count = 0;
+        lru_way = 0;
+        for (int i {0}; i < associativity; ++i) {
+
+        }
+    }
 
 };
 struct ram {
