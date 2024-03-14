@@ -37,6 +37,12 @@ struct sram {
     }
 }
 
+struct ram {
+    std::uint32_t data [pow(2, 32)]  = {0};
+    bool ready = 1;
+    std::uint32_t response_data = 0;
+};
+
 struct cache {
     const std::uint32_t block_size = 4;
     const std::uint32_t cache_size = block_size * 1024;
@@ -56,7 +62,8 @@ struct cache {
     std::uint32_t way = 0;
     std::uint32_t lru_way = 0;
     bool sram_read_req = 0;
-    std::uint32_t state = 0;
+    std::uint32_t response_data = 0;
+    sram cache_data;
 
     struct current_address_t {
     std::uint32_t address;
@@ -72,15 +79,47 @@ struct cache {
         std::uint32_t max_count = 0;
         lru_way = 0;
         for (int i {0}; i < associativity; ++i) {
+            if (lru_counter[i] > max_count) {
+                max_count = lru_counter[i];
+                lru_way = i;
+            }
+        }
+        return lru_way;
+    }
 
+    void handle_cache_hit(bool write_enable, bool read_enable, uint32_t write_data = 0, uint8_t data_mode = 0) {
+        if (write_enable) {
+            cache_data.write(current_addr.index, way, write_data, data_mode);
+            dirty[current_addr.index][way] = 1;
+        }
+        else if (read_enable) {
+            cache_data.read(current_addr.index, way);
+            response_data = cache_data.read_data;
         }
     }
 
-};
-struct ram {
-    std::uint32_t data [pow(2, 32)]  = {0};
-    bool ready = 1;
-    std::uint32_t response_data = 0;
+    void set_curr_addr(std::uint32_t request_addr) {
+        current_addr.address = request_addr;
+        current_addr.tag = request_addr & ()
+    }
+
+    void check_tag_logic() {
+
+    }
+
+    void writeback_logic() {
+
+    }
+
+    void fill_logic()
+
+    void handle_cache_miss() {
+        if (dirty[current_addr.index][lru_way]) {
+            writeback_logic();
+        }
+        else fill_logic()
+    }
+
 };
 
 static void mem_logic(ram &mem, bool mem_request, bool mem_write_enable, std::uint32_t mem_write_data, std::uint32_t mem_address) {
