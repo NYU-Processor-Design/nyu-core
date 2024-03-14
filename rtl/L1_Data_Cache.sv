@@ -120,6 +120,7 @@ module L1_Data_Cache(
         logic [8:0] index;
 
     }sram_data_t;
+    sram_data_t put_sram_data;
  
     sram_module cache_data_sram (
         .clk(clk),

@@ -60,6 +60,9 @@ struct sram {
 //Struct Corresponding to L1_Data_Cache Module
 struct cache {
 
+    //Cache I/O
+    std::uint32_t response_data = 0;
+
     //Various Cache Constants
     const std::uint32_t block_size = 4;
     const std::uint32_t cache_size = block_size * 1024;
@@ -79,8 +82,7 @@ struct cache {
     bool hit = 0;
     std::uint32_t way = 0;
     std::uint32_t lru_way = 0;
-    bool sram_read_req = 0;
-    std::uint32_t response_data = 0;
+    std::uint32_t state = 0;
     sram cache_data;
 
     //Struct Outlining a Format Needed for the current_addr Cache Variable
@@ -103,7 +105,14 @@ struct cache {
                 lru_way = i;
             }
         }
-        return lru_way;
+        return lru_way();
+    }
+
+    void update_lru_counters() {
+        for (int i {0}; i < associativity; ++i) {
+            if (i == way) lru_counter[current_addr.index][i] = 0;
+            else if (lru_counter[current_addr.index][i] != (ASSOCIATIVITY - 1)) lru_counter[current_addr.index][i] += 1;
+        }
     }
 
     //Function to Handle Logic for a Cache Hit
@@ -116,6 +125,7 @@ struct cache {
             cache_data.read(current_addr.index, way);
             response_data = cache_data.read_data;
         }
+        update_lr_counters();
     }
 
     //Function to Handle Logic for a Cache Miss
@@ -123,8 +133,10 @@ struct cache {
         if (dirty[current_addr.index][lru_way]) {
             writeback_logic();
         }
-        else fill_logic()
+        else fill_logic();
     }
+
+    void 
 
     // Function to calculate the needed parameters from the requested data address
     void set_curr_addr(std::uint32_t request_addr) {
@@ -133,8 +145,7 @@ struct cache {
         //NEED TO FIGURE OUT HOW TO TRANSLATE VERILOG LOGIC
         current_addr.tag = request_addr & (); 
         current_addr.index = request_addr & (); 
-        current_addr.offset = request_addr & (); 
-
+        current_addr.offset = request_addr & ();
     }
 
     //Function to Handle the Logic of Checking Data Tags
@@ -152,17 +163,13 @@ struct cache {
         else handle_cache_miss();
     }
 
-    //Function to Handle the Write Back Logic
     void writeback_logic() {
-        std::uint32_t writebrack_address = ;
 
+        //NEED TO FIGURE OUT HOW TO TRANSLATE VERILOG LOGIC
+        std::uint32_t writeback_addr = ;
 
+        
     }
-
-    //Function to Handle the Fill Logic
-    void fill_logic()
-
-    
 
 };
 
