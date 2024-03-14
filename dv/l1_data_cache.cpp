@@ -10,17 +10,15 @@ struct ram {
     std::uint32_t data [pow(2, 32)]  = {0};
     bool ready = 1;
     std::uint32_t response_data = 0;
-};
 
-// Function to Simulate Logic of Higher Level Memory
-static void mem_logic(ram &mem, bool mem_request, bool mem_write_enable, std::uint32_t mem_write_data, std::uint32_t mem_address) {
-    if (mem.ready) {
-        if (mem_request) {
-            if (mem_write_enable) mem.data[mem_address] = mem_write_data;
-            else mem.response_data = mem.data[mem_address];
+    // Function to Simulate Logic of Higher Level Memory
+    void logic(bool mem_write_enable, std::uint32_t mem_write_data, std::uint32_t mem_address) {
+        if (ready) {
+            if (mem_write_enable) data[mem_address] = mem_write_data;
+            else response_data = data[mem_address];
         }
     }
-}
+};
 
 // Struct Corresponding to the SRAM Module That Stores the Cache Data
 struct sram {
@@ -125,13 +123,13 @@ struct cache {
             cache_data.read(current_addr.index, way);
             response_data = cache_data.read_data;
         }
-        update_lr_counters();
+        update_lru_counters();
     }
 
     //Function to Handle Logic for a Cache Miss
-    void handle_cache_miss() {
+    void handle_cache_miss(ram &mem) {
         if (dirty[current_addr.index][lru_way]) {
-            writeback_logic();
+            writeback_logic(mem);
         }
         else fill_logic();
     }
@@ -149,7 +147,7 @@ struct cache {
     }
 
     //Function to Handle the Logic of Checking Data Tags
-    void check_tag_logic(bool write_enable, bool read_enable, uint32_t write_data = 0, uint8_t data_mode = 0) {
+    void check_tag_logic(ram &mem, bool write_enable, bool read_enable, uint32_t write_data = 0, uint8_t data_mode = 3) {
         bool hit = 0;
         lru_way = get_lru_way(current_addr.index);
         for (int i {0}; i < associativity; ++i) {
@@ -160,17 +158,36 @@ struct cache {
             }
         }
         if (hit) handle_cache_hit(write_enable, read_enable, write_data, data_mode);
-        else handle_cache_miss();
+        else handle_cache_miss(mem);
     }
 
-    void writeback_logic() {
+    void writeback_logic(ram &mem) {
 
         //NEED TO FIGURE OUT HOW TO TRANSLATE VERILOG LOGIC
         std::uint32_t writeback_addr = ;
 
-        
+        cache_data.read(current_addr.index, way);
+        mem.logic(1, cache_data.response_data, writeback_addr);
     }
 
+    void fill_logic() {
+        mem.logic(0, 0 current_addr.address);
+        cache_data.write(current_addr.index, lru_way, mem.response_data, 2);
+        cache_tags[current_addr.index][lru_way] = current_addr.tag;
+        valid[current_addr.index][lru_way] = 1;
+        dirty[current_addr.index][lru_way] = 0; 
+        update_lru_counters();
+    }
+
+    void read(ram &mem, std::uint32_t addr) {
+        set_curr_addr(addr);
+        check_tag_logic(mem, 0, 1);
+    }
+
+    void write(ram &mem, std::uint32_t addr, std::uint32_t data, std::uint8_t data_mode = 3) {
+        set_curr_addr(addr);
+        check_tag_logic(mem, 1, 0, data, data_mode);
+    }
 };
 
 //Function to Initialize the Cache
