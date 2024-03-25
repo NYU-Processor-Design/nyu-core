@@ -257,7 +257,39 @@ static void test_read(std::uint32_t data [pow(2, 32)]) {
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
 
-    for(std::uint32_t addr {1}; addr < 256; ++addr)
-        
+    for(std::uint32_t addr {0}; addr < 2048; ++addr)
+        eval_cache_read(l1, mem, l1_sim, addr);
 
+    for(std::uint32_t addr {1}; addr; addr <<= 1)
+        eval_cache_read(l1, mem, l1_sim, addr);
+}
+
+static void test_write(std::uint32_t mem_data [pow(2, 32)], std::uint32_t write_data [pow(2, 32)], std::uint8_t data_mode) {
+    ram mem;
+    mem.data = mem_data;
+    cache l1_sim;
+    auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
+    init(l1);
+
+    for(std::uint32_t addr {0}; addr < 2048; ++addr)
+        eval_cache_write(l1, mem, l1_sim, addr, write_data[addr], data_mode);
+    
+    for(std::uint32_t addr {1}; addr; addr <<= 1)
+        eval_cache_write(l1, mem, l1_sim, addr, write_data[addr], data_mode);
+}
+
+TEST_CASE("L1 Data Cache: Read") {
+    
+}
+
+TEST_CASE("L1 Data Cache: Write Bytes") {
+    
+}
+
+TEST_CASE("L1 Data Cache: Write Halfs") {
+    
+}
+
+TEST_CASE("L1 Data Cache: Write Words") {
+    
 }
