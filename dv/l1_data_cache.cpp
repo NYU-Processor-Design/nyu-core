@@ -139,11 +139,9 @@ struct cache {
     // Function to calculate the needed parameters from the requested data address
     void set_curr_addr(std::uint32_t request_addr) {
         current_addr.address = request_addr;
-
-        //NEED TO FIGURE OUT HOW TO TRANSLATE VERILOG LOGIC
-        current_addr.tag = request_addr & (); 
-        current_addr.index = request_addr & (); 
-        current_addr.offset = request_addr & ();
+        current_addr.tag = request_addr >> (addr_width - tag_width); 
+        current_addr.index = (request_addr >> (addr_width - tag_width - index_width)) & (pow(2, index_width) - 1); 
+        current_addr.offset = request_addr & (pow(2, offset_width) - 1);
     }
 
     //Function to Handle the Logic of Checking Data Tags
@@ -162,10 +160,7 @@ struct cache {
     }
 
     void writeback_logic(ram &mem) {
-
-        //NEED TO FIGURE OUT HOW TO TRANSLATE VERILOG LOGIC
-        std::uint32_t writeback_addr = ;
-
+        std::uint32_t writeback_addr = (cache_tags[current_addr.index][lru_way] << (addr_width - tag_width)) + (current_addr.index << offset_width) + (pow(2, offset_width) - 1);
         cache_data.read(current_addr.index, way);
         mem.logic(1, cache_data.response_data, writeback_addr);
     }
@@ -240,15 +235,29 @@ static void cache_write(auto& l1, ram &mem, std::uint32_t request_address, std::
     mem_logic(mem, l1.mem_request, l1.mem_write_enable, l1.mem_write_data, l1.mem_address);
 }
 
-//Function to Test the Behaviour of the Cache for a Read Hit
-static void test_cache_read_hit(auto& l1, ram& mem, std::uint32_t request_address) {
-    
-    std::uint32_t result = cache_read(l1, mem, request_address)
-
-    REQUIRE()
-
+//Function to Test the Behaviour of the Cache for a Read
+static void eval_cache_read(auto& l1, ram& mem, cache& l1_sim, std::uint32_t request_address) {
+    std::uint32_t result_mod = cache_read(l1, mem, request_address)
+    l1_sim.read(mem, request_address);
+    std::uint32_t result_sim = l1_sim.response_data;
+    REQUIRE(result_mod == result_sim);
 }
 
+//Function to Test the Behaviour of the Cache for a Write
+static void eval_cache_write(auto& l1, ram& mem, cache& l1_sim, std::uint32_t request_address, std::uint32_t write_data, std::uint8_t data_mode) {
+    cache_write(l1, mem, request_address, write_data, data_mode);
+    l1_sim.write(mem, request_address, write_data, data_mode);
+    eval_cache_read(l1, mem, l1_sim, request_address);
+}
 
+static void test_read(std::uint32_t data [pow(2, 32)]) {
+    ram mem;
+    mem.data = data;
+    cache l1_sim;
+    auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
+    init(l1);
 
-static ram mem;
+    for(std::uint32_t addr {1}; addr < 256; ++addr)
+        
+
+}

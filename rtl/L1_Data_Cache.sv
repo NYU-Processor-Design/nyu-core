@@ -27,7 +27,7 @@ module sram_module(
 
     reg [BLOCK_WIDTH -1:0] memory_array [0:NUM_SETS * ASSOCIATIVITY - 1];
     wire [ADDR_WIDTH -1:0] actual_address = set_index * ASSOCIATIVITY + way_select;   
-//    wire gated_clk = clk & (write_enable | read_enable); //Power saving Consideration
+//  wire gated_clk = clk & (write_enable | read_enable); //Power saving Consideration
 //  but the write or read is continously high for this module
     
     always @(posedge clk) begin
@@ -296,7 +296,7 @@ module L1_Data_Cache(
                     mem_write_enable <= 0;
                     mem_request <= 0;
                     sram_read_req <= 0;
-                    state <= FILL; 
+                    state <= FILL;
                 end 
             end
         end
