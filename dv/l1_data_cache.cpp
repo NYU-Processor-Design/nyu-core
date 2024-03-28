@@ -134,8 +134,6 @@ struct cache {
         else fill_logic();
     }
 
-    void 
-
     // Function to calculate the needed parameters from the requested data address
     void set_curr_addr(std::uint32_t request_addr) {
         current_addr.address = request_addr;
@@ -279,17 +277,21 @@ static void test_write(std::uint32_t mem_data [pow(2, 32)], std::uint32_t write_
 }
 
 TEST_CASE("L1 Data Cache: Read") {
-    
+    std::uint32_t data [pow(2, 32)] = {0};
+
 }
 
 TEST_CASE("L1 Data Cache: Write Bytes") {
-    
+    std::uint32_t data [pow(2, 32)] = {0};
+
 }
 
 TEST_CASE("L1 Data Cache: Write Halfs") {
+    std::uint32_t data [pow(2, 32)] = {0};
     
 }
 
 TEST_CASE("L1 Data Cache: Write Words") {
+    std::uint32_t data [pow(2, 32)] = {0};
     
 }
