@@ -1,3 +1,5 @@
+THIS OUTLINE IS INCOMPLETE
+
 # IF Connection Module #
 (Verilog module known as Con_IF)
 
@@ -59,11 +61,19 @@
 |:---:|:---:|
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
+|```mem_response_data```|32-bit|
+|```mem_busy```|1-bit|
 
 ##### External Outputs
 |Name|Bits wide|
 |:---:|:---:|
 |```ins```|32-bit|
+|```ins```|32-bit|
+|```wEn```|1-bit|
+|```rEn```|1-bit|
+|```isBurst```|1-bit|
+|```mem_address```|32-bit|
+|```mem_write_data```|32-bit|
 
 #### Internal IO
 
