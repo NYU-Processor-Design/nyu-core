@@ -31,7 +31,7 @@ The branch logic modules include:
 
 The pipeline will have 5 stages:
 - Instruction Fetch (IF)
-- Instuction Decode (ID)
+- Instruction Decode (ID)
 - Execution (EX)
 - Memory Access (MEM)
 - Write Back (WB)
@@ -58,8 +58,7 @@ Cache Modules:
 
 ## Current Draft of CPU Diagram
 
-![cpu](https://github.com/NYU-Processor-Design/nyu-core/assets/114675487/09d6fa8f-987f-47bb-a6a2-2920f0351f50)
-
+![cpu](https://github.com/NYU-Processor-Design/nyu-core/assets/114675487/c6bc4d3d-5b68-4946-b2b9-0785326a6d8d)
 
 ## Further Reading
 
