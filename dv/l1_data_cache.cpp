@@ -279,6 +279,7 @@ static void test_write(std::uint32_t mem_data [pow(2, 32)], std::uint32_t write_
 TEST_CASE("L1 Data Cache: Read") {
     std::uint32_t data [pow(2, 32)] = {0};
 
+    //Add code to set up data values
 
     test_read(data);
 }
@@ -286,6 +287,8 @@ TEST_CASE("L1 Data Cache: Read") {
 TEST_CASE("L1 Data Cache: Write Bytes") {
     std::uint32_t mem_data [pow(2, 32)] = {0};
     std::uint32_t write_data [pow(2, 32)] = {0};
+
+    //Add code to set up data values
     
     test_write(mem_data, write_data, 0);
 }
@@ -294,12 +297,16 @@ TEST_CASE("L1 Data Cache: Write Halfs") {
     std::uint32_t mem_data [pow(2, 32)] = {0};
     std::uint32_t write_data [pow(2, 32)] = {0};
 
+    //Add code to set up data values
+
     test_write(mem_data, write_data, 1);
 }
 
 TEST_CASE("L1 Data Cache: Write Words") {
     std::uint32_t mem_data [pow(2, 32)] = {0};
     std::uint32_t write_data [pow(2, 32)] = {0};
+
+    //Add code to set up data values
 
     test_write(mem_data, write_data, 2);
 }
