@@ -7,7 +7,7 @@
 
 // Struct for Simulating Higher Level Memory
 struct ram {
-    std::uint32_t data [pow(2, 32)]  = {0};
+    std::uint32_t data [4294967296] = {0};
     bool ready = 1;
     std::uint32_t response_data = 0;
 
@@ -22,12 +22,12 @@ struct ram {
 
 // Struct Corresponding to the SRAM Module That Stores the Cache Data
 struct sram {
-    const std::uint32_t block_size = 4;
-    const std::uint32_t cache_size = block_size * 1024;
-    const std::uint32_t associativity = 2;
-    const std::uint32_t block_width = block_size * 8;
-    const std::uint32_t num_sets = cache_size / (block_size * associativity);
-    const std::uint32_t addr_width = 32;
+    static const std::uint32_t block_size = 4;
+    static const std::uint32_t cache_size = block_size * 1024;
+    static const std::uint32_t associativity = 2;
+    static const std::uint32_t block_width = block_size * 8;
+    static const std::uint32_t num_sets = cache_size / (block_size * associativity);
+    static const std::uint32_t addr_width = 32;
 
     std::uint32_t memory_array [num_sets * associativity]  = {0};
     std::uint32_t read_data = 0;
@@ -53,7 +53,7 @@ struct sram {
             }
         }
     }
-}
+};
 
 //Struct Corresponding to L1_Data_Cache Module
 struct cache {
@@ -62,15 +62,15 @@ struct cache {
     std::uint32_t response_data = 0;
 
     //Various Cache Constants
-    const std::uint32_t block_size = 4;
-    const std::uint32_t cache_size = block_size * 1024;
-    const std::uint32_t associativity = 2;
-    const std::uint32_t block_width = block_size * 8;
-    const std::uint32_t num_sets = cache_size / (block_size * associativity);
-    const std::uint32_t addr_width = 32;
-    const std::uint32_t offset_width = log2(block_size);
-    const std::uint32_t index_width = log2(num_sets);
-    const std::uint32_t tag_width = addr_width - offset_width - index_width;
+    static const std::uint32_t block_size = 4;
+    static const std::uint32_t cache_size = block_size * 1024;
+    static const std::uint32_t associativity = 2;
+    static const std::uint32_t block_width = block_size * 8;
+    static const std::uint32_t num_sets = cache_size / (block_size * associativity);
+    static const std::uint32_t addr_width = 32;
+    static const std::uint32_t offset_width = log2(block_size);
+    static const std::uint32_t index_width = log2(num_sets);
+    static const std::uint32_t tag_width = addr_width - offset_width - index_width;
 
     //Various Cache Variables
     std::uint32_t cache_tags [num_sets][associativity] = {0};
@@ -85,13 +85,12 @@ struct cache {
 
     //Struct Outlining a Format Needed for the current_addr Cache Variable
     struct current_address_t {
-    std::uint32_t address;
-    std::uint32_t tag;
-    std::uint32_t index;
-    std::uint32_t offset;
-    current_address_t(std::uint32_t address, std::uint32_t tag, std::uint32_t index, std::uint32_t offset) : address(address), tag(tag), index(index), offset(offset) {} 
-    };
-    current_address_t current_addr(0, 0, 0, 0);
+        std::uint32_t address = 0;
+        std::uint32_t tag = 0;
+        std::uint32_t index = 0;
+        std::uint32_t offset = 0;
+        };
+    current_address_t current_addr;
 
     //Function to Update the lru_way Cache Variable
     bool get_lru_way(std::uint32_t set_index) {
@@ -103,13 +102,13 @@ struct cache {
                 lru_way = i;
             }
         }
-        return lru_way();
+        return lru_way;
     }
 
     void update_lru_counters() {
         for (int i {0}; i < associativity; ++i) {
             if (i == way) lru_counter[current_addr.index][i] = 0;
-            else if (lru_counter[current_addr.index][i] != (ASSOCIATIVITY - 1)) lru_counter[current_addr.index][i] += 1;
+            else if (lru_counter[current_addr.index][i] != (associativity - 1)) lru_counter[current_addr.index][i] += 1;
         }
     }
 
@@ -131,7 +130,7 @@ struct cache {
         if (dirty[current_addr.index][lru_way]) {
             writeback_logic(mem);
         }
-        else fill_logic();
+        else fill_logic(mem);
     }
 
     // Function to calculate the needed parameters from the requested data address
@@ -160,11 +159,11 @@ struct cache {
     void writeback_logic(ram &mem) {
         std::uint32_t writeback_addr = (cache_tags[current_addr.index][lru_way] << (addr_width - tag_width)) + (current_addr.index << offset_width) + (pow(2, offset_width) - 1);
         cache_data.read(current_addr.index, way);
-        mem.logic(1, cache_data.response_data, writeback_addr);
+        mem.logic(1, cache_data.read_data, writeback_addr);
     }
 
-    void fill_logic() {
-        mem.logic(0, 0 current_addr.address);
+    void fill_logic(ram &mem) {
+        mem.logic(0, 0, current_addr.address);
         cache_data.write(current_addr.index, lru_way, mem.response_data, 2);
         cache_tags[current_addr.index][lru_way] = current_addr.tag;
         valid[current_addr.index][lru_way] = 1;
@@ -209,7 +208,7 @@ static std::uint32_t cache_read(auto& l1, ram &mem, std::uint32_t request_addres
     l1.mem_ready = mem.ready;
     nyu::eval(l1);
 
-    mem_logic(mem, l1.mem_request, l1.mem_write_enable, l1.mem_write_data, l1.mem_address);
+    mem.logic(l1.mem_write_enable, l1.mem_write_data, l1.mem_address);
     return l1.response_data;
 }
 
@@ -230,54 +229,62 @@ static void cache_write(auto& l1, ram &mem, std::uint32_t request_address, std::
     l1.mem_ready = mem.ready;
     nyu::eval(l1);
 
-    mem_logic(mem, l1.mem_request, l1.mem_write_enable, l1.mem_write_data, l1.mem_address);
+    mem.logic(l1.mem_write_enable, l1.mem_write_data, l1.mem_address);
 }
 
 //Function to Test the Behaviour of the Cache for a Read
-static void eval_cache_read(auto& l1, ram& mem, cache& l1_sim, std::uint32_t request_address) {
-    std::uint32_t result_mod = cache_read(l1, mem, request_address)
-    l1_sim.read(mem, request_address);
+static void eval_cache_read(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim, std::uint32_t request_address) {
+    std::uint32_t result_mod = cache_read(l1, mem_mod, request_address);
+    l1_sim.read(mem_sim, request_address);
     std::uint32_t result_sim = l1_sim.response_data;
     REQUIRE(result_mod == result_sim);
 }
 
 //Function to Test the Behaviour of the Cache for a Write
-static void eval_cache_write(auto& l1, ram& mem, cache& l1_sim, std::uint32_t request_address, std::uint32_t write_data, std::uint8_t data_mode) {
-    cache_write(l1, mem, request_address, write_data, data_mode);
-    l1_sim.write(mem, request_address, write_data, data_mode);
-    eval_cache_read(l1, mem, l1_sim, request_address);
+static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim, std::uint32_t request_address, std::uint32_t write_data, std::uint8_t data_mode) {
+    cache_write(l1, mem_mod, request_address, write_data, data_mode);
+    l1_sim.write(mem_sim, request_address, write_data, data_mode);
+    eval_cache_read(l1, mem_sim, mem_mod, l1_sim, request_address);
 }
 
-static void test_read(std::uint32_t data [pow(2, 32)]) {
-    ram mem;
-    mem.data = data;
+static void test_read(std::uint32_t data [4294967296]) {
+    ram mem_sim;
+    ram mem_mod;
+    for (size_t i = 0; i < 4294967296; ++i) {
+        mem_sim.data[i] = data[i];
+        mem_mod.data[i] = data[i];
+    }
     cache l1_sim;
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
 
     for(std::uint32_t addr {0}; addr < 2048; ++addr)
-        eval_cache_read(l1, mem, l1_sim, addr);
+        eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
 
     for(std::uint32_t addr {1}; addr; addr <<= 1)
-        eval_cache_read(l1, mem, l1_sim, addr);
+        eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
 }
 
-static void test_write(std::uint32_t mem_data [pow(2, 32)], std::uint32_t write_data [pow(2, 32)], std::uint8_t data_mode) {
-    ram mem;
-    mem.data = mem_data;
+static void test_write(std::uint32_t mem_data [4294967296], std::uint32_t write_data [4294967296], std::uint8_t data_mode) {
+    ram mem_sim;
+    ram mem_mod;
+    for (size_t i = 0; i < 4294967296; ++i) {
+        mem_sim.data[i] = mem_data[i];
+        mem_mod.data[i] = mem_data[i];
+    }
     cache l1_sim;
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
 
     for(std::uint32_t addr {0}; addr < 2048; ++addr)
-        eval_cache_write(l1, mem, l1_sim, addr, write_data[addr], data_mode);
+        eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
     
     for(std::uint32_t addr {1}; addr; addr <<= 1)
-        eval_cache_write(l1, mem, l1_sim, addr, write_data[addr], data_mode);
+        eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
 }
 
 TEST_CASE("L1 Data Cache: Read") {
-    std::uint32_t data [pow(2, 32)] = {0};
+    std::uint32_t data [4294967296] = {0};
 
     //Add code to set up data values
 
@@ -285,8 +292,8 @@ TEST_CASE("L1 Data Cache: Read") {
 }
 
 TEST_CASE("L1 Data Cache: Write Bytes") {
-    std::uint32_t mem_data [pow(2, 32)] = {0};
-    std::uint32_t write_data [pow(2, 32)] = {0};
+    std::uint32_t mem_data [4294967296] = {0};
+    std::uint32_t write_data [4294967296] = {0};
 
     //Add code to set up data values
     
@@ -294,8 +301,8 @@ TEST_CASE("L1 Data Cache: Write Bytes") {
 }
 
 TEST_CASE("L1 Data Cache: Write Halfs") {
-    std::uint32_t mem_data [pow(2, 32)] = {0};
-    std::uint32_t write_data [pow(2, 32)] = {0};
+    std::uint32_t mem_data [4294967296] = {0};
+    std::uint32_t write_data [4294967296] = {0};
 
     //Add code to set up data values
 
@@ -303,8 +310,8 @@ TEST_CASE("L1 Data Cache: Write Halfs") {
 }
 
 TEST_CASE("L1 Data Cache: Write Words") {
-    std::uint32_t mem_data [pow(2, 32)] = {0};
-    std::uint32_t write_data [pow(2, 32)] = {0};
+    std::uint32_t mem_data [4294967296] = {0};
+    std::uint32_t write_data [4294967296] = {0};
 
     //Add code to set up data values
 
