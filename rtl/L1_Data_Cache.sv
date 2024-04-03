@@ -90,13 +90,13 @@ module L1_Data_Cache(
     reg [TAG_WIDTH - 1:0] cache_tags [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     reg valid [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     reg dirty [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
-    reg [ASSOCIATIVITY-1:0] lru_counter [0:NUM_SETS-1];
+    reg integer lru_counter [0:NUM_SETS-1][ASSOCIATIVITY-1:0];
     
     reg hit;
     reg [ASSOCIATIVITY-2:0] way, lru_way;
     
     
-    reg sram_read_req =0;
+    reg sram_read_req = 0;
 
     typedef enum integer {IDLE, CHECK_TAG, WRITEBACK, FILL} cache_state_t;
     cache_state_t state = IDLE;

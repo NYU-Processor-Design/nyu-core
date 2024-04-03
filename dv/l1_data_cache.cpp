@@ -76,7 +76,7 @@ struct cache {
     std::uint32_t cache_tags [num_sets][associativity] = {0};
     bool valid [num_sets][associativity] = {0};
     bool dirty [num_sets][associativity] = {0};
-    std::uint32_t lru_counter [num_sets] = {0};
+    std::uint32_t lru_counter [num_sets][associativity] = {0};
     bool hit = 0;
     bool way = 0;
     bool lru_way = 0;
