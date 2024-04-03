@@ -66,10 +66,10 @@ static void test(bool pred) {
             }
 }
 
-TEST_CASE("Non Prediction Instruction") { //branch_occr = 0 or 1
+TEST_CASE("Branch Predictor, Non Prediction Instruction") { //branch_occr = 0 or 1
     test(0);
 }
 
-TEST_CASE("Prediction Instruction") { //branch_occr = 2 or 3
+TEST_CASE("Branch Predictor, Prediction Instruction") { //branch_occr = 2 or 3
     test(1);
 }

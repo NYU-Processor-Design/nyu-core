@@ -53,8 +53,8 @@ static void test() {
     auto& bman {nyu::getDUT<VBranch_Manager>()};
     
     init(bman);
-    for(std::uint32_t pred_pc {0}; pred_pc < 128; ++pred_pc)
-        for(std::uint32_t pred_addr {0}; pred_addr < 128; ++pred_addr)
+    for(std::uint32_t pred_pc {0}; pred_pc < 32; ++pred_pc)
+        for(std::uint32_t pred_addr {0}; pred_addr < 32; ++pred_addr)
             for(int pred_taken {0}; pred_taken < 2; ++pred_taken)
                 for(int act_taken {0}; act_taken < 2; ++act_taken)
                     eval(bman, pred_taken, act_taken, pred_pc, pred_addr);

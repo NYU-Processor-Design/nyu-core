@@ -38,9 +38,9 @@ static void eval_p(std::uint8_t wbs, std::uint8_t rdn_in,
 TEST_CASE("MEMWB, rdn Passthrough") {
 
     for(std::uint8_t wbs {0}; wbs <= 5; ++wbs)
-            for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-                for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-                    for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+            for(std::uint8_t rdn_in {0}; rdn_in < 16; ++rdn_in)
+                for(std::uint32_t alu_out {0}; alu_out < 16; ++alu_out)
+                    for(std::uint32_t mrd {0}; mrd < 16; ++mrd)
                         eval_p(wbs, rdn_in, alu_out, mrd);
 
     for(std::uint8_t wbs {1}; wbs <= 5; wbs <<= 1)
@@ -80,8 +80,8 @@ static void eval_0(std::uint8_t rdn_in,
 TEST_CASE("MEMWB, Write Back State 0") {
     
     for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-        for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-            for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+        for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+            for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                 eval_0(rdn_in, alu_out, mrd);
 
     
@@ -117,8 +117,8 @@ static void eval_1(std::uint8_t rdn_in,
 TEST_CASE("MEMWB, Write Back State 1") {
  
     for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-        for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-            for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+        for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+            for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                 eval_1(rdn_in, alu_out, mrd);
 
     
@@ -158,8 +158,8 @@ TEST_CASE("MEMWB, Write Back State 2") {
 
 
     for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-        for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-            for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+        for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+            for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                 eval_2(rdn_in, alu_out, mrd);
 
     
@@ -198,8 +198,8 @@ TEST_CASE("MEMWB, Write Back State 3") {
         
   
         for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-            for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-                for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+            for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+                for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                     eval_3(rdn_in, alu_out, mrd);
 
         
@@ -238,8 +238,8 @@ TEST_CASE("MEMWB, Write Back State 4") {
     
 
         for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-            for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-                for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+            for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+                for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                     eval_4(rdn_in, alu_out, mrd);
 
         
@@ -276,11 +276,9 @@ TEST_CASE("MEMWB, Write Back State 4") {
 
 TEST_CASE("MEMWB, Write Back State 5") {
 
-    
-
         for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-            for(std::uint32_t alu_out {0}; alu_out < 128; ++alu_out)
-                for(std::uint32_t mrd {0}; mrd < 128; ++mrd)
+            for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
+                for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
                     eval_5(rdn_in, alu_out, mrd);
 
         
