@@ -93,7 +93,8 @@ module L1_Data_Cache(
     reg [ASSOCIATIVITY-1:0] lru_counter [0:NUM_SETS-1];
     
     reg hit;
-    reg [ASSOCIATIVITY-1:0] way, lru_way;
+    reg [ASSOCIATIVITY-2:0] way, lru_way;
+    
     
     reg sram_read_req =0;
 
@@ -132,16 +133,16 @@ module L1_Data_Cache(
     );
      
     // LRU Function
-    function reg [ASSOCIATIVITY-1:0] get_lru_way(input integer set_index);
-        reg [ASSOCIATIVITY-1:0] i;
-        reg [ASSOCIATIVITY-1:0] max_count;
+    function reg [ASSOCIATIVITY-2:0] get_lru_way(input [INDEX_WIDTH-1:0] set_index);
+        integer i;
+        reg [ASSOCIATIVITY-2:0] max_count;
         begin
             max_count = 0;
             lru_way = 0;
             for (i = 0; i < ASSOCIATIVITY; i = i + 1) begin            
                 if (lru_counter[set_index][i] > max_count) begin
                     max_count = lru_counter[set_index][i];
-                    lru_way = i;
+                    lru_way = i[ASSOCIATIVITY-2:0];
                 end
             end
             get_lru_way = lru_way;
@@ -180,7 +181,8 @@ module L1_Data_Cache(
     endtask
     
     task set_sram_read_request;
-        input integer index, way;
+        input [INDEX_WIDTH-1:0] index;
+        input way;
         begin
             put_sram_data.read_enable <= 1;
             put_sram_data.write_enable <= 0;
@@ -190,7 +192,10 @@ module L1_Data_Cache(
     endtask
     
     task set_sram_write_request;
-        input integer index, way, data, data_mode;
+        input [INDEX_WIDTH-1:0] index;
+        input way;
+        input [31:0] data;
+        input [1:0] data_mode;
         begin
             put_sram_data.write_enable <= 1;
             put_sram_data.read_enable <= 0;
@@ -212,13 +217,13 @@ module L1_Data_Cache(
         end
     endtask
     
-    task update_lru_counters(input integer set_index, input integer accessed_way);
+    task update_lru_counters(input [INDEX_WIDTH-1:0] set_index, input [ASSOCIATIVITY-2:0] accessed_way);
         integer i;
         begin
             for (i = 0; i < ASSOCIATIVITY; i = i + 1) begin
-                if (i == accessed_way) begin
+                if (i[ASSOCIATIVITY-2:0] == accessed_way) begin
                     lru_counter[set_index][i] <= 0;
-                end else if (lru_counter[set_index][i] != (ASSOCIATIVITY - 1)) begin
+                end else if (lru_counter[set_index][i] != (ASSOCIATIVITY[ASSOCIATIVITY-2:0] - 1)) begin
                     lru_counter[set_index][i] <= lru_counter[set_index][i] + 1;
                 end
             end
@@ -233,7 +238,7 @@ module L1_Data_Cache(
             for (i = 0; i < NUM_SETS; i = i+1) begin
                 for (j = 0; j < ASSOCIATIVITY; j = j+1) begin
                     
-                    set_sram_write_request(i, j, 0, 2);
+                    set_sram_write_request(i[INDEX_WIDTH-1:0], j[ASSOCIATIVITY-2], 0, 2);
                     cache_tags[i][j] = 0;
                     valid[i][j] = 0;
                     dirty[i][j] = 0;
@@ -263,7 +268,7 @@ module L1_Data_Cache(
             for (i = 0; i < ASSOCIATIVITY; i = i + 1) begin
                 if (valid[current_addr.index][i] && cache_tags[current_addr.index][i] == current_addr.tag) begin
                     hit = 1;
-                    way = i;                
+                    way = i[ASSOCIATIVITY-2:0];
                     break;
                 end
             end
