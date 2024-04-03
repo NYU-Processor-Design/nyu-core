@@ -78,8 +78,8 @@ struct cache {
     bool dirty [num_sets][associativity] = {0};
     std::uint32_t lru_counter [num_sets] = {0};
     bool hit = 0;
-    std::uint32_t way = 0;
-    std::uint32_t lru_way = 0;
+    bool way = 0;
+    bool lru_way = 0;
     std::uint32_t state = 0;
     sram cache_data;
 
@@ -94,7 +94,7 @@ struct cache {
     current_address_t current_addr(0, 0, 0, 0);
 
     //Function to Update the lru_way Cache Variable
-    std::uint32_t get_lru_way(std::uint32_t set_index) {
+    bool get_lru_way(std::uint32_t set_index) {
         std::uint32_t max_count = 0;
         lru_way = 0;
         for (int i {0}; i < associativity; ++i) {
