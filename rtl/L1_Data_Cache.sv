@@ -90,7 +90,7 @@ module L1_Data_Cache(
     reg [TAG_WIDTH - 1:0] cache_tags [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     reg valid [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
     reg dirty [0:NUM_SETS-1][0:ASSOCIATIVITY-1];
-    reg integer lru_counter [0:NUM_SETS-1][ASSOCIATIVITY-1:0];
+    reg [31:0] lru_counter [0:NUM_SETS-1][ASSOCIATIVITY-1:0];
     
     reg hit;
     reg [ASSOCIATIVITY-2:0] way, lru_way;
@@ -135,7 +135,7 @@ module L1_Data_Cache(
     // LRU Function
     function reg [ASSOCIATIVITY-2:0] get_lru_way(input [INDEX_WIDTH-1:0] set_index);
         integer i;
-        reg [ASSOCIATIVITY-2:0] max_count;
+        integer max_count;
         begin
             max_count = 0;
             lru_way = 0;
@@ -223,7 +223,7 @@ module L1_Data_Cache(
             for (i = 0; i < ASSOCIATIVITY; i = i + 1) begin
                 if (i[ASSOCIATIVITY-2:0] == accessed_way) begin
                     lru_counter[set_index][i] <= 0;
-                end else if (lru_counter[set_index][i] != (ASSOCIATIVITY[ASSOCIATIVITY-2:0] - 1)) begin
+                end else if (lru_counter[set_index][i] != (ASSOCIATIVITY - 1)) begin
                     lru_counter[set_index][i] <= lru_counter[set_index][i] + 1;
                 end
             end
