@@ -97,8 +97,8 @@ struct cache {
         std::uint32_t max_count = 0;
         lru_way = 0;
         for (int i {0}; i < associativity; ++i) {
-            if (lru_counter[i] > max_count) {
-                max_count = lru_counter[i];
+            if (lru_counter[set_index][i] > max_count) {
+                max_count = lru_counter[set_index][i];
                 lru_way = i;
             }
         }
