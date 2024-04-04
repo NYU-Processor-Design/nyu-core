@@ -1,0 +1,35 @@
+L1 Instuction Cache
+
+module example_module
+  (
+    input wire clk,
+    input wire reset_n,
+    input wire someval,
+    output reg somebranch,
+    output reg [7:0] reg_a,
+    output reg [15:0] reg_b
+  );
+
+  // Combinational logic block
+  assign somebranch = reg_a[0];
+
+  // Register block
+  always @(posedge clk or negedge reset_n) begin
+    if (reset_n == 0) begin
+      reg_a <= 8'b0;
+      reg_b <= 16'b0;
+    end
+    else begin
+      case (reg_a[7:0])
+        8'b0: reg_a <= 8'b1;
+        8'b1: reg_a <= 8'b0;
+        default: reg_a <= reg_a;
+      endcase
+    end
+  end
+
+  always @* begin
+    reg_b = someval ? 16'b1111_1111_1111_1111 : 16'b0;
+  end
+
+endmodule
