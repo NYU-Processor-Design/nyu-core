@@ -265,7 +265,7 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
     eval_cache_read(l1, mem_sim, mem_mod, l1_sim, request_address);
 }
 
-static void test_read(std::uint32_t data [2048]) {
+static void test_read(std::uint32_t& data [2048]) {
     ram mem_sim;
     mem_sim.reset();
     ram mem_mod;
@@ -286,7 +286,7 @@ static void test_read(std::uint32_t data [2048]) {
     //     eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
 }
 
-static void test_write(std::uint32_t mem_data [2048], std::uint32_t write_data [2048], std::uint8_t data_mode) {
+static void test_write(std::uint32_t& mem_data [2048], std::uint32_t& write_data [2048], std::uint8_t data_mode) {
     ram mem_sim;
     mem_sim.reset();
     ram mem_mod;
