@@ -250,7 +250,7 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
 static void test_read(std::uint32_t data [4294967296]) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 1; i < 4294967296; ++i) {
+    for (size_t i = 0; i < 4294967296; ++i) {
         mem_sim.data[i] = data[i];
         mem_mod.data[i] = data[i];
     }
@@ -268,7 +268,7 @@ static void test_read(std::uint32_t data [4294967296]) {
 static void test_write(std::uint32_t mem_data [4294967296], std::uint32_t write_data [4294967296], std::uint8_t data_mode) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 1; i < 4294967296; ++i) {
+    for (size_t i = 0; i < 4294967296; ++i) {
         mem_sim.data[i] = mem_data[i];
         mem_mod.data[i] = mem_data[i];
     }
