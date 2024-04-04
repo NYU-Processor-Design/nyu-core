@@ -96,7 +96,7 @@ struct cache {
     bool get_lru_way(std::uint32_t set_index) {
         std::uint32_t max_count = 0;
         lru_way = 0;
-        for (int i {0}; i < associativity; ++i) {
+        for (size_t i {0}; i < associativity; ++i) {
             if (lru_counter[set_index][i] > max_count) {
                 max_count = lru_counter[set_index][i];
                 lru_way = i;
@@ -106,7 +106,7 @@ struct cache {
     }
 
     void update_lru_counters() {
-        for (int i {0}; i < associativity; ++i) {
+        for (size_t i {0}; i < associativity; ++i) {
             if (i == way) lru_counter[current_addr.index][i] = 0;
             else if (lru_counter[current_addr.index][i] != (associativity - 1)) lru_counter[current_addr.index][i] += 1;
         }
@@ -145,7 +145,7 @@ struct cache {
     void check_tag_logic(ram &mem, bool write_enable, bool read_enable, uint32_t write_data = 0, uint8_t data_mode = 3) {
         bool hit = 0;
         lru_way = get_lru_way(current_addr.index);
-        for (int i {0}; i < associativity; ++i) {
+        for (size_t i {0}; i < associativity; ++i) {
             if (valid[current_addr.index][i] && cache_tags[current_addr.index][i] == current_addr.tag) {
                 hit = 1;
                 way = i;
@@ -250,7 +250,7 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
 static void test_read(std::uint32_t data [4294967296]) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 0; i < 4294967296; ++i) {
+    for (size_t i = 1; i < 4294967296; ++i) {
         mem_sim.data[i] = data[i];
         mem_mod.data[i] = data[i];
     }
@@ -268,7 +268,7 @@ static void test_read(std::uint32_t data [4294967296]) {
 static void test_write(std::uint32_t mem_data [4294967296], std::uint32_t write_data [4294967296], std::uint8_t data_mode) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 0; i < 4294967296; ++i) {
+    for (size_t i = 1; i < 4294967296; ++i) {
         mem_sim.data[i] = mem_data[i];
         mem_mod.data[i] = mem_data[i];
     }
