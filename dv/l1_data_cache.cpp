@@ -188,7 +188,7 @@ struct cache {
                 cache_tags[i][j] = 0;
                 valid[i][j] = 0;
                 dirty[i][j] = 0;
-                lru_counter[i][j] = 0;
+                lru_counter[i][j] = 1;
             } 
     }
 };
