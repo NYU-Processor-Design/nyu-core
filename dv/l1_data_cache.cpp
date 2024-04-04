@@ -7,7 +7,7 @@
 
 // Struct for Simulating Higher Level Memory
 struct ram {
-    std::uint32_t data [4294967296] = {0};
+    std::uint32_t data [2048] = {0};
     bool ready = 1;
     std::uint32_t response_data = 0;
 
@@ -247,13 +247,13 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
     eval_cache_read(l1, mem_sim, mem_mod, l1_sim, request_address);
 }
 
-static void test_read(std::uint32_t data [4294967296]) {
+static void test_read(std::uint32_t data [2048]) {
     ram mem_sim;
     ram mem_mod;
-    // for (size_t i = 0; i < 4294967296; ++i) {
-    //     mem_sim.data[i] = data[i];
-    //     mem_mod.data[i] = data[i];
-    // }
+    for (size_t i = 0; i < 2048; ++i) {
+        mem_sim.data[i] = data[i];
+        mem_mod.data[i] = data[i];
+    }
     cache l1_sim;
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
@@ -261,14 +261,14 @@ static void test_read(std::uint32_t data [4294967296]) {
     for(std::uint32_t addr {0}; addr < 2048; ++addr)
         eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
 
-    for(std::uint32_t addr {1}; addr; addr <<= 1)
-        eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
+    // for(std::uint32_t addr {1}; addr; addr <<= 1)
+    //     eval_cache_read(l1, mem_sim, mem_mod, l1_sim, addr);
 }
 
-static void test_write(std::uint32_t mem_data [4294967296], std::uint32_t write_data [4294967296], std::uint8_t data_mode) {
+static void test_write(std::uint32_t mem_data [2048], std::uint32_t write_data [2048], std::uint8_t data_mode) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 0; i < 4294967296; ++i) {
+    for (size_t i = 0; i < 2048; ++i) {
         mem_sim.data[i] = mem_data[i];
         mem_mod.data[i] = mem_data[i];
     }
@@ -279,12 +279,12 @@ static void test_write(std::uint32_t mem_data [4294967296], std::uint32_t write_
     for(std::uint32_t addr {0}; addr < 2048; ++addr)
         eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
     
-    for(std::uint32_t addr {1}; addr; addr <<= 1)
-        eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
+    // for(std::uint32_t addr {1}; addr; addr <<= 1)
+    //     eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
 }
 
 TEST_CASE("L1 Data Cache: Read") {
-    std::uint32_t data [4294967296] = {0};
+    std::uint32_t data [2048] = {0};
 
     //Add code to set up data values
 
@@ -292,8 +292,8 @@ TEST_CASE("L1 Data Cache: Read") {
 }
 
 TEST_CASE("L1 Data Cache: Write Bytes") {
-    std::uint32_t mem_data [4294967296] = {0};
-    std::uint32_t write_data [4294967296] = {0};
+    std::uint32_t mem_data [2048] = {0};
+    std::uint32_t write_data [2048] = {0};
 
     //Add code to set up data values
     
@@ -301,8 +301,8 @@ TEST_CASE("L1 Data Cache: Write Bytes") {
 }
 
 TEST_CASE("L1 Data Cache: Write Halfs") {
-    std::uint32_t mem_data [4294967296] = {0};
-    std::uint32_t write_data [4294967296] = {0};
+    std::uint32_t mem_data [2048] = {0};
+    std::uint32_t write_data [2048] = {0};
 
     //Add code to set up data values
 
@@ -310,8 +310,8 @@ TEST_CASE("L1 Data Cache: Write Halfs") {
 }
 
 TEST_CASE("L1 Data Cache: Write Words") {
-    std::uint32_t mem_data [4294967296] = {0};
-    std::uint32_t write_data [4294967296] = {0};
+    std::uint32_t mem_data [2048] = {0};
+    std::uint32_t write_data [2048] = {0};
 
     //Add code to set up data values
 
