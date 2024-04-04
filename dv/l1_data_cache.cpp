@@ -18,6 +18,12 @@ struct ram {
             else response_data = data[mem_address];
         }
     }
+    void reset() {
+        for (size_t i {0}; i < 2048; ++i) {
+            data[i] = 0;
+        }
+        response_data = 0;
+    }
 };
 
 // Struct Corresponding to the SRAM Module That Stores the Cache Data
@@ -261,7 +267,9 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
 
 static void test_read(std::uint32_t data [2048]) {
     ram mem_sim;
+    mem_sim.reset();
     ram mem_mod;
+    mem_mod.reset();
     for (size_t i = 0; i < 2048; ++i) {
         mem_sim.data[i] = data[i];
         mem_mod.data[i] = data[i];
@@ -280,7 +288,9 @@ static void test_read(std::uint32_t data [2048]) {
 
 static void test_write(std::uint32_t mem_data [2048], std::uint32_t write_data [2048], std::uint8_t data_mode) {
     ram mem_sim;
+    mem_sim.reset();
     ram mem_mod;
+    mem_mod.reset();
     for (size_t i = 0; i < 2048; ++i) {
         mem_sim.data[i] = mem_data[i];
         mem_mod.data[i] = mem_data[i];
