@@ -180,6 +180,17 @@ struct cache {
         set_curr_addr(addr);
         check_tag_logic(mem, 1, 0, data, data_mode);
     }
+
+    void reset() {
+        for (size_t i {0}; i < num_sets; ++i)
+            for (size_t j {0}; j < associativity; ++j) {
+                cache_data.write(i, j, 0, 2);
+                cache_tags[i][j] = 0;
+                valid[i][j] = 0;
+                dirty[i][j] = 0;
+                lru_counter[i][j] = 0;
+            } 
+    }
 };
 
 //Function to Initialize the Cache
@@ -237,7 +248,7 @@ static void eval_cache_read(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim,
     std::uint32_t result_mod = cache_read(l1, mem_mod, request_address);
     l1_sim.read(mem_sim, request_address);
     std::uint32_t result_sim = l1_sim.response_data;
-    INFO("Testing address = " << request_address);
+    INFO("Testing address " << request_address);
     REQUIRE(result_mod == result_sim);
 }
 
@@ -256,6 +267,7 @@ static void test_read(std::uint32_t data [2048]) {
         mem_mod.data[i] = data[i];
     }
     cache l1_sim;
+    l1_sim.reset();
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
 
@@ -274,6 +286,7 @@ static void test_write(std::uint32_t mem_data [2048], std::uint32_t write_data [
         mem_mod.data[i] = mem_data[i];
     }
     cache l1_sim;
+    l1_sim.reset();
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
 
