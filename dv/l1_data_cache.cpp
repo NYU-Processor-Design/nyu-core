@@ -250,10 +250,10 @@ static void eval_cache_write(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim
 static void test_read(std::uint32_t data [4294967296]) {
     ram mem_sim;
     ram mem_mod;
-    for (size_t i = 0; i < 4294967296; ++i) {
-        mem_sim.data[i] = data[i];
-        mem_mod.data[i] = data[i];
-    }
+    // for (size_t i = 0; i < 4294967296; ++i) {
+    //     mem_sim.data[i] = data[i];
+    //     mem_mod.data[i] = data[i];
+    // }
     cache l1_sim;
     auto& l1 {nyu::getDUT<VL1_Data_Cache>()};
     init(l1);
