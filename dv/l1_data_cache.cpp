@@ -68,8 +68,8 @@ struct cache {
     static const std::uint32_t block_width = block_size * 8;
     static const std::uint32_t num_sets = cache_size / (block_size * associativity);
     static const std::uint32_t addr_width = 32;
-    static const std::uint32_t offset_width = log2(block_size);
-    static const std::uint32_t index_width = log2(num_sets);
+    static const std::uint32_t offset_width = 10;
+    static const std::uint32_t index_width = 9;
     static const std::uint32_t tag_width = addr_width - offset_width - index_width;
 
     //Various Cache Variables
@@ -137,8 +137,8 @@ struct cache {
     void set_curr_addr(std::uint32_t request_addr) {
         current_addr.address = request_addr;
         current_addr.tag = request_addr >> (addr_width - tag_width); 
-        current_addr.index = (request_addr >> (addr_width - tag_width - index_width)) & (pow(2, index_width) - 1); 
-        current_addr.offset = request_addr & (pow(2, offset_width) - 1);
+        current_addr.index = (request_addr >> (addr_width - tag_width - index_width)) & (std::uint32_t) (pow(2, index_width) - 1); 
+        current_addr.offset = request_addr & (std::uint32_t) (pow(2, offset_width) - 1);
     }
 
     //Function to Handle the Logic of Checking Data Tags
