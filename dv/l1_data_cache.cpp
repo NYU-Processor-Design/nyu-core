@@ -237,6 +237,7 @@ static void eval_cache_read(auto& l1, ram& mem_sim, ram& mem_mod, cache& l1_sim,
     std::uint32_t result_mod = cache_read(l1, mem_mod, request_address);
     l1_sim.read(mem_sim, request_address);
     std::uint32_t result_sim = l1_sim.response_data;
+    INFO("Testing address = " << request_address);
     REQUIRE(result_mod == result_sim);
 }
 
