@@ -43,7 +43,7 @@
     |```immode == 1```|```imm = {{20{ins[31]}}, ins[31:20]}```|
     |```immode == 2```|```imm = {{20{ins[31]}}, ins[31:25], ins[11:7]}```|
     |```immode == 3```|```imm = {{20{ins[31]}}, ins[7], ins[30:25], ins[11:8], 1'b0}```|
-    |```immode == 4```|```imm = {{ins[31:12], 12’b0}```|
-    |```immode == 5```|```imm = {{11’b0, ins[31], ins[19:12], ins[20], ins[30:21], 1'b0}```|
+    |```immode == 4```|```imm = {ins[31:12], 12’b0}```|
+    |```immode == 5```|```imm = {11’b0, ins[31], ins[19:12], ins[20], ins[30:21], 1'b0}```|
 ### Asynchronous active low reset
   - Register values reset to 0
