@@ -16,6 +16,7 @@
 |```clk```|1-bit|
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```immode```|3-bit|
 |```ins```|32-bit|
 |```pc_in```|32-bit|
@@ -76,7 +77,7 @@
 |Name|Bits wide|
 |:---:|:---:|
 |```cache_clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```wbe```|1-bit|
 |```rdn_in```|5-bit|
 |```rdd```|32-bit|

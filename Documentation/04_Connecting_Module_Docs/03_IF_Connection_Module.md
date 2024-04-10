@@ -17,6 +17,7 @@ THIS OUTLINE IS INCOMPLETE
 |```clk```|1-bit|
 |```cache_clk```|1-bit|
 |```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```pc_en```|1-bit|
 |```npc```|32-bit|
 
@@ -60,7 +61,7 @@ THIS OUTLINE IS INCOMPLETE
 |Name|Bits wide|
 |:---:|:---:|
 |```cache_clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```mem_response_data```|32-bit|
 |```mem_busy```|1-bit|
 
