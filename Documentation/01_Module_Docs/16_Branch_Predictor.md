@@ -43,7 +43,7 @@
     |---|---|---|
     |^```branch_cond``` == 0|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = ```incorrect_pred```|
     |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 0)|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = 0|
-     |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 1) & (```incorrect_pred``` == 1|```curr_pred``` = ~```curr_pred```|```incorrect_pred``` = 1|
+     |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 1) & (```incorrect_pred``` == 1)|```curr_pred``` = ~```curr_pred```|```incorrect_pred``` = 1|
     |(^```branch_cond``` == 1) & (```act_taken```^```pred_taken``` == 1) & (```incorrect_pred``` == 0)|```curr_pred``` = ```curr_pred```|```incorrect_pred``` = 1|
 
 ### Asynchronous active low reset on rstn_h

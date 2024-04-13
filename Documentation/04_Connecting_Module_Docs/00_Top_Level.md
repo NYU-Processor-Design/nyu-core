@@ -88,6 +88,7 @@ THIS OUTLINE IS INCOMPLETE
 |Name|Bits wide|
 |:---:|:---:|
 |```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```pc_en```|1-bit|
 |```npc```|32-bit|
 
@@ -113,6 +114,7 @@ THIS OUTLINE IS INCOMPLETE
 |Name|Bits wide|
 |:---:|:---:|
 |```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```immode```|3-bit|
 |```ins```|32-bit|
 |```pc_in```|32-bit|

@@ -15,7 +15,7 @@ Note: Register 0 always returns 0 while registers 1-31 are general-purpose 32-bi
 |Name|Bits wide|
 |:---|:---:|
 |```clk```|1-bit|
-|```rstn```|1-bit|
+|```rstn_h```|1-bit|
 |```rs1n```|5-bits|
 |```rs2n```|5-bits|
 |```rdn```|5-bits|
