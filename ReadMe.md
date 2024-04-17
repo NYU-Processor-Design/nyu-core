@@ -48,7 +48,7 @@ Control Modules:
 - [Processor State Module](/Documentation/01_Module_Docs/08_Processor_State.md)
 - [Pipeline Reset Module](/Documentation/01_Module_Docs/05_General_Control_Module.md)
 
-## Cache
+## Caches
 
 Cache Modules:
 - [Instruction Cache Manager](/Documentation/01_Module_Docs/13_Instruction_Cache_Manager.md)
