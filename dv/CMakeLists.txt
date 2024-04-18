@@ -12,7 +12,7 @@ nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
   TOP_MODULES Con_EX Alu Con_Branch_Cont Branch_Eval PC IFID MEMWB GPR EXMEM Branch_Addr_Calc IDEX Branch_Predictor Pipeline_Reset Branch_Manager Data_Cache_Manager
 
-  ARGS COVERAGE FST_TRACE
+  ARGS COVERAGE TRACE_FST
 )
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain nyu::covrecorder)
 target_compile_features(tests PRIVATE cxx_std_23)
