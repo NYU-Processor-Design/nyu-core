@@ -13,7 +13,7 @@ jobs:
           pacman --noconfirm -S cmake ninja git curl zip unzip tar verilator
 
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Configure
         run: cmake . -G Ninja -DNYU_BUILD_TESTS=ON
@@ -24,10 +24,12 @@ jobs:
       - name: Test & Generate Coverage
         run: |
           ctest -C Release --output-on-failure
+          sed -i -e '/\/share\//d' -e '/\/dv\//d' dv/*.dat
           verilator_coverage -write-info coverage.txt dv/*.dat
 
       - name: Upload Coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.txt
           fail_ci_if_error: true
