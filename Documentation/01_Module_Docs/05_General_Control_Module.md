@@ -131,7 +131,7 @@
           - ```hazard``` = 1
      - If (```MEM_ins[6:0]``` == R, I1, I2, I3, U, J) and (```MEM_ins[11:7]``` == ```ins[11:7]```) and (```MEM_ins[11:7]``` != 0)
           - ```hazard``` = 1
-     - If (```WB_ins[6:0]``` == R, I1, I2, I3, U, J) and (```WB_ins[11:7]``` == ```ins[11:7]```) and and (```WB_ins[11:7]``` != 0)
+     - If (```WB_ins[6:0]``` == R, I1, I2, I3, U, J) and (```WB_ins[11:7]``` == ```ins[11:7]```) and (```WB_ins[11:7]``` != 0)
           - ```hazard``` = 1
 - Else
      - ```hazard``` = 0
