@@ -5,10 +5,11 @@
 
 #include <VMEMWB.h>
 
-
 //This function takes an input and sign extends the number of bits specified by old_size to the number of bits specified by new_size
 uint32_t sign_extend(uint32_t input, uint32_t old_size, uint32_t new_size = 32) {
-    return (uint32_t) ((input & ((int) pow(2, old_size) - 1)) | (((input & ((int) pow(2, old_size - 1))) >> (old_size - 1)) * (((int) pow(2, new_size - old_size) - 1) << (old_size))));
+    if(!(input & (1 << (oldsize - 1))))
+      return input;
+    return input | ~((1 << new_size) - 1);
 }
 
 static void eval_p(std::uint8_t wbs, std::uint8_t rdn_in, 
