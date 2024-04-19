@@ -7,7 +7,7 @@
 
 //This function takes an input and sign extends the number of bits specified by old_size to the number of bits specified by new_size
 uint32_t sign_extend(uint32_t input, uint32_t old_size, uint32_t new_size = 32) {
-    if(!(input & (1 << (oldsize - 1))))
+    if(!(input & (1 << (old_size - 1))))
       return input;
     return input | ~((1 << new_size) - 1);
 }
