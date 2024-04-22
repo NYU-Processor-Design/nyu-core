@@ -87,7 +87,7 @@
     |```EX_ins[6:0]```|```alu_mode```|```branch_cond```|
     |---|---|---|
     |```EX_ins[6:0]``` == R|```alu_mode``` = ```EX_ins[31:25]``` + ```EX_ins[14:12]```|```branch_cond``` = 0|
-    |```EX_ins[6:0]``` == I1|```alu_mode``` = ```EX_ins[31:25]``` + ```EX_ins[14:12]``` if ```EX_ins[14:12]``` == 0x5, ```alu_mode``` = ```EX_ins[14:12]```|```branch_cond``` = 0 otherwise|
+    |```EX_ins[6:0]``` == I1|```alu_mode``` = ```EX_ins[31:25]``` + ```EX_ins[14:12]``` if ```EX_ins[14:12]``` == 0x5, otherwise ```alu_mode``` = ```EX_ins[14:12]```|```branch_cond``` = 0|
     |```EX_ins[6:0]``` == I2|```alu_mode``` = 0|```branch_cond``` = 0|
     |```EX_ins[6:0]``` == I3|```alu_mode``` = 0|```branch_cond``` = 3|
     |```EX_ins[6:0]``` == S|```alu_mode``` = 0|```branch_cond``` = 0|
@@ -125,13 +125,13 @@
 - If (```ins[6:0]``` == I3, B, J) and (```hazard``` == 0)
      - ```hazard``` = 1
 - Else if ```ins[6:0]``` == R, I1, I2, I3, S, B, U, J
-     - If (```ID_ins[6:0]``` == R, I1, I2, I3, U, J) and (```ID_ins[11:7]``` == ```ins[11:7]```) and (```ID_ins[11:7]``` != 0)
+     - If (```ID_ins[6:0]``` == R, I1, I2, I3, U, J) and ((```ID_ins[11:7]``` == ```ins[11:7]```) or (```ID_ins[11:7]``` == ```ins[24:20]```) or (```ID_ins[11:7]``` == ```ins[19:15]```))and (```ID_ins[11:7]``` != 0)
           - ```hazard``` = 1
-     - If (```EX_ins[6:0]``` == R, I1, I2, I3, U, J) and (```EX_ins[11:7]``` == ```ins[11:7]```) and (```EX_ins[11:7]``` != 0)
+     - If (```EX_ins[6:0]``` == R, I1, I2, I3, U, J) and ((```EX_ins[11:7]``` == ```ins[11:7]```) or (```EX_ins[11:7]``` == ```ins[24:20]```) or (```EX_ins[11:7]``` == ```ins[19:15]```))and (```EX_ins[11:7]``` != 0)
           - ```hazard``` = 1
-     - If (```MEM_ins[6:0]``` == R, I1, I2, I3, U, J) and (```MEM_ins[11:7]``` == ```ins[11:7]```) and (```MEM_ins[11:7]``` != 0)
+     - If (```MEM_ins[6:0]``` == R, I1, I2, I3, U, J) and ((```MEM_ins[11:7]``` == ```ins[11:7]```) or (```MEM_ins[11:7]``` == ```ins[24:20]```) or (```MEM_ins[11:7]``` == ```ins[19:15]```))and (```MEM_ins[11:7]``` != 0)
           - ```hazard``` = 1
-     - If (```WB_ins[6:0]``` == R, I1, I2, I3, U, J) and (```WB_ins[11:7]``` == ```ins[11:7]```) and and (```WB_ins[11:7]``` != 0)
+     - If (```WB_ins[6:0]``` == R, I1, I2, I3, U, J) and ((```WB_ins[11:7]``` == ```ins[11:7]```) or (```WB_ins[11:7]``` == ```ins[24:20]```) or (```WB_ins[11:7]``` == ```ins[19:15]```))and (```WB_ins[11:7]``` != 0)
           - ```hazard``` = 1
 - Else
      - ```hazard``` = 0
