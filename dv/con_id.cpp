@@ -154,7 +154,7 @@ static void init(auto& con_id) {
 }
 
 static void test_imm(std::uint8_t immode) {
-    auto& con_id {nyu::getDUT<VCON_ID>()};
+    auto& con_id {nyu::getDUT<VCon_ID>()};
 
     init(con_id);
 
@@ -181,7 +181,7 @@ static void test_imm(std::uint8_t immode) {
 
 
 static void test_branch(bool addr_mode, bool branch_taken) {
-    auto& con_id {nyu::getDUT<VCON_ID>()};
+    auto& con_id {nyu::getDUT<VCon_ID>()};
 
     init(con_id);
     
@@ -206,7 +206,7 @@ static void test_branch(bool addr_mode, bool branch_taken) {
 
 static void test_regs() {
 
-    auto& con_id {nyu::getDUT<VCON_ID>()};
+    auto& con_id {nyu::getDUT<VCon_ID>()};
 
     init(con_id);
     
