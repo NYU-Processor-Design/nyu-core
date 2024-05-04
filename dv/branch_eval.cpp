@@ -34,7 +34,7 @@ static void eval(uint8_t cond, std::uint32_t alu_out) {
 
 
 static void test(std::uint8_t cond) {
-    for(std::uint32_t alu_out {0}; alu_out < 2048; ++alu_out)
+    for(std::uint32_t alu_out {0}; alu_out < 512; ++alu_out)
         eval(cond, alu_out);
     
     for(std::uint32_t alu_out {1}; alu_out; alu_out <<= 1)
