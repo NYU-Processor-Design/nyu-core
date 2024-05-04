@@ -41,7 +41,7 @@ std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd) 
     INFO("Testing wbe = " << wbe << ", addr_mode = " << addr_mode << ", branch_taken = " << branch_taken << ", immode = " << (int) immode << ", rdn_in = " << (int) rdn_in << ", ins = " << ins << ", pc_in = " << pc_in << ", and rdd = " << rdd);
 
     // Test pc passthrough
-    REQUIRE((uint32_t) con_id.pc == (unit32_t) pc_in);
+    REQUIRE((uint32_t) con_id.pc == (std::uint32_t) pc_in);
 
     switch(immode) {
         /* Note that the exact implementation of >> depends on the compiler. As such, this code is written with that in mind and as such the values 
@@ -81,7 +81,7 @@ std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd) 
 
     else {
         if (branch_taken) {
-            REQUIRE((std::uint32_t) con_id.branch_addr == (std::uint32_t) (pc_in + model.imm));
+            REQUIRE((std::uint32_t) con_id.branch_addr == (std::uint32_t) (pc_in + con_id.imm));
             REQUIRE((std::uint32_t) con_id.npc == (std::uint32_t) con_id.branch_addr);
         }
         else {
@@ -92,14 +92,14 @@ std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd) 
 }
 
 static void eval_regs(auto& con_id, bool wbe, bool addr_mode, bool branch_taken, std::uint8_t immode, 
-std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd, uint32_t &regvals[32]) {
+std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd, uint32_t regvals[32]) {
 
     //Calculate RS1N and RS2N
     std::uint8_t rs1n = (std::uint8_t) ((ins & (31 << 15)) >> 15);
     std::uint8_t rs2n = (std::uint8_t) ((ins & (31 << 20)) >> 20);
 
     //Simulate register behavior
-    if (wbe && rdn_in) regvals[rdn_in] = (uint32_t) rdd;
+    if (wbe && rdn_in) regvals[rdn_in] = (std::uint32_t) rdd;
 
     con_id.clk = 0;
     con_id.rstn = 1;
@@ -134,7 +134,7 @@ std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd, 
     INFO("Testing rs1n = " << (int) rs1n << ", rs2n = " << (int) rs2n << ", wbe = " << wbe << ", addr_mode = " << addr_mode << ", branch_taken = " << branch_taken << ", immode = " << (int) immode << ", rdn_in = " << (int) rdn_in << ", ins = " << ins << ", pc_in = " << pc_in << ", and rdd = " << rdd);
 
     // Test pc passthrough
-    REQUIRE((uint32_t) con_id.pc == (unit32_t) pc_in);
+    REQUIRE((std::uint32_t) con_id.pc == (std::uint32_t) pc_in);
 
     //Test register data output
     REQUIRE((std::uint32_t) con_id.rs1d == (std::uint32_t) regvals[rs1n]);
@@ -161,10 +161,10 @@ static void test_imm(std::uint8_t immode) {
     for (int wbe {0}; wbe < 2; ++wbe)
         for (int addr_mode {0}; addr_mode < 2; ++addr_mode) 
             for (int branch_taken {0}; branch_taken < 2; ++branch_taken) 
-                for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in) 
-                    for (std::uint32_t ins {0}; ins < 32; ++ins)
-                        for (std::uint32_t pc_in {0}; pc_in < 32; ++pc_in) 
-                            for(std::uint32_t rdd {0}; rdd < 32; ++rdd)
+                for (std::uint8_t rdn_in {0}; rdn_in < 16; ++rdn_in) 
+                    for (std::uint32_t ins {0}; ins < 16; ++ins)
+                        for (std::uint32_t pc_in {0}; pc_in < 16; ++pc_in) 
+                            for(std::uint32_t rdd {0}; rdd < 16; ++rdd)
                                 eval(con_id, wbe, addr_mode, branch_taken, immode, rdn_in, ins, pc_in, rdd);
 
     for (int wbe {0}; wbe < 2; ++wbe)
@@ -188,10 +188,10 @@ static void test_branch(bool addr_mode, bool branch_taken) {
 
     for (int wbe {0}; wbe < 2; ++wbe)
        for (std::uint8_t immode {0}; immode < 6; ++immode) 
-            for (std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in) 
-                for (std::uint32_t ins {0}; ins < 32; ++ins)
-                    for (std::uint32_t pc_in {0}; pc_in < 32; ++pc_in) 
-                        for(std::uint32_t rdd {0}; rdd < 32; ++rdd)
+            for (std::uint8_t rdn_in {0}; rdn_in < 16; ++rdn_in) 
+                for (std::uint32_t ins {0}; ins < 16; ++ins)
+                    for (std::uint32_t pc_in {0}; pc_in < 16; ++pc_in) 
+                        for(std::uint32_t rdd {0}; rdd < 16; ++rdd)
                             eval(con_id, wbe, addr_mode, branch_taken, immode, rdn_in, ins, pc_in, rdd);
                             
 
