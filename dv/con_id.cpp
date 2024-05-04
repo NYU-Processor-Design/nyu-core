@@ -50,19 +50,19 @@ std::uint8_t rdn_in, std::uint32_t ins, std::uint32_t pc_in, std::uint32_t rdd) 
             REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) 0);
             break;
         case 1:
-            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + ((ins_in & ((std::uint32_t)  (pow(2, 12) - 1) << 20)) >> 20)));
+            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins & (1 << 31)) + ((ins & ((std::uint32_t)  (pow(2, 12) - 1) << 20)) >> 20)));
             break;
         case 2:
-            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + (((ins_in & ((std::uint32_t) (pow(2, 7) - 1) << 25)) >> 25 ) << 5 )+ ((ins_in & ((std::uint32_t) (pow(2, 5) - 1) << 7)) >> 7)));
+            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins & (1 << 31)) + (((ins & ((std::uint32_t) (pow(2, 7) - 1) << 25)) >> 25 ) << 5 )+ ((ins & ((std::uint32_t) (pow(2, 5) - 1) << 7)) >> 7)));
             break;
         case 3:
-            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins_in & (1 << 31)) + (((ins_in & (1  << 7)) >> 7) << 11) + (((ins_in & ((std::uint32_t) (pow(2, 6) - 1) << 25)) >> 25) << 5) + (((ins_in & ((std::uint32_t) (pow(2, 4) - 1) << 8)) >> 8) << 1)));
+            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (0xFFFFF000 * (bool) (ins & (1 << 31)) + (((ins & (1  << 7)) >> 7) << 11) + (((ins & ((std::uint32_t) (pow(2, 6) - 1) << 25)) >> 25) << 5) + (((ins & ((std::uint32_t) (pow(2, 4) - 1) << 8)) >> 8) << 1)));
             break;
         case 4:
-            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (ins_in & 0xFFFFF000));
+            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) (ins & 0xFFFFF000));
             break;
         case 5:
-            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) ((((ins_in & (1 << 31)) >> 11) + ((ins_in & ((std::uint32_t)  (pow(2, 8) - 1) << 12)))  +  ((ins_in & (1 << 20)) >> 9) + (((ins_in >> 20) & 0x7FE)) & 0x1FFFFF)));
+            REQUIRE((std::uint32_t) con_id.imm == (std::uint32_t) ((((ins & (1 << 31)) >> 11) + ((ins & ((std::uint32_t)  (pow(2, 8) - 1) << 12)))  +  ((ins & (1 << 20)) >> 9) + (((ins >> 20) & 0x7FE)) & 0x1FFFFF)));
             break;
         default:
             break;
