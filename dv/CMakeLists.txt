@@ -10,7 +10,7 @@ con_id.cpp con_ex.cpp alu.cpp con_branch_cont.cpp branch_eval.cpp pc.cpp ifid.cp
 )
 nyu_link_sv(tests PRIVATE core)
 nyu_target_verilate(tests
-  TOP_MODULES Con_IDCon_EX Alu Con_Branch_Cont Branch_Eval PC IFID MEMWB GPR EXMEM Branch_Addr_Calc IDEX Branch_Predictor Pipeline_Reset Branch_Manager Data_Cache_Manager L1_Data_Cache
+  TOP_MODULES Con_ID Con_EX Alu Con_Branch_Cont Branch_Eval PC IFID MEMWB GPR EXMEM Branch_Addr_Calc IDEX Branch_Predictor Pipeline_Reset Branch_Manager Data_Cache_Manager L1_Data_Cache
 
   ARGS COVERAGE TRACE_FST
 )
