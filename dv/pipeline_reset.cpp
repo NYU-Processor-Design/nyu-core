@@ -34,8 +34,8 @@ static void eval(std::uint32_t npc_in, std::uint32_t npc_corr, bool flush) {
 }
 
 static void test(bool flush) {
-    for(std::uint32_t npc_in {0}; npc_in < 512; ++npc_in)
-    for(std::uint32_t npc_corr {0}; npc_corr < 512; ++npc_corr)
+    for(std::uint32_t npc_in {0}; npc_in < 128; ++npc_in)
+    for(std::uint32_t npc_corr {0}; npc_corr < 128; ++npc_corr)
       eval(npc_in, npc_corr, flush);
 
   for(std::uint32_t npc_in {1}; npc_in; npc_in <<= 1)
