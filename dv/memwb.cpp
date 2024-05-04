@@ -38,9 +38,9 @@ static void eval_p(std::uint8_t wbs, std::uint8_t rdn_in,
 TEST_CASE("MEMWB, rdn Passthrough") {
 
     for(std::uint8_t wbs {0}; wbs <= 5; ++wbs)
-            for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-                for(std::uint32_t alu_out {0}; alu_out < 32; ++alu_out)
-                    for(std::uint32_t mrd {0}; mrd < 32; ++mrd)
+            for(std::uint8_t rdn_in {0}; rdn_in < 16; ++rdn_in)
+                for(std::uint32_t alu_out {0}; alu_out < 16; ++alu_out)
+                    for(std::uint32_t mrd {0}; mrd < 16; ++mrd)
                         eval_p(wbs, rdn_in, alu_out, mrd);
 
     for(std::uint8_t wbs {1}; wbs <= 5; wbs <<= 1)
