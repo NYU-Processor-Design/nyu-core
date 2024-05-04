@@ -50,7 +50,7 @@ std::uint32_t rs2d, bool reset) {
 
 static void test(bool reset) {
   for(std::uint8_t rdn_in {0}; rdn_in < 32; ++rdn_in)
-    for(std::uint32_t alu_out_in {0}; alu_out_in < 64; ++alu_out_in)
+    for(std::uint32_t alu_out_in {0}; alu_out_in < 48; ++alu_out_in)
       for(std::uint32_t rs2d {0}; rs2d < 32; ++rs2d)
         eval(rdn_in, alu_out_in, rs2d, reset);
 

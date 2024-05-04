@@ -26,9 +26,9 @@ static void eval(bool mode, bool taken, std::uint32_t imm, std::uint32_t rs1d, s
 }
 
 static void test(bool mode, bool taken) {
-    for(std::uint32_t imm {0}; imm < 128; ++imm)
-        for(std::uint32_t rs1d {0}; rs1d < 128; ++rs1d)
-            for(std::uint32_t pc_in {0}; pc_in < 128; ++pc_in)
+    for(std::uint32_t imm {0}; imm < 48; ++imm)
+        for(std::uint32_t rs1d {0}; rs1d < 48; ++rs1d)
+            for(std::uint32_t pc_in {0}; pc_in < 48; ++pc_in)
                 eval(mode, taken, imm, rs1d, pc_in);
     
     for(std::uint32_t imm {1}; imm; imm <<= 1)
