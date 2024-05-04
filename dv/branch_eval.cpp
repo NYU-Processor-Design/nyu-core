@@ -41,18 +41,18 @@ static void test(std::uint8_t cond) {
         eval(cond, alu_out);
 }
 
-TEST_CASE("Never Branch") {  //Case when non branching instruction
+TEST_CASE("Branch Evaluator, Never Branch") {  //Case when non branching instruction
     test(0);
 }
 
-TEST_CASE("Branch if ALU_OUT is Non-Zero") { //Case when branch condition is < or !=
+TEST_CASE("Branch Evaluator, Branch if ALU_OUT is Non-Zero") { //Case when branch condition is < or !=
     test(1);
 }
 
-TEST_CASE("Branch if ALU_OUT is Zero") { //Case when branch condition is >= or =
+TEST_CASE("Branch Evaluator, Branch if ALU_OUT is Zero") { //Case when branch condition is >= or =
     test(2);
 }
 
-TEST_CASE("Always Branch") { //Case when jump instruction
+TEST_CASE("Branch Evaluator, Always Branch") { //Case when jump instruction
    test(3);
 }

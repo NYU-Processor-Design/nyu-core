@@ -307,7 +307,7 @@ static void test_write(std::uint32_t mem_data [2048], std::uint32_t write_data [
     //     eval_cache_write(l1, mem_sim, mem_mod, l1_sim, addr, write_data[addr], data_mode);
 }
 
-TEST_CASE("L1 Data Cache: Read") {
+TEST_CASE("L1 Data Cache, Read") {
     std::uint32_t data [2048] = {0};
 
     //Add code to set up data values
@@ -315,7 +315,7 @@ TEST_CASE("L1 Data Cache: Read") {
     test_read(data);
 }
 
-TEST_CASE("L1 Data Cache: Write Bytes") {
+TEST_CASE("L1 Data Cache, Write Bytes") {
     std::uint32_t mem_data [2048] = {0};
     std::uint32_t write_data [2048] = {0};
 
@@ -324,7 +324,7 @@ TEST_CASE("L1 Data Cache: Write Bytes") {
     test_write(mem_data, write_data, 0);
 }
 
-TEST_CASE("L1 Data Cache: Write Halfs") {
+TEST_CASE("L1 Data Cache, Write Halfs") {
     std::uint32_t mem_data [2048] = {0};
     std::uint32_t write_data [2048] = {0};
 
@@ -333,7 +333,7 @@ TEST_CASE("L1 Data Cache: Write Halfs") {
     test_write(mem_data, write_data, 1);
 }
 
-TEST_CASE("L1 Data Cache: Write Words") {
+TEST_CASE("L1 Data Cache, Write Words") {
     std::uint32_t mem_data [2048] = {0};
     std::uint32_t write_data [2048] = {0};
 

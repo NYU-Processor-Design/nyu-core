@@ -38,18 +38,18 @@ static void test(bool mode, bool taken) {
 }
 
 
-TEST_CASE("PC No Branch") {  //Case when branch_addr = pc + imm, but branch is not taken (addr mode 0, taken 0)
+TEST_CASE("Branch Address Calculator, PC No Branch") {  //Case when branch_addr = pc + imm, but branch is not taken (addr mode 0, taken 0)
    test(0, 0);
 }
 
-TEST_CASE("PC Branch") { //Case when branch_addr = pc + imm, and branch is taken (addr mode 0, taken 1)
+TEST_CASE("Branch Address Calculator, PC Branch") { //Case when branch_addr = pc + imm, and branch is taken (addr mode 0, taken 1)
     test(0, 1);
 }
 
-TEST_CASE("RS1D No Branch") { //Case when branch_addr = imm + rs1d, but branch is not taken (addr mode 1, taken 0)
+TEST_CASE("Branch Address Calculator, RS1D No Branch") { //Case when branch_addr = imm + rs1d, but branch is not taken (addr mode 1, taken 0)
     test(1, 0);
 }
 
-TEST_CASE("RS1D Branch") { //Case when branch_addr = rs1d, and branch is taken (addr mode 1, taken 1)
+TEST_CASE("Branch Address Calculator, RS1D Branch") { //Case when branch_addr = rs1d, and branch is taken (addr mode 1, taken 1)
    test(1, 1);
 }

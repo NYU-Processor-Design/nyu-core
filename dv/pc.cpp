@@ -26,7 +26,7 @@ static void eval_reset (std::uint32_t npc) {
   
 }
 
-TEST_CASE("PC Reset") {
+TEST_CASE("PC, Reset") {
   
   for(std::uint32_t npc {0}; npc < 512; ++npc)
     eval_reset(npc);
@@ -66,7 +66,7 @@ static void eval_en (std::uint32_t npc) {
   
 }
 
-TEST_CASE("PC Enable Disable") {
+TEST_CASE("PC, Enable Disable") {
   for(std::uint32_t npc {0}; npc < 512; ++npc)
     eval_en(npc);
   
